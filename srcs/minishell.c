@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/24 15:39:21 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:00:18 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	char	**path;
+	char	*line;
 
 	path = NULL;
 	if (!*env)

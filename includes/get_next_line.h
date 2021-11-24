@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:51:56 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/12/03 13:44:47 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:59:53 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdlib.h>
+# include "minishell.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
 
-char	*ft_strjoin(char const *s1, char const *s2);
-int		ft_strlen(const char *str);
-char	*ft_strdup(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strchr(const char *s, int c);
 int		get_next_line(int fd, char **line);
 
 #endif
