@@ -1,7 +1,8 @@
 YELLOW			= \033[1;33m
 GREEN			= \033[1;32m
 
-SRCS			= srcs/minishell.c
+SRCS			= srcs/minishell.c\
+				  srcs/get_next_line.c
 
 OBJS			= $(SRCS:.c=.o)
 
