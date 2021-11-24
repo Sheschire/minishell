@@ -20,9 +20,8 @@ $(NAME):		$(OBJS)
 				@echo "\n${GREEN} |   Compiling libft"
 				@make all -C libft/
 				@echo "${YELLOW}          [OK]"
-				@cp libft/libft.a ./
 				@echo "\n${GREEN} |   Compiling Minishell"
-				@gcc ${CFLAGS} -o ${NAME} ${OBJS} libft.a
+				@gcc ${CFLAGS} -o ${NAME} ${OBJS} ./libft/libft.a
 				@echo "${YELLOW}          [OK]\n"
 
 clean:

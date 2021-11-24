@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/24 15:37:25 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:39:21 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	**get_path(char **env)
 	while (env[++i])
 		if (env[i][0] == 'P' && env[i][1] == 'A' && env[i][2] == 'T' && env[i][3] == 'H')
 			path_string = ft_strdup(env[i]);
-	printf("path_string = %s\n\n", path_string);
 	path = ft_split(path_string, ':');
 	return (path);
 }
