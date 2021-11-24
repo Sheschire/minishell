@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/24 12:45:31 by tlemesle         ###   ########.fr       */
+/*   Created: 2020/11/17 19:11:01 by tlemesle          #+#    #+#             */
+/*   Updated: 2020/11/26 12:12:36 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <limits.h>
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
 
-#endif
+	i = 0;
+	if (!s)
+		return (0);
+	sub = (char *)malloc(sizeof(char) * len + 1);
+	if (sub == NULL)
+		return (0);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	while (i < len)
+	{
+		sub[i] = s[start];
+		i++;
+		start++;
+	}
+	sub[i] = '\0';
+	return (sub);
+}

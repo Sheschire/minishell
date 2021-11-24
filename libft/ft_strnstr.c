@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/24 12:45:31 by tlemesle         ###   ########.fr       */
+/*   Created: 2020/11/17 09:00:05 by tlemesle          #+#    #+#             */
+/*   Updated: 2020/11/20 14:12:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <limits.h>
+char	*ft_strnstr(const char *s1, const char *s2, size_t len)
+{
+	char	*str1;
+	size_t	i;
+	int		j;
 
-#endif
+	str1 = (char *)s1;
+	i = 0;
+	if (!*s2)
+		return (str1);
+	while (str1[i] && i < len)
+	{
+		j = 0;
+		if (str1[i] == s2[j])
+		{
+			while (i + j < len && str1[i + j] == s2[j])
+			{
+				j++;
+				if (!s2[j])
+					return (str1 + i);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
