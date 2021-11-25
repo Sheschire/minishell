@@ -8,7 +8,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I./includes
+CFLAGS			= -Wall -Wextra -Werror -I./includes -lreadline
 
 NAME			= minishell
 
