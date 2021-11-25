@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 12:45:17 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:13:04 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
 
-#define TOKEN_WORD  1
-#define TOKEN_NUM   2
-#define TOKEN_PIPE  3
-#define TOKEN_FLUX  4
+#define TOKEN_LITERAL  1
+#define TOKEN_PIPE  2
+#define TOKEN_FLUX  3
+#define TOKEN_OPTION 4
 
 typedef struct s_node
 {

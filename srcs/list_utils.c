@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 12:47:35 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:12:56 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	print_list(t_node **node)
 	{
 		printf("---------------\n");
 		printf("POS = %d\n", pos);
-		printf("STRING = %s\n", node->s);
-		printf("TOKEN_TYPE = %d\n", *node->token_type);
+		printf("STRING = %s\n", (*node)->s);
+		printf("TOKEN_TYPE = %d\n", (*node)->token_type);
 		printf("---------------\n");
-		*node = *node->n;
+		*node = (*node)->n;
 		pos++;
 	}
 }
 
 t_node	*newnode(char *s, int token_type)
 {
-	t_list	*new;
+	t_node	*new;
 
 	new = (t_node *)malloc(sizeof(t_node));
 	if (new == NULL)
