@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 11:38:53 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/25 12:46:51 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	char	**path;
+	char		**path;
 	char	*line;
 
 	path = NULL;
@@ -34,6 +34,13 @@ int	main(int ac, char **av, char **env)
 		return (0); // TO DO : generate env manually and continue program
 	path = get_path(env);
 	while (1)
-		readline("\033[1;33m$> \033[0m");
+	{
+		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
+		if (ft_strlen(line))
+		{
+			add_history((const char *)line);
+			input_parser(line);
+		}
+	}
   	return 0;
 }
