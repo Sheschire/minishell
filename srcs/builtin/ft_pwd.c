@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2021/11/29 10:25:21 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/11/29 12:47:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	ft_pwd()
 	char	*cwd;
 	int		buffer_size;
 
-	buffer_size = 1000;
+	buffer_size = 1024;
 	cwd = ft_calloc(1, buffer_size);
 	if (!cwd)
 		return (0);
 	cwd = getcwd(cwd, buffer_size);
 	while (!cwd)
 	{
-		buffer_size += 1000;
+		buffer_size += 1024;
 		free(cwd);
 		cwd = ft_calloc(1, buffer_size);
 		if (!cwd)

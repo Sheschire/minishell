@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 13:11:47 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:28:11 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 #include <sys/ioctl.h>
+#include <errno.h>
 
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
@@ -34,6 +35,11 @@
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
 #define TOKEN_COMMAND 5
+
+typedef struct s_global
+{
+	char			**env;
+}					t_global;
 
 typedef struct s_node
 {
@@ -52,5 +58,8 @@ void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
+
+// BUILTIN UTILS
+int		ft_are_digits(char *str);
 
 #endif
