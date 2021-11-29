@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 16:27:41 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:21:39 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,20 @@ void	lexer_parser(char *line, t_node **list)
 	int		j;
 	char	**tab;
 	
-	i = 0;
 	while (*line)
 	{
+		i = 0;
 		if (find_token_type(*line))
 		{
 			current_token_type = find_token_type(*line);
-			//while (current_token_type == fi)	
+			while (find_token_type(line[i]) == current_token_type)
+				i++;
+			tmp = newnode(ft_substr(line, 0, i), current_token_type);
+			add_back(list, tmp);
+			line += i;
 		}
-		line++;
+		if (find_token_type(*line) == 0)
+			line++;
 	}
 	print_list(list);
 }
@@ -52,22 +57,3 @@ void	input_parser(char *line)
 	
 	lexer_parser(line, &list);
 }
-
-
-// tab = ft_split(line, ' ');
-// 	while (tab[++i])
-// 	{
-// 		h = 0;
-// 		j = -1;
-// 		current_token_type = find_token_type(tab[i][0]);
-// 		while (tab[i][++j])
-// 		{
-// 			if (current_token_type != find_token_type(tab[i][j]))
-// 			{
-// 				tmp = newnode(ft_substr(tab[i], h, j), current_token_type);
-// 				add_back(list, tmp);
-// 				h += j;
-// 				current_token_type = find_token_type(tab[i][j]);
-// 			}
-// 		}
-// 	}
