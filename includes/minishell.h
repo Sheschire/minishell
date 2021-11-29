@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 11:02:01 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:14:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
+
+// BUILTIN UTILS
+int		ft_are_digits(char *str);
 
 #endif
