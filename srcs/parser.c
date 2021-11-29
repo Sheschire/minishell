@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 10:51:55 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:00:12 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,49 @@ int		find_token_type(char c)
 		return (TOKEN_OPTION);
 	return (0);
 }
+char	*create_option_node(char *line, t_node **list)
+{
+	int		i;
+	t_node	*tmp;
+
+	i = 1;
+	if (!find_token_type(line[i]))
+	{
+		tmp = newnode("-", TOKEN_LITERAL);
+		add_back(list, tmp);
+		line++;
+		return (line);
+	}
+	while (find_token_type(line[i]) == 1)
+		i++;
+	tmp = newnode(ft_substr(line, 0, i), TOKEN_OPTION);
+	add_back(list, tmp);
+	line += i;
+	return (line);
+}
 
 void	lexer_parser(char *line, t_node **list)
 {
 	t_node	*tmp;
 	int		current_token_type;
 	int		i;
-	int		j;
-	char	**tab;
 	
-	while (*line)
+	while (*line) 
 	{
 		i = 0;
 		if (find_token_type(*line))
 		{
 			current_token_type = find_token_type(*line);
+			if (current_token_type == TOKEN_OPTION)
+				line = create_option_node(line, list);
 			while (find_token_type(line[i]) == current_token_type)
 				i++;
-			tmp = newnode(ft_substr(line, 0, i), current_token_type);
-			add_back(list, tmp);
-			line += i;
+			if (*line)
+			{
+				tmp = newnode(ft_substr(line, 0, i), current_token_type);
+				add_back(list, tmp);
+				line += i;
+			}
 		}
 		if (find_token_type(*line) == 0)
 			line++;
