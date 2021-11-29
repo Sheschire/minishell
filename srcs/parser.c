@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 16:27:41 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:42:49 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	lexer_parser(char *line, t_node **list)
 		line++;
 	}
 	print_list(list);
+	//test git
 }
 
 void	input_parser(char *line)
