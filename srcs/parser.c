@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 13:26:03 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:09:10 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		find_token_type(char c)
 		return (TOKEN_FLUX);
 	if (c == '-')
 		return (TOKEN_OPTION);
+	if (c == '/')
+		return (TOKEN_SLASH);
 	return (0);
 }
 char	*create_option_node(char *line, t_node **list)
@@ -71,16 +73,17 @@ void	lexer_parser(char *line, t_node **list)
 		if (find_token_type(*line) == 0)
 			line++;
 	}
-	print_list(list);
 }
 
-void	semantic_parser(t_node **node)
+void	syntax_parser(t_node **node)
 {
 	while (*node)
 	{
-		
+		if ((*node)->n && ((*node)->n->token_type == TOKEN_OPTION || (*node)->n->token_type == TOKEN_PIPE))
+			(*node)->token_type = TOKEN_COMMAND;
 		*node = (*node)->n;
 	}
+	print_list(node);
 }
 
 void	input_parser(char *line)
@@ -88,5 +91,4 @@ void	input_parser(char *line)
 	t_node	*list;
 
 	lexer_parser(line, &list);
-	semantic_parser(&list);
 }

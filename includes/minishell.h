@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 14:28:11 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:40:49 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
 #define TOKEN_COMMAND 5
+#define TOKEN_SLASH 6
 
 typedef struct s_global
 {
