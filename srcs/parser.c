@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 13:00:12 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 13:26:03 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,19 @@ void	lexer_parser(char *line, t_node **list)
 	print_list(list);
 }
 
+void	semantic_parser(t_node **node)
+{
+	while (*node)
+	{
+		
+		*node = (*node)->n;
+	}
+}
+
 void	input_parser(char *line)
 {
 	t_node	*list;
-	
+
 	lexer_parser(line, &list);
+	semantic_parser(&list);
 }
