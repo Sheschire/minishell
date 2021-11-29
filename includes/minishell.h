@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/25 14:13:04 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/11/29 11:00:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@
 #define TOKEN_PIPE  2
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
+
+typedef struct s_global
+{
+	char			**env;
+}					t_global;
 
 typedef struct s_node
 {
