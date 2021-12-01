@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 14:48:02 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:48:56 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 #define L_FLUX_APPEND 10
 #define SINGLE_QUOTE_NODE 11
 #define DOUBLE_QUOTE_NODE 12
+#define TOKEN_ARG 13
 
 typedef struct s_global
 {
@@ -57,7 +58,7 @@ typedef struct s_node
 
 // PARSER 
 void	input_parser(char *line);
-void	analyse_literal_token(t_node *tmp);
+void	analyse_literal_token(t_node *tmp, int command_up);
 void    find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
 char    *create_quote_node(char *line, t_node **list);

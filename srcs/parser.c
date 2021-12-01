@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 14:48:44 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:48:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,26 @@ void	lexer_parser(char *line, t_node **list)
 void	syntax_parser(t_node **list)
 {
 	t_node *tmp;
+	int	command_up;
 
 	tmp = *list;
+	command_up = 0;
 	if (!tmp->n || tmp->token_type == TOKEN_LITERAL)
+	{
 		tmp->token_type = TOKEN_COMMAND;
+		command_up = 1;
+	}
 	while (tmp->n)
 	{
 		if (tmp->token_type == TOKEN_LITERAL)
-			analyse_literal_token(tmp);
+			analyse_literal_token(tmp, command_up);
 		if (tmp->token_type == TOKEN_FLUX)
 			find_flux_direction(tmp);
 		if (tmp->token_type == TOKEN_PIPE)
+		{
 			tmp->n->token_type = TOKEN_COMMAND;
+			command_up = 0;
+		}
 		tmp = tmp->n;
 	}
 }

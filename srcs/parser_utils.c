@@ -6,17 +6,22 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 14:51:46 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:51:06 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	analyse_literal_token(t_node *tmp)
+void	analyse_literal_token(t_node *tmp, int command_up)
 {
-	if (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE)
-		if (tmp->token_type != TOKEN_OPTION)
-			tmp->token_type = TOKEN_COMMAND;
+	if (!command_up)
+	{
+		if (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE)
+			if (tmp->token_type != TOKEN_OPTION)
+				tmp->token_type = TOKEN_COMMAND;
+	}
+	else
+		tmp->token_type = TOKEN_ARG;
 }
 
 void    find_flux_direction(t_node *tmp)

@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 14:39:54 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:25:08 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	print_list(t_node **node)
 			printf("➜ SINGLE_QUOTE_NODE\n");
 		if ((*node)->token_type == 12)
 			printf("➜ DOUBLE_QUOTE_NODE\n");
+		if ((*node)->token_type == 13)
+			printf("➜ TOKEN_ARG\n");
 		printf("---------------\n");
 		*node = (*node)->n;
 		pos++;
