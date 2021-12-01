@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 15:25:08 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:41:11 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	print_list(t_node **node)
 			printf("➜ OPTION\n");
 		if ((*node)->token_type == 5)
 			printf("➜ COMMAND\n");
-		if ((*node)->token_type == 6)
-			printf("➜ SLASH\n");
 		if ((*node)->token_type == 7)
 			printf("➜ R_FLUX_CREATE\n");
 		if ((*node)->token_type == 8)
@@ -47,7 +45,7 @@ void	print_list(t_node **node)
 		if ((*node)->token_type == 12)
 			printf("➜ DOUBLE_QUOTE_NODE\n");
 		if ((*node)->token_type == 13)
-			printf("➜ TOKEN_ARG\n");
+			printf("➜ ARG\n");
 		printf("---------------\n");
 		*node = (*node)->n;
 		pos++;

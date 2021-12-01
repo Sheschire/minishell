@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 15:48:56 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:40:10 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
 #define TOKEN_COMMAND 5
-#define TOKEN_SLASH 6
 #define R_FLUX_CREATE 7
 #define L_FLUX_CREATE 8
 #define R_FLUX_APPEND 9

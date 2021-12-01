@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 15:51:06 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:40:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ char	*create_option_node(char *line, t_node **list)
 
 int		find_token_type(char c)
 {
-	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\'' || c == '"')
+	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (TOKEN_LITERAL);
+	if (c == '\'' || c == '"' || c == '/')
 		return (TOKEN_LITERAL);
 	if (c == '|')
 		return (TOKEN_PIPE);
@@ -116,7 +118,5 @@ int		find_token_type(char c)
 		return (TOKEN_FLUX);
 	if (c == '-')
 		return (TOKEN_OPTION);
-	if (c == '/')
-		return (TOKEN_SLASH);
 	return (0);
 }
