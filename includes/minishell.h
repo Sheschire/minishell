@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 15:40:49 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/01 14:48:02 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 #define TOKEN_OPTION 4
 #define TOKEN_COMMAND 5
 #define TOKEN_SLASH 6
+#define R_FLUX_CREATE 7
+#define L_FLUX_CREATE 8
+#define R_FLUX_APPEND 9
+#define L_FLUX_APPEND 10
+#define SINGLE_QUOTE_NODE 11
+#define DOUBLE_QUOTE_NODE 12
 
 typedef struct s_global
 {
@@ -49,8 +55,13 @@ typedef struct s_node
 	struct s_node	*n;
 }                   t_node;
 
-// PARSER
+// PARSER 
 void	input_parser(char *line);
+void	analyse_literal_token(t_node *tmp);
+void    find_flux_direction(t_node *tmp);
+char	*create_option_node(char *line, t_node **list);
+char    *create_quote_node(char *line, t_node **list);
+int		find_token_type(char c);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -59,6 +70,7 @@ void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
+void	newnode_add_back(char *s, int token_type, t_node **list);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);
