@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/02 15:41:54 by barodrig         ###   ########.fr       */
-=======
-/*   Updated: 2021/12/02 15:19:53 by tlemesle         ###   ########.fr       */
->>>>>>> 2604b8da854637f5737b5deab2755c19a8c50569
+/*																			  */
+/*   Updated: 2021/12/02 15:46:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -58,7 +56,6 @@ typedef struct s_node
 	int             token_type;
 	struct s_node	*n;
 }                   t_node;
-
 
 typedef struct s_global
 {
