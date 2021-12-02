@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 14:40:09 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:13:47 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
-int		build_command_array(t_node **list, char ** command_array);
 int		found_token_flux(t_node **list);
+void	swap_nodes(t_node *tmp, t_node *scout);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);
