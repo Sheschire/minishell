@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:18:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:41:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@
 #define CMD_NOT_FND 127
 #define WRNG_ARG 128
 
+typedef struct s_node
+{
+	char            *s;
+	int             token_type;
+	struct s_node	*n;
+}                   t_node;
+
+
 typedef struct s_global
 {
 	char			**env;
@@ -57,13 +65,6 @@ typedef struct s_global
 	int				cmd_nbr;
 	int				status;
 }					t_global;
-
-typedef struct s_node
-{
-	char            *s;
-	int             token_type;
-	struct s_node	*n;
-}                   t_node;
 
 // PARSER 
 void	input_parser(char *line);
@@ -85,6 +86,7 @@ int		build_command_array(t_node **list, char ** command_array);
 int		found_token_flux(t_node **list);
 
 // BUILTIN UTILS
+void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 
 #endif
