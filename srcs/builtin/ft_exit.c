@@ -6,12 +6,16 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2021/11/29 14:07:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:21:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
+
+/*
+** When it will be plugged to the parser, we'll have to check if it works with "exit ' 3'".
+*/
 
 int		ft_set_exit_value(char *cmd_arg)
 {

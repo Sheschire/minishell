@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 14:20:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:40:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 #define SINGLE_QUOTE_NODE 11
 #define DOUBLE_QUOTE_NODE 12
 #define TOKEN_ARG 13
+
+#define ERROR_STDR 1
+#define CMD_NOT_FND 127
+#define WRNG_ARG 128
 
 typedef struct s_global
 {
