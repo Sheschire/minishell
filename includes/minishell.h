@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:42:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:43:24 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_node
 {
 	char            *s;
 	int             token_type;
-	int				builtin;
 	struct s_node	*n;
 }                   t_node;
 
