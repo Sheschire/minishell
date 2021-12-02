@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 13:14:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:24:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 #define TOKEN_PIPE  2
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
+
+#define ERROR_STDR 1
+#define CMD_NOT_FND 127
+#define WRNG_ARG 128
 
 typedef struct s_global
 {
