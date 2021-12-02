@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 14:21:42 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:42:37 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	syntax_parser(t_node **list)
 
 void	reorganize_commandline(t_node **list)
 {
-	
+	lol
 }
 
 void	input_parser(char *line)
