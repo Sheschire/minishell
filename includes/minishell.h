@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/02 15:41:54 by barodrig         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/02 15:19:53 by tlemesle         ###   ########.fr       */
+>>>>>>> 2604b8da854637f5737b5deab2755c19a8c50569
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +86,8 @@ void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
-int		build_command_array(t_node **list, char ** command_array);
 int		found_token_flux(t_node **list);
+void	swap_nodes(t_node *tmp, t_node *scout);
 
 // BUILTIN UTILS
 void	pipex(t_global *g, t_node *node);
