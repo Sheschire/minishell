@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   is_in_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 18:48:24 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/23 11:29:55 by tlemesle         ###   ########.fr       */
+/*   Created: 2021/12/01 14:27:50 by tlemesle          #+#    #+#             */
+/*   Updated: 2021/12/01 14:29:23 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int is_in_set(char c, char *s)
 {
-	int	nb;
-	int	minus;
+	int	i;
 
-	nb = 0;
-	minus = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			minus *= -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		nb = nb * 10 + (*str - '0');
-		str++;
-	}
-	return (nb * minus);
+	i = -1;
+	while (s[++i])
+		if (s[i] == c)
+			return (1);
+	return (0);
 }

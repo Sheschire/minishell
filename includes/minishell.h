@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 16:24:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:37:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@
 #define TOKEN_PIPE  2
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
+#define TOKEN_COMMAND 5
+#define R_FLUX_CREATE 7
+#define L_FLUX_CREATE 8
+#define R_FLUX_APPEND 9
+#define L_FLUX_APPEND 10
+#define SINGLE_QUOTE_NODE 11
+#define DOUBLE_QUOTE_NODE 12
+#define TOKEN_ARG 13
 
 #define ERROR_STDR 1
 #define CMD_NOT_FND 127
@@ -51,8 +59,13 @@ typedef struct s_node
 	struct s_node	*n;
 }                   t_node;
 
-// PARSER
+// PARSER 
 void	input_parser(char *line);
+void	analyse_literal_token(t_node *tmp, int command_up);
+void    find_flux_direction(t_node *tmp);
+char	*create_option_node(char *line, t_node **list);
+char    *create_quote_node(char *line, t_node **list);
+int		find_token_type(char c);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -61,6 +74,7 @@ void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
+void	newnode_add_back(char *s, int token_type, t_node **list);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);

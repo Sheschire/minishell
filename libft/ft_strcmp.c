@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 18:48:24 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/23 11:29:55 by tlemesle         ###   ########.fr       */
+/*   Created: 2021/12/01 13:20:49 by tlemesle          #+#    #+#             */
+/*   Updated: 2021/12/01 13:21:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	nb;
-	int	minus;
+	size_t	i;
 
-	nb = 0;
-	minus = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			minus *= -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		nb = nb * 10 + (*str - '0');
-		str++;
-	}
-	return (nb * minus);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
