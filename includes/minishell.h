@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 14:40:09 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:18:05 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@
 typedef struct s_global
 {
 	char			**env;
+	char			**path;
+	int				_pipe[2][2];
+	t_node			*node;
+	int				cmd_nbr;
+	int				status;
 }					t_global;
 
 typedef struct s_node
