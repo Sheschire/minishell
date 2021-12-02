@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:12:54 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:40:58 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	reorganize_commandline(t_node **list)
 			scout = tmp;
 			while (scout && scout->token_type != TOKEN_PIPE)
 			{
-				if (scout->token_type != TOKEN_FILE && (scout->token_type < R_FLUX_CREATE && scout->token_type > L_FLUX_APPEND))
+				if (scout->token_type != TOKEN_FILE && (scout->token_type < R_FLUX_CREATE || scout->token_type > L_FLUX_APPEND))
 					swap_nodes(tmp, scout);
+				printf("scout = %s\n", scout->s);
 				scout = scout->n;
 			}
 		}

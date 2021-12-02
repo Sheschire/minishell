@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:18:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:40:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	swap_nodes(t_node *tmp, t_node *scout)
 
 	swaper = scout->n;
 	tmp->n->n->n = swaper;
-	swaper = 
+	swaper = tmp->n;
+	tmp->n = scout;
+	scout->n = swaper;
 }
 
 int	found_token_flux(t_node **list)

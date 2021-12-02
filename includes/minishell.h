@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:19:53 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:42:34 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@
 #define CMD_NOT_FND 127
 #define WRNG_ARG 128
 
+
+typedef struct s_node
+{
+	char            *s;
+	int             token_type;
+	int				builtin;
+	struct s_node	*n;
+}                   t_node;
+
 typedef struct s_global
 {
 	char			**env;
@@ -57,13 +66,6 @@ typedef struct s_global
 	int				cmd_nbr;
 	int				status;
 }					t_global;
-
-typedef struct s_node
-{
-	char            *s;
-	int             token_type;
-	struct s_node	*n;
-}                   t_node;
 
 // PARSER 
 void	input_parser(char *line);
