@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 16:40:10 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:20:51 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #define TOKEN_FLUX  3
 #define TOKEN_OPTION 4
 #define TOKEN_COMMAND 5
+#define	TOKEN_FILE 6
 #define R_FLUX_CREATE 7
 #define L_FLUX_CREATE 8
 #define R_FLUX_APPEND 9
@@ -71,6 +72,8 @@ void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
 void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
+int		build_command_array(t_node **list, char ** command_array);
+int		found_token_flux(t_node **list);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);

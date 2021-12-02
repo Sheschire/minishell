@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 16:40:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/02 10:14:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void    find_flux_direction(t_node *tmp)
 		tmp->token_type = L_FLUX_CREATE;
 	if (!ft_strcmp(tmp->s, "<<"))
 		tmp->token_type = L_FLUX_APPEND;
+	tmp->n->token_type = TOKEN_FILE;
 }
 
 char    *create_double_quote_node(char *line, t_node **list)
@@ -110,7 +111,7 @@ int		find_token_type(char c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (TOKEN_LITERAL);
-	if (c == '\'' || c == '"' || c == '/')
+	if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$')
 		return (TOKEN_LITERAL);
 	if (c == '|')
 		return (TOKEN_PIPE);
