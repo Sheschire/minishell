@@ -6,7 +6,8 @@ SRCS			= srcs/minishell.c\
 				  srcs/list_utils.c\
 				  srcs/parser.c\
 				  srcs/parser_utils.c\
-				  srcs/reorganise_commandline.c
+				  srcs/reorganise_commandline.c\
+				  srcs/free_utils.c
 
 OBJS			= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 13:07:22 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:04:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,4 @@ t_node	*getlast(t_node *s)
 	while (s->n)
 		s = s->n;
 	return (s);
-}
-
-void	free_list(t_node **s)
-{
-	t_node	*tmp;
-	t_node	*copy;
-
-	if (!s)
-		return ;
-	copy = *s;
-	while (copy)
-	{
-		tmp = copy->n;
-		free(copy);
-		copy = tmp;
-	}
-	*s = NULL;
 }

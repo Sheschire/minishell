@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 13:39:54 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:06:43 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_node
 {
 	char            *s;
 	int             token_type;
+	char			**cmd;
 	struct s_node	*n;
 }                   t_node;
 
@@ -86,6 +87,10 @@ void	free_list(t_node **s);
 void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
 int		found_token_flux(t_node **list);
+
+// FREE UTILS
+void	free_list(t_node **list);
+char	**free_array(char **array);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);
