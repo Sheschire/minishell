@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 14:26:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:30:42 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,24 @@ typedef struct s_global
 	char			**env;
 	char			**path;
 	int				_pipe[2][2];
-	t_node			*node;
+	t_node			**list;
 	int				cmd_nbr;
 	int				status;
+	char			**flux_array;
 }					t_global;
 
+// MAIN
+void	init_global(t_global *g, char **env);
+char	**get_path(char **env);
+
 // PARSER 
-void	input_parser(char *line);
+void	input_parser(char *line, t_global *g);
 void	analyse_literal_token(t_node *tmp, int command_up);
 void    find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
 char    *create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
-void	reorganize_commandline(t_node **list);
+void	reorganize_commandline(t_node **list, t_global *g);
 void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 

@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 15:28:19 by tlemesle         ###   ########.fr       */
+/*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
+/*   Updated: 2021/12/07 15:32:52 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int ac, char **av, char **env)
+char	**get_path(char **env)
 {
-	char		*line;
-	t_global	g;
+	char	**path;
+	char	*path_string;
 
-	(void)ac;
-	(void)av;
-	init_global(&g, env);
-	while (1)
-	{
-		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
-		if (ft_strlen(line))
-		{
-			add_history((const char *)line);
-			input_parser(line, &g);
-		}
-	}
-  	return (0);
+	path_string = getenv("PATH");
+	path = ft_split(path_string, ':');
+	return (path);
+}
+
+void	init_global(t_global *g, char **env)
+{
+	// if (!*env)
+	// 	return (0); // TO DO : generate env manually and continue program
+	g->path = get_path(env);
+	g->env = env;
+	g->list = NULL;
+	g->cmd_nbr = 0;
+	g->status = 0;
+	g->flux_array = NULL;
 }

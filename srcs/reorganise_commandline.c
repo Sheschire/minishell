@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:38:48 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 14:26:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:33:39 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,14 @@ void	re_create_list(t_node **list, char **flux_array, t_node **new_list)
 	push_array_into_list(new_list, flux_array, i, tmp);
 }
 
-void	reorganize_commandline(t_node **list)
+void	reorganize_commandline(t_node **list, t_global *g)
 {
-	char	**flux_array;
 	t_node	*new_list;
 
 	new_list = 0;
-	flux_array = build_flux_array(list);
-	re_create_list(list, flux_array, &new_list);
+	g->flux_array = build_flux_array(list);
+	re_create_list(list, g->flux_array, &new_list);
 	free_list(list);
 	*list = new_list;
-//	free_array(flux_array);
 	new_list = NULL;
 }
