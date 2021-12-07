@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 10:14:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:40:07 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void    find_flux_direction(t_node *tmp)
 		tmp->token_type = L_FLUX_CREATE;
 	if (!ft_strcmp(tmp->s, "<<"))
 		tmp->token_type = L_FLUX_APPEND;
+	if (!tmp->n || tmp->n->token_type == TOKEN_FLUX || tmp->n->token_type == TOKEN_PIPE)
+		printf("SYNTAX ERROR");
 	tmp->n->token_type = TOKEN_FILE;
 }
 

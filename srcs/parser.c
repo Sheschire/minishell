@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:40:58 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:39:39 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	syntax_parser(t_node **list)
 		tmp->token_type = TOKEN_COMMAND;
 		command_up = 1;
 	}
-	while (tmp->n)
+	while (tmp)
 	{
 		if (tmp->token_type == TOKEN_LITERAL)
 			analyse_literal_token(tmp, command_up);
@@ -58,31 +58,9 @@ void	syntax_parser(t_node **list)
 			find_flux_direction(tmp);
 		if (tmp->token_type == TOKEN_PIPE)
 		{
-			tmp->n->token_type = TOKEN_COMMAND;
+			if (tmp->n)
+				tmp->n->token_type = TOKEN_COMMAND;
 			command_up = 0;
-		}
-		tmp = tmp->n;
-	}
-}
-
-void	reorganize_commandline(t_node **list)
-{
-	t_node	*tmp;
-	t_node	*scout;
-	
-	tmp = *list;
-	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
-	{
-		if (tmp->n->token_type >= R_FLUX_CREATE && tmp->n->token_type <= L_FLUX_APPEND)
-		{
-			scout = tmp;
-			while (scout && scout->token_type != TOKEN_PIPE)
-			{
-				if (scout->token_type != TOKEN_FILE && (scout->token_type < R_FLUX_CREATE || scout->token_type > L_FLUX_APPEND))
-					swap_nodes(tmp, scout);
-				printf("scout = %s\n", scout->s);
-				scout = scout->n;
-			}
 		}
 		tmp = tmp->n;
 	}
@@ -92,9 +70,10 @@ void	input_parser(char *line)
 {
 	t_node	*list;
 
+	list = 0;
 	lexer_parser(line, &list);
 	syntax_parser(&list);
 	if (found_token_flux(&list))
 		reorganize_commandline(&list);
-	print_list(&list);
+	//print_list(&list);
 }

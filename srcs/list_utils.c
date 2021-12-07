@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:40:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:07:22 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,20 @@ void	print_list(t_node **node)
 	}
 }
 
-void	swap_nodes(t_node *tmp, t_node *scout)
-{
-	t_node	*swaper;
-
-	swaper = scout->n;
-	tmp->n->n->n = swaper;
-	swaper = tmp->n;
-	tmp->n = scout;
-	scout->n = swaper;
-}
-
 int	found_token_flux(t_node **list)
 {
 	t_node	*tmp;
+	int		nb_flux;
 
 	tmp = *list;
+	nb_flux = 0;
 	while (tmp)
 	{
-		if (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND)
-			return (1);
+		if (tmp->token_type == TOKEN_FLUX || (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND))
+			nb_flux += 2;
 		tmp = tmp->n;
 	}
-	return (0);
+	return (nb_flux);
 }
 
 void	newnode_add_back(char *s, int token_type, t_node **list)
@@ -111,6 +102,7 @@ void	add_back(t_node **s, t_node *new)
 	last = *s;
 	if (*s == NULL)
 		*s = new;
+
 	else
 	{
 		while (last->n)
