@@ -6,11 +6,54 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 13:40:07 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:28:47 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	check_syntax_error(t_node **list)
+{
+	t_node	*tmp;
+
+	tmp = *list;
+	while (tmp)
+	{
+		if (is_redir(tmp) && (!tmp->n || is_redir(tmp->n)))
+			printf("SYNTAX ERROR\n");
+		if (!tmp->n && tmp->token_type == TOKEN_PIPE)
+			printf("SYNTAX ERROR\n");
+		if ((tmp->token_type == L_FLUX_APPEND || tmp->token_type == L_FLUX_CREATE) && !tmp->n)
+			printf("SYNTAX ERROR\n");
+		tmp = tmp->n;
+	}
+}
+
+int	is_redir(t_node *tmp)
+{
+	int	type;
+
+	type = tmp->token_type;
+	if (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND)
+		return (1);
+	return (0);
+}
+
+int	found_token_flux(t_node **list)
+{
+	t_node	*tmp;
+	int		nb_flux;
+
+	tmp = *list;
+	nb_flux = 0;
+	while (tmp)
+	{
+		if (tmp->token_type == TOKEN_FLUX || (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND))
+			nb_flux += 2;
+		tmp = tmp->n;
+	}
+	return (nb_flux);
+}
 
 void	analyse_literal_token(t_node *tmp, int command_up)
 {
@@ -35,7 +78,7 @@ void    find_flux_direction(t_node *tmp)
 	if (!ft_strcmp(tmp->s, "<<"))
 		tmp->token_type = L_FLUX_APPEND;
 	if (!tmp->n || tmp->n->token_type == TOKEN_FLUX || tmp->n->token_type == TOKEN_PIPE)
-		printf("SYNTAX ERROR");
+		printf("SYNTAX ERROR\n");
 	tmp->n->token_type = TOKEN_FILE;
 }
 

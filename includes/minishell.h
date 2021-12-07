@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 14:06:43 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:26:23 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void    find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
 char    *create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
-int		is_redir_or_file(t_node *tmp);
 void	reorganize_commandline(t_node **list);
+void	check_syntax_error(t_node **list);
+int		is_redir(t_node *tmp);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);

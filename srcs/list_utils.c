@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 14:04:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:24:43 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,6 @@ void	print_list(t_node **node)
 		tmp = tmp->n;
 		pos++;
 	}
-}
-
-int	found_token_flux(t_node **list)
-{
-	t_node	*tmp;
-	int		nb_flux;
-
-	tmp = *list;
-	nb_flux = 0;
-	while (tmp)
-	{
-		if (tmp->token_type == TOKEN_FLUX || (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND))
-			nb_flux += 2;
-		tmp = tmp->n;
-	}
-	return (nb_flux);
 }
 
 void	newnode_add_back(char *s, int token_type, t_node **list)
