@@ -6,24 +6,30 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 15:40:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:04:53 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	print_list(t_node **node)
+void	print_list(t_node **list)
 {
-	int	pos;
-	t_node *tmp;
-
-	tmp = *node;
+	t_node	*tmp;
+	int		i;
+	int		pos;
+	
+	tmp = *list;
 	pos = 0;
 	while (tmp)
 	{
+		i = -1;
 		printf("---------------\n");
 		printf("POS = %d\n", pos);
-		printf("➜ %s\n", tmp->s);
+		if (tmp->token_type == CMD)
+			while (tmp->cmd[++i])
+				printf("➜ cmd[%d] = %s\n", i, tmp->cmd[i]);
+		if (tmp->s)
+			printf("➜ %s\n", tmp->s);
 		if (tmp->token_type == 1)
 			printf("➜ LITERAL\n");
 		if (tmp->token_type == 2)
@@ -50,35 +56,23 @@ void	print_list(t_node **node)
 			printf("➜ DOUBLE_QUOTE_NODE\n");
 		if (tmp->token_type == 13)
 			printf("➜ ARG\n");
+		if (tmp->token_type == 14)
+			printf("➜ HERE_DOC\n");
+		if (tmp->token_type == 100)
+			printf("➜ CMD\n");
 		printf("---------------\n");
-		tmp = tmp->n;
 		pos++;
-	}
-}
-
-void	swap_nodes(t_node *tmp, t_node *scout)
-{
-	t_node	*swaper;
-
-	swaper = scout->n;
-	tmp->n->n->n = swaper;
-	swaper = tmp->n;
-	tmp->n = scout;
-	scout->n = swaper;
-}
-
-int	found_token_flux(t_node **list)
-{
-	t_node	*tmp;
-
-	tmp = *list;
-	while (tmp)
-	{
-		if (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND)
-			return (1);
 		tmp = tmp->n;
 	}
-	return (0);
+}
+
+void	newnode_cmd_add_back(char **cmd, t_node **list)
+{
+	t_node	*new;
+
+	new = newnode(NULL, CMD);
+	new->cmd = cmd;
+	add_back(list, new);
 }
 
 void	newnode_add_back(char *s, int token_type, t_node **list)
@@ -98,6 +92,7 @@ t_node	*newnode(char *s, int token_type)
 		return (0);
 	new->s = s;
 	new->token_type = token_type;
+	new->cmd = NULL;
 	new->n = NULL;
 	return (new);
 }
@@ -111,6 +106,7 @@ void	add_back(t_node **s, t_node *new)
 	last = *s;
 	if (*s == NULL)
 		*s = new;
+
 	else
 	{
 		while (last->n)
@@ -136,21 +132,4 @@ t_node	*getlast(t_node *s)
 	while (s->n)
 		s = s->n;
 	return (s);
-}
-
-void	free_list(t_node **s)
-{
-	t_node	*tmp;
-	t_node	*copy;
-
-	if (!s)
-		return ;
-	copy = *s;
-	while (copy)
-	{
-		tmp = copy->n;
-		free(copy);
-		copy = tmp;
-	}
-	*s = NULL;
 }

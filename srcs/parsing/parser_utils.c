@@ -6,17 +6,58 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/02 10:14:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:04:56 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
+
+void	check_syntax_error(t_node **list)
+{
+	t_node	*tmp;
+
+	tmp = *list;
+	while (tmp)
+	{
+		if (is_redir(tmp) && (!tmp->n || is_redir(tmp->n)))
+			printf("SYNTAX ERROR\n");
+		if (!tmp->n && tmp->token_type == TOKEN_PIPE)
+			printf("SYNTAX ERROR\n");
+		tmp = tmp->n;
+	}
+}
+
+int	is_redir(t_node *tmp)
+{
+	int	type;
+
+	type = tmp->token_type;
+	if ((tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND) || tmp->token_type == TOKEN_FLUX)
+		return (1);
+	return (0);
+}
+
+int	found_token_flux(t_node **list)
+{
+	t_node	*tmp;
+	int		nb_flux;
+
+	tmp = *list;
+	nb_flux = 0;
+	while (tmp)
+	{
+		if (is_redir(tmp))
+			nb_flux += 2;
+		tmp = tmp->n;
+	}
+	return (nb_flux);
+}
 
 void	analyse_literal_token(t_node *tmp, int command_up)
 {
 	if (!command_up)
 	{
-		if (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE)
+		if (tmp->n && (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE))
 			if (tmp->token_type != TOKEN_OPTION)
 				tmp->token_type = TOKEN_COMMAND;
 	}
@@ -32,9 +73,14 @@ void    find_flux_direction(t_node *tmp)
 		tmp->token_type = R_FLUX_APPEND;
 	if (!ft_strcmp(tmp->s, "<"))
 		tmp->token_type = L_FLUX_CREATE;
+	if (tmp->n && is_redir(tmp))
+		tmp->n->token_type = TOKEN_FILE;
 	if (!ft_strcmp(tmp->s, "<<"))
+	{
 		tmp->token_type = L_FLUX_APPEND;
-	tmp->n->token_type = TOKEN_FILE;
+		if (tmp->n)
+			tmp->n->token_type = HERE_DOC;
+	}
 }
 
 char    *create_double_quote_node(char *line, t_node **list)

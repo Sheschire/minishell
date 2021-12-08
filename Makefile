@@ -3,9 +3,13 @@ GREEN			= \033[1;32m
 
 SRCS			= srcs/minishell.c\
 				  srcs/get_next_line.c\
-				  srcs/list_utils.c\
-				  srcs/parser.c\
-				  srcs/parser_utils.c
+				  srcs/parsing/list_utils.c\
+				  srcs/parsing/parser.c\
+				  srcs/parsing/parser_utils.c\
+				  srcs/parsing/reorganise_commandline.c\
+				  srcs/free_utils.c\
+				  srcs/init.c\
+				  srcs/parsing/group_nodes_into_commands.c
 
 OBJS			= $(SRCS:.c=.o)
 

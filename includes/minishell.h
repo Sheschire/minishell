@@ -6,8 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*																			  */
-/*   Updated: 2021/12/02 15:46:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:24:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +44,7 @@
 #define SINGLE_QUOTE_NODE 11
 #define DOUBLE_QUOTE_NODE 12
 #define TOKEN_ARG 13
-#define HERE_DOC 14
+#define	HERE_DOC 14
 
 #define CMD 100
 
@@ -57,6 +56,7 @@ typedef struct s_node
 {
 	char            *s;
 	int             token_type;
+	char			**cmd;
 	int				before;
 	int				after;
 	int				filein;
@@ -69,18 +69,27 @@ typedef struct s_global
 	char			**env;
 	char			**path;
 	int				_pipe[2][2];
-	t_node			*node;
+	t_node			**list;
 	int				cmd_nbr;
 	int				status;
 }					t_global;
 
+// MAIN
+void	init_global(t_global *g, char **env);
+char	**get_path(char **env);
+void	init_cmd_nodes(t_node **list);
+
 // PARSER 
-void	input_parser(char *line);
+void	input_parser(char *line, t_global *g);
 void	analyse_literal_token(t_node *tmp, int command_up);
 void    find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
 char    *create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
+void	reorganize_commandline(t_node **list);
+void	check_syntax_error(t_node **list);
+int		is_redir(t_node *tmp);
+void	group_nodes_into_commands(t_node **list);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -88,13 +97,19 @@ t_node	*getlast(t_node *s);
 void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
-void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
+void	newnode_cmd_add_back(char **cmd, t_node **list);
 int		found_token_flux(t_node **list);
-void	swap_nodes(t_node *tmp, t_node *scout);
+
+// FREE UTILS
+void	free_list(t_node **list);
+void	free_array(char **array);
 
 // BUILTIN UTILS
 void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
+
+
+void	print_list(t_node **list);
 
 #endif
