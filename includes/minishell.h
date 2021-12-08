@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 15:30:42 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/08 12:47:34 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 #define TOKEN_ARG 13
 #define	HERE_DOC 14
 
+#define CMD 100
+
 #define ERROR_STDR 1
 #define CMD_NOT_FND 127
 #define WRNG_ARG 128
@@ -66,12 +68,12 @@ typedef struct s_global
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
-	char			**flux_array;
 }					t_global;
 
 // MAIN
 void	init_global(t_global *g, char **env);
 char	**get_path(char **env);
+void	init_cmd_nodes(t_node **list);
 
 // PARSER 
 void	input_parser(char *line, t_global *g);
@@ -80,9 +82,10 @@ void    find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
 char    *create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
-void	reorganize_commandline(t_node **list, t_global *g);
+void	reorganize_commandline(t_node **list);
 void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
+void	group_nodes_into_commands(t_node **list);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -90,15 +93,18 @@ t_node	*getlast(t_node *s);
 void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
-void	print_list(t_node **node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
+void	newnode_cmd_add_back(char **cmd, t_node **list);
 int		found_token_flux(t_node **list);
 
 // FREE UTILS
 void	free_list(t_node **list);
-char	**free_array(char **array);
+void	free_array(char **array);
 
 // BUILTIN UTILS
 int		ft_are_digits(char *str);
+
+
+void	print_list(t_node **list);
 
 #endif

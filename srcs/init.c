@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 15:32:52 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/08 12:47:09 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,16 @@ void	init_global(t_global *g, char **env)
 	g->list = NULL;
 	g->cmd_nbr = 0;
 	g->status = 0;
-	g->flux_array = NULL;
+}
+
+void	init_cmd_nodes(t_node **list)
+{
+	t_node	*tmp;
+
+	tmp = *list;
+	while (tmp)
+	{
+		tmp->cmd = NULL;
+		tmp = tmp->n;
+	}
 }

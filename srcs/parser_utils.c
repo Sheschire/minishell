@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/07 14:28:47 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/08 12:41:48 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	check_syntax_error(t_node **list)
 			printf("SYNTAX ERROR\n");
 		if (!tmp->n && tmp->token_type == TOKEN_PIPE)
 			printf("SYNTAX ERROR\n");
-		if ((tmp->token_type == L_FLUX_APPEND || tmp->token_type == L_FLUX_CREATE) && !tmp->n)
-			printf("SYNTAX ERROR\n");
 		tmp = tmp->n;
 	}
 }
@@ -34,7 +32,7 @@ int	is_redir(t_node *tmp)
 	int	type;
 
 	type = tmp->token_type;
-	if (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND)
+	if ((tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND) || tmp->token_type == TOKEN_FLUX)
 		return (1);
 	return (0);
 }
@@ -48,7 +46,7 @@ int	found_token_flux(t_node **list)
 	nb_flux = 0;
 	while (tmp)
 	{
-		if (tmp->token_type == TOKEN_FLUX || (tmp->token_type >= R_FLUX_CREATE && tmp->token_type <= L_FLUX_APPEND))
+		if (is_redir(tmp))
 			nb_flux += 2;
 		tmp = tmp->n;
 	}
@@ -59,7 +57,7 @@ void	analyse_literal_token(t_node *tmp, int command_up)
 {
 	if (!command_up)
 	{
-		if (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE)
+		if (tmp->n && (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE))
 			if (tmp->token_type != TOKEN_OPTION)
 				tmp->token_type = TOKEN_COMMAND;
 	}
@@ -75,11 +73,14 @@ void    find_flux_direction(t_node *tmp)
 		tmp->token_type = R_FLUX_APPEND;
 	if (!ft_strcmp(tmp->s, "<"))
 		tmp->token_type = L_FLUX_CREATE;
+	if (tmp->n && is_redir(tmp))
+		tmp->n->token_type = TOKEN_FILE;
 	if (!ft_strcmp(tmp->s, "<<"))
+	{
 		tmp->token_type = L_FLUX_APPEND;
-	if (!tmp->n || tmp->n->token_type == TOKEN_FLUX || tmp->n->token_type == TOKEN_PIPE)
-		printf("SYNTAX ERROR\n");
-	tmp->n->token_type = TOKEN_FILE;
+		if (tmp->n)
+			tmp->n->token_type = HERE_DOC;
+	}
 }
 
 char    *create_double_quote_node(char *line, t_node **list)
