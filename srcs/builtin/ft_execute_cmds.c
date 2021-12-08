@@ -6,17 +6,17 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:16:47 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/02 15:40:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/05 14:51:32 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../../includes/minishell.h"
 
 /**
 **	As its name says "testpath_builder" will
 **	create a path to try to access our command.
 **/
-
+=
 char	*testpath_builder(t_global *g, char *cmd, int i)
 {
 	char	*pathname;
@@ -99,12 +99,14 @@ void	child_process(t_global *g, char **av)
 		dup2(g->_pipe[1][1], STDOUT_FILENO);
 		dup2(g->_pipe[0][0], STDIN_FILENO);
 		close(g->_pipe[1][0]);
+		close(g->_pipe[0][0]);
 	}
 	else
 	{
 		dup2(g->_pipe[1][0], STDIN_FILENO);
 		dup2(g->_pipe[1][1], STDOUT_FILENO);
 		close(g->_pipe[1][0]);
+		close(g->_pipe[0][0]);
 	}
 	builtcmd = ft_split(av[g->cmd_nbr], ' ');
 	if (!builtcmd)
@@ -138,6 +140,7 @@ void	parent_process(t_global *g, char **av)
 	dup2(g->_pipe[1][0], STDIN_FILENO);
 	dup2(g->_pipe[0][1], STDOUT_FILENO);
 	close(g->_pipe[1][1]);
+	close(g->_pipe[0][1]);
 	find_cmd_path(builtcmd, g);
 	return ;
 }

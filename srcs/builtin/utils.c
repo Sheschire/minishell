@@ -31,3 +31,5 @@ int	ft_are_digits(char *str)
 	}
 	return (1);
 }
+
+int	

@@ -45,6 +45,9 @@
 #define SINGLE_QUOTE_NODE 11
 #define DOUBLE_QUOTE_NODE 12
 #define TOKEN_ARG 13
+#define HERE_DOC 14
+
+#define CMD 100
 
 #define ERROR_STDR 1
 #define CMD_NOT_FND 127
@@ -54,6 +57,10 @@ typedef struct s_node
 {
 	char            *s;
 	int             token_type;
+	int				before;
+	int				after;
+	int				filein;
+	int				fileout;
 	struct s_node	*n;
 }                   t_node;
 

@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 13:46:10 by barodrig          #+#    #+#             */
-/*   Updated: 2021/11/09 15:00:44 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:57:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../../includes/minishell.h"
 
-void	_error_pipe(t_global *g)
+void	ft_error_pipe(t_global *g)
 {
 	char	*error;
 
