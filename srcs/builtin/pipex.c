@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/08 12:03:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:49:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,54 @@ char	**get_path(char **envp)
 		return (NULL);
 }
 
-void	ft_here_doc	(char *limiter, int _pipe[2])
+void	ft_here_doc	(char *limiter)
 {
 	char	*line;
-
-	while (get_next_line(0, &line))
+	int		_pipe_here[2];
+	int		pid;
+	
+	if (pipe(_pipe_here[2]) == -1)
+		ft_error_pipe();
+	
+	pid = fork();
+	if (pid == 0)
 	{
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)))
-			exit(1);
-		write(_pipe[1], line, ft_strlen(line));
+		while (get_next_line(0, &line))
+		{
+			if (ft_strncmp(line, limiter, ft_strlen(limiter)))
+				exit(1);
+			write(_pipe_here[1], line, ft_strlen(line));
+		}
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		close(_pipe_here[1]);
+		dup2(_pipe_here[0], STDIN_FILENO);
 	}
 }
 
 void	check_entry_node(t_node *node, int _pipe[2])
 {
-	int file;
-	if (node->after == L_FLUX_CREATE)
+	int filein;
+	int filelout;
+	
+	if (filein)
 	{
-		file = open(node->filein, O_RDONLY, 0777);
-		dup2(file, STDIN_FILENO);
+		filein = open(node->filein, O_RDONLY, 0777);
+		dup2(filein, STDIN_FILENO);
 	}
-	else if (node->after == L_FLUX_APPEND)
+	if (node->after == L_FLUX_APPEND)
 	{
 		if (node->n->n->token_type && node->n->n->token_type == HERE_DOC)
 			ft_here_doc(node->n->n->s, _pipe);
 	}
+	if (fileout)
+	{
+		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
+		dup2(file, STDOUT_FILENO);
+	}
+		
 }
 
 void	dup_entry_exit(t_global *g, t_node *node, int _pipe[2])
