@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 12:47:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:23:59 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # include <sys/resource.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
 #include <errno.h>
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
@@ -104,6 +105,8 @@ void	free_array(char **array);
 // BUILTIN UTILS
 int		ft_are_digits(char *str);
 
+//SIGNALS
+void    handle_signals(void);
 
 void	print_list(t_node **list);
 

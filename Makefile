@@ -9,13 +9,14 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/reorganise_commandline.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
-				  srcs/parsing/group_nodes_into_commands.c
+				  srcs/parsing/group_nodes_into_commands.c\
+				  srcs/signals.c
 
 OBJS			= $(SRCS:.c=.o)
 
-CC				= gcc
+CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I./includes -lreadline
+CFLAGS			= -Wall -Wextra -Werror -I./includes
 
 NAME			= minishell
 
@@ -29,7 +30,7 @@ $(NAME):		$(OBJS)
 				@make all -C libft/
 				@echo "${YELLOW}          [OK]"
 				@echo "\n${GREEN} |   Compiling Minishell"
-				@gcc ${CFLAGS} -o ${NAME} ${OBJS} ./libft/libft.a
+				@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ./libft/libft.a
 				@echo "${YELLOW}          [OK]\n"
 
 clean:
