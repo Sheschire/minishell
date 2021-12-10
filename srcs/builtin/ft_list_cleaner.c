@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 12:09:10 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:16:33 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_clean_flux_append(t_node *node)
 			if ((tmp->n->n && tmp->n->n->token_type == L_FLUX_APPEND))
 			{
 				ft_useless_here_doc(tmp->n->n->n->limiter);
-				*tmp_tmp = tmp->n->n->n->n;
+				*tmp_tmp = *(tmp->n->n->n->n);
 				ft_del_two_nodes(tmp->n->n->n, tmp->n->n);
-				tmp->n->n = *tmp_tmp;
+				tmp->n->n = tmp_tmp;
 			}
 		}
 		if (tmp->n && tmp->n->token_type == L_FLUX_APPEND)
@@ -58,7 +58,7 @@ void	ft_clean_flux_create(t_node	*node)
 		tmp = tmp->n;
 		if (tmp->n && tmp->n->token_type == R_FLUX_CREATE)
 		{
-			open(node->n->n->s, O_WRONLY | O_CREATE | O_TRUNC, 0777);
+			open(node->n->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 			ft_del_two_nodes(node->n->n, node->n);
 			node->n = tmp->n;
 		}

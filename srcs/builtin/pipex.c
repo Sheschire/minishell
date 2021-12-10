@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 13:47:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:07:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	dup_exit_node(t_global *g, t_node *node, int _pipe[2])
 {
-	int	fileout;
+	int	file;
 
-	fileout = 0;
+	file = 0;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
-		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
-		dup2(fileout, STDOUT_FILENO);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		dup2(file, STDOUT_FILENO);
 	}
 	else if (node->after == R_FLUX_APPEND && node->fileout)
 	{
-		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
-		dup2(fileout, STDOUT_FILENO);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		dup2(file, STDOUT_FILENO);
 	}
 	else
 		dup2(_pipe[0], STDIN_FILENO);
@@ -33,22 +33,22 @@ void	dup_exit_node(t_global *g, t_node *node, int _pipe[2])
 
 void	dup_entry_node(t_global *g, t_node *node, int _pipe[2])
 {
-	int	filein;
+	int	file;
 
-	filein = 0;
+	file = 0;
 	if (node->after == L_FLUX_CREATE && node->filein)
 	{
-		filein = open(node->filein, O_RDONLY, 0777);
-		dup2(filein, STDIN_FILENO);
+		file = open(node->filein, O_RDONLY, 0777);
+		dup2(file, STDIN_FILENO);
 	}
 	if (node->after == L_FLUX_APPEND)
 	{
 		if (node->n->n && node->n->n->token_type == HERE_DOC)
-			ft_here_doc(node->n->n->s);
+			ft_here_doc(node->n->n->limiter);
 	}
 	if (node->fileout)
 	{
-		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		dup2(file, STDOUT_FILENO);
 	}
 }
@@ -86,12 +86,12 @@ void	parent_process(t_global *g, t_node *node)
 		node = node->n;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
-		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
+		fileout = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		dup2(fileout, STDOUT_FILENO);
 	}
 	else if (node->after == R_FLUX_APPEND && node->fileout)
 	{
-		fileout = open(node->fileout, O_WRONLY | O_CREATE | O_TRUNC, 0777);
+		fileout = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		dup2(fileout, STDOUT_FILENO);
 	}
 	find_cmd_path(node->cmd, g);
@@ -104,9 +104,9 @@ void	pipex(t_global *g, t_node *node)
 
 	i = -1;
 	cmd_nbr = count_cmd(node);
-	ft_list_cleaner(node)
+	ft_list_cleaner(node);
 	define_position(node);
-	while (++i < cmd_nbr - 1)
+	/*while (++i < cmd_nbr - 1)
 	{
 		child_process(g, node);
 		while (node->n)
@@ -116,6 +116,7 @@ void	pipex(t_global *g, t_node *node)
 				break ;
 		}
 	}
-	parent_proccess(g, node);
+	parent_proccess(g, node);*/
+	
 	return ;
 }

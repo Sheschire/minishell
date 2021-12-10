@@ -6,9 +6,25 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 13:42:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:40:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	ft_strcat(char *src, char *dest)
+{
+	while (*dest)
+		dest++;
+	while (*src)
+	{
+		*dest = *src;
+		src++;
+		dest++;
+	}
+	*dest = '\0';
+	return ;
+}
 
 /**
 **	As its name says "testpath_builder" will
@@ -64,7 +80,7 @@ void	find_cmd_path(char **builtcmd, t_global *g)
 		_error_cmd(builtcmd, pathname, g);
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
-	execve(pathname, builtcmd, g->envp);
+	execve(pathname, builtcmd, g->env);
 	ft_to_break_free(g->path);
 	ft_to_break_free(builtcmd);
 	exit(0);

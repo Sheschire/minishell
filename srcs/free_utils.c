@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/09 11:58:57 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:00:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	ft_delnode(t_node *node)
 	if (node->n)
 		tmp = node->n;
 	if (node->s)
-		free(node->s)
+		free(node->s);
 	while (node->cmd[++i])
-		free(node->cmd[i])
+		free(node->cmd[i]);
 	if (node->cmd)
 		free(node->cmd);
 	if (node->filein)

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 11:48:59 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:15:38 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ void	ft_useless_here_doc(char *limiter)
 		waitpid(pid, NULL, 0);
 }
 
+// DON"T FORGET TO REMOVE VVVVV WRITE(2,...)
+
 void	ft_here_doc(char *limiter)
 {
 	char	*line;
 	int		_pipe_here[2];
 	int		pid;
 
-	if (pipe(_pipe_here[2]) == -1)
-		ft_error_pipe();
+	if (pipe(_pipe_here) == -1)
+		write(2, "CA MARCHE PAS FRERE\n", 20);
 	pid = fork();
 	if (pid == 0)
 	{

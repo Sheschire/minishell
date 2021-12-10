@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 13:55:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:38:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+#include <string.h>
 #include <errno.h>
 # include <signal.h>
 
@@ -110,16 +111,23 @@ void	free_array(char **array);
 void	ft_delnode(t_node *node);
 
 // EXECUTION
-void	pipex(t_global *g, t_node *node)
+void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
-void	find_cmd_path(char **builtcmd, t_global *g)
+void	define_position(t_node *node);
+void	ft_here_doc(char *limiter);
+void	ft_useless_here_doc(char *limiter);
+void	find_cmd_path(char **builtcmd, t_global *g);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
 void	_error_cmd(char **cmd, char *pathname, t_global *g);
+void	_error(int i, char **to_free);
+
+//SIGNALS
+void    handle_signals(void);
 
 void	print_list(t_node **list);
 

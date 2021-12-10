@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 13:44:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:12:07 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	count_cmd(t_node *node)
 
 	i = 0;
 	*tmp = *node;
-	while (*tmp->n)
+	while (tmp->n)
 	{
 		if (tmp->token_type == CMD)
 			i++;
@@ -53,15 +53,15 @@ int	count_cmd(t_node *node)
 
 void	define_after_next(t_node *tmp)
 {
-	else if (tmp->n && tmp->n == R_FLUX_APPEND)
+	if (tmp->n && tmp->n->token_type == R_FLUX_APPEND)
 	{
 		tmp->after = R_FLUX_APPEND;
-		tmp->fileout = tmp->n->n->*s;
+		tmp->fileout = (tmp->n->n)->s;
 	}
-	else if (tmp->n && tmp->n == L_FLUX_APPEND)
+	else if (tmp->n && tmp->n->token_type == L_FLUX_APPEND)
 	{
 		tmp->after = L_FLUX_APPEND;
-		tmp->limiter = tmp->n->n->*s;
+		tmp->limiter = (tmp->n->n)->s;
 	}
 	else
 		tmp->after = 0;
@@ -69,17 +69,17 @@ void	define_after_next(t_node *tmp)
 
 void	define_after(t_node *tmp)
 {
-	if (tmp->n && tmp->n == R_FLUX_CREATE)
+	if (tmp->n && tmp->n->token_type == R_FLUX_CREATE)
 	{
 		tmp->after = R_FLUX_CREATE;
-		tmp->fileout = tmp->n->n->*s;
+		tmp->fileout = (tmp->n->n)->s;
 	}
-	else if (tmp->n && tmp->n == L_FLUX_CREATE)
+	else if (tmp->n && tmp->n->token_type == L_FLUX_CREATE)
 	{
 		tmp->after = L_FLUX_CREATE;
-		tmp->filein = tmp->n->n->*s;
+		tmp->filein = (tmp->n->n)->s;
 	}
-	else if (tmp->n && tmp->n == TOKEN_PIPE)
+	else if (tmp->n && tmp->n->token_type == TOKEN_PIPE)
 		tmp->after = TOKEN_PIPE;
 	else
 		define_after_next(tmp);

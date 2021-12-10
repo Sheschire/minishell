@@ -10,7 +10,12 @@ SRCS			= srcs/minishell.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
 				  srcs/parsing/group_nodes_into_commands.c\
-				  srcs/signals.c
+				  srcs/builtin/pipex.c\
+				  srcs/builtin/pipex_utils.c\
+				  srcs/builtin/here_doc.c\
+				  srcs/builtin/ft_list_cleaner.c\
+				  srcs/builtin/ft_errors_manager.c\
+				  srcs/builtin/cmd_path_builder.c
 
 OBJS			= $(SRCS:.c=.o)
 
