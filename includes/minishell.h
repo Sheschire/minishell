@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 14:38:22 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 15:04:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
-#include <string.h>
-#include <errno.h>
+# include <string.h>
+# include <errno.h>
 # include <signal.h>
 
 # include "../libft/libft.h"

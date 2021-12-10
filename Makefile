@@ -9,6 +9,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/reorganise_commandline.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
+				  srcs/signals.c\
 				  srcs/parsing/group_nodes_into_commands.c\
 				  srcs/builtin/pipex.c\
 				  srcs/builtin/pipex_utils.c\

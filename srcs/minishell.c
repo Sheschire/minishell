@@ -6,11 +6,14 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 14:01:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:52:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
 
 int	main(int ac, char **av, char **env)
 {
