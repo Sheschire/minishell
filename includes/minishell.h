@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 13:51:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:55:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <sys/resource.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
 #include <errno.h>
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
