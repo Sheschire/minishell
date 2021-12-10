@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 14:16:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:22:37 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_clean_flux_append(t_node *node)
 	t_node	*tmp;
 	t_node	*tmp_tmp;
 
-	*tmp = *node;
-	*tmp_tmp = *node;
+	tmp = node;
+	tmp_tmp = node;
 	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 	{
 		tmp = tmp->n;
@@ -52,7 +52,7 @@ void	ft_clean_flux_create(t_node	*node)
 {
 	t_node	*tmp;
 
-	*tmp = *node;
+	tmp = node;
 	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 	{
 		tmp = tmp->n;
@@ -70,13 +70,15 @@ void	ft_list_cleaner(t_node *node)
 {
 	t_node	*tmp;
 
-	*tmp = *node;
+	tmp = node;
 	while (tmp->n)
 	{
-		if (tmp->n->token_type == L_FLUX_APPEND)
+		if (tmp->token_type == CMD && tmp->n->token_type == L_FLUX_APPEND)
 			ft_clean_flux_append(node);
-		if (tmp->n->token_type == R_FLUX_CREATE)
-			ft_clean_flux_create(node);
+		if (tmp->token_type == CMD && tmp->n->token_type == R_FLUX_CREATE)
+			ft_clean_flux_create(node);	
+		if (!tmp->n)
+			return ;
 		tmp = tmp->n;
 		while (tmp->n && tmp->token_type != CMD)
 			tmp = tmp->n;

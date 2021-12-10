@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 13:04:53 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:15:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_node	*newnode(char *s, int token_type)
 {
 	t_node	*new;
 
-	new = (t_node *)malloc(sizeof(t_node));
+	new = (t_node *)calloc(sizeof(t_node), 1);
 	if (new == NULL)
 		return (0);
 	new->s = s;

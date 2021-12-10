@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 14:07:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:54:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ void	pipex(t_global *g, t_node *node)
 
 	i = -1;
 	cmd_nbr = count_cmd(node);
+	printf("CMD NBR = %i\n", cmd_nbr);
 	ft_list_cleaner(node);
+	print_list(&node);
 	define_position(node);
 	/*while (++i < cmd_nbr - 1)
 	{

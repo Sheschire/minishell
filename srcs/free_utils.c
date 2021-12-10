@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 14:00:22 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:16:33 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,30 @@ void	free_list(t_node **list)
 		free(to_free);
 		to_free = save;
 	}
-	*list = NULL;
+	
 }
 
 void	ft_delnode(t_node *node)
 {
-	t_node	*tmp;
 	int		i;
 
 	i = -1;
-	tmp = 0;
 	if (node->n)
-		tmp = node->n;
+		node->n = NULL;
 	if (node->s)
 		free(node->s);
-	while (node->cmd[++i])
-		free(node->cmd[i]);
 	if (node->cmd)
+	{
+		while (node->cmd[++i])
+			free(node->cmd[i]);
 		free(node->cmd);
-	if (node->filein)
-		free(node->filein);
+	}
 	if (node->fileout)
 		free(node->fileout);
+	if (node->filein)
+		free(node->filein);
 	if (node->limiter)
 		free(node->limiter);
 	free(node);
-	node = tmp;
+	node = 0;
 }
