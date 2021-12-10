@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 13:24:44 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:51:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ typedef struct s_node
 	char			**cmd;
 	int				before;
 	int				after;
-	int				filein;
-	int				fileout;
+	char			*filein;
+	char			*fileout;
+	char			*limiter;
 	struct s_node	*n;
 }                   t_node;
 
@@ -97,6 +98,7 @@ t_node	*getlast(t_node *s);
 void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
+void	ft_delnode(t_node *node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
 void	newnode_cmd_add_back(char **cmd, t_node **list);
 int		found_token_flux(t_node **list);
@@ -104,11 +106,19 @@ int		found_token_flux(t_node **list);
 // FREE UTILS
 void	free_list(t_node **list);
 void	free_array(char **array);
+void	ft_delnode(t_node *node);
 
-// BUILTIN UTILS
-void	pipex(t_global *g, t_node *node);
+// EXECUTION
+void	pipex(t_global *g, t_node *node)
 int		ft_are_digits(char *str);
+int		count_cmd(t_node *node);
+void	ft_list_cleaner(t_node *node);
+void	find_cmd_path(char **builtcmd, t_global *g)
 
+// EXECUTION ERROR HANDLING
+void	ft_error_pipe(t_global *g);
+void	ft_to_break_free(char **str);
+void	_error_cmd(char **cmd, char *pathname, t_global *g);
 
 void	print_list(t_node **list);
 

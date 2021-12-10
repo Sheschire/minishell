@@ -6,19 +6,14 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2021/11/29 12:47:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:52:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 
-/*char	*ft_search_in_env(char **env, "PWD")
-{
-	int	i;
-}*/
-
-int	ft_pwd()
+int	ft_pwd(void)
 {
 	char	*cwd;
 	int		buffer_size;
@@ -42,19 +37,19 @@ int	ft_pwd()
 	return (1);
 }
 
-int main(int ac, char **av)
-{
-    if (ac != 2)
-    {
-        printf("Not enough args to test\n");
-        return (0);
-    }
-    else
-    {
-        if (!ft_strncmp(av[1], "pwd", ft_strlen(av[1])))
-            ft_pwd();
-        else
-            printf("ERROR IN AV[1]\n");
-    }
-    return (1);
-}
+// int main(int ac, char **av)
+// {
+//     if (ac != 2)
+//     {
+//         printf("Not enough args to test\n");
+//         return (0);
+//     }
+//     else
+//     {
+//         if (!ft_strncmp(av[1], "pwd", ft_strlen(av[1])))
+//             ft_pwd();
+//         else
+//             printf("ERROR IN AV[1]\n");
+//     }
+//     return (1);
+// }

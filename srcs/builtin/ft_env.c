@@ -15,27 +15,27 @@
 
 int	ft_env(t_global *g)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (g->env[++i])
 		printf("%s\n", g->env[i]);
 	return (1);
 }
 
-/*int	main(int ac, char **av, char **envp)
-{
-	t_global g;
-	
-	if (ac != 2)
-	{
-		printf("Not the right number of arguments to launch test.\n");
-		return (0);
-	}
-	g.env = envp;
-	if (!ft_strncmp(av[1], "env", ft_strlen(av[1])))
-			ft_env(&g);
- 	else
-			printf("ERROR IN AV[1]\n");
-	return (1);
-}*/
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_global g;
+
+// 	if (ac != 2)
+// 	{
+// 		printf("Not the right number of arguments to launch test.\n");
+// 		return (0);
+// 	}
+// 	g.env = envp;
+// 	if (!ft_strncmp(av[1], "env", ft_strlen(av[1])))
+// 			ft_env(&g);
+//  	else
+// 			printf("ERROR IN AV[1]\n");
+// 	return (1);
+// }

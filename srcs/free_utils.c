@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 13:00:15 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:58:57 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,29 @@ void	free_list(t_node **list)
 		to_free = save;
 	}
 	*list = NULL;
+}
+
+void	ft_delnode(t_node *node)
+{
+	t_node	*tmp;
+	int		i;
+
+	i = -1;
+	tmp = 0;
+	if (node->n)
+		tmp = node->n;
+	if (node->s)
+		free(node->s)
+	while (node->cmd[++i])
+		free(node->cmd[i])
+	if (node->cmd)
+		free(node->cmd);
+	if (node->filein)
+		free(node->filein);
+	if (node->fileout)
+		free(node->fileout);
+	if (node->limiter)
+		free(node->limiter);
+	free(node);
+	node = tmp;
 }
