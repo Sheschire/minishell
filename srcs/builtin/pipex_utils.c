@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 16:53:45 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:24:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	define_position(t_node *node)
 	t_node	*begin;
 	int		i;
 
-	*tmp = *node;
-	*begin = *node;
+	tmp = node;
+	begin = node;
 	i = 0;
 	while (tmp)
 	{
