@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/28 15:32:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:50:47 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	count_create_redirin(t_node *node)
 				}
 				if (node->limiter)
 					ft_useless_here_doc(node->limiter);
+				node->limiter == NULL;
 				node->filein = hook;
 				close(ret);
 			}
@@ -71,9 +72,15 @@ void	count_create_redirout(t_node *node)
 		{
 			hook = tmp->n->s;
 			if (tmp->token_type == R_FLUX_CREATE)
+			{
 				open(tmp->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+				node->after = R_FLUX_CREATE;
+			}
 			else
+			{
 				open(tmp->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
+				node->after = R_FLUX_APPEND;
+			}
 		}
 		tmp = tmp->n;
 	}
@@ -100,9 +107,8 @@ void	ft_list_cleaner(t_node *node)
 		{
 			if (count_create_redirin(tmp))
 				count_create_redirout(tmp);
-			printf("CMD->here_doc == %i AND CMD->limiter == %s\n CMD->fileout == %s\n CMD->filein == %s\n", tmp->here_doc, tmp->limiter, tmp->fileout, tmp->filein);
 		}
-		tmp = tmp->n;	
+		tmp = tmp->n;
 	}
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/28 15:23:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:50:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,24 @@ void	dup_entry_node(t_global *g, t_node *node, int _pipe[2])
 	int	file;
 
 	file = 0;
-	if (node->after == L_FLUX_CREATE && node->filein)
+	if (node->filein)
 	{
 		file = open(node->filein, O_RDONLY, 0777);
 		dup2(file, STDIN_FILENO);
 	}
-	if (node->after == L_FLUX_APPEND)
-	{
-		if (node->n->n && node->n->n->token_type == HERE_DOC)
-			ft_here_doc(node->n->n->limiter);
-	}
-	if (node->fileout)
+	else if (node->here_doc == 1)
+		ft_here_doc(node->limiter);
+/*	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
 		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		dup2(file, STDOUT_FILENO);
 	}
+	else if (node->after == R_FLUX_APPEND && node->fileout)
+	{
+		fileout = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		dup2(fileout, STDOUT_FILENO);
+	}
+*/
 }
 
 void	child_process(t_global *g, t_node *node)
@@ -106,9 +109,8 @@ void	pipex(t_global *g, t_node *node)
 	cmd_nbr = count_cmd(node);
 	printf("CMD NBR = %i\n", cmd_nbr);
 	ft_list_cleaner(node);
-	print_list(&node);
-	//define_position(node);
-	/*while (++i < cmd_nbr - 1)
+	//print_list(&node);
+	while (++i < cmd_nbr - 1)
 	{
 		child_process(g, node);
 		while (node->n)
@@ -118,7 +120,7 @@ void	pipex(t_global *g, t_node *node)
 				break ;
 		}
 	}
-	parent_proccess(g, node);*/
+	parent_process(g, node);
 	
 	return ;
 }
