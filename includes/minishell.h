@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/28 16:32:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/30 14:13:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_node
 	char			*limiter;
 	int				here_doc;
 	int				_error;
+	int				is_child;
 	struct s_node	*n;
 }                   t_node;
 
@@ -73,7 +74,8 @@ typedef struct s_global
 {
 	char			**env;
 	char			**path;
-	int				_pipe[2][2];
+	int				_pipes[512][2];
+	int				pids[512];
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
@@ -117,10 +119,9 @@ void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
-void	define_position(t_node *node);
-void	ft_here_doc(char *limiter);
+void	ft_here_doc(int i, int _pipes[512][2], char *limiter);
 void	ft_useless_here_doc(char *limiter);
-void	find_cmd_path(char **builtcmd, t_global *g);
+void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);

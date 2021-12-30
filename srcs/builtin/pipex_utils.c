@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/28 16:50:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/30 12:32:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	count_cmd(t_node *node)
 	t_node	*tmp;
 
 	i = 0;
-	if (!node->n)
-		return (1);
 	tmp = node;
+	if (!tmp->n)
+		return (1);
 	while (tmp->n)
 	{
 		if (tmp->token_type == CMD)

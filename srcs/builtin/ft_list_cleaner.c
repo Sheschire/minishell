@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/28 16:50:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/30 12:31:48 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	count_create_redirin(t_node *node)
 				}
 				if (node->limiter)
 					ft_useless_here_doc(node->limiter);
-				node->limiter == NULL;
+				node->limiter = NULL;
 				node->filein = hook;
 				close(ret);
 			}
@@ -54,8 +54,7 @@ int	count_create_redirin(t_node *node)
 				handling_flux_append(node, hook);
 		}
 		tmp = tmp->n;
-
-	}
+	}	
 	return (1);
 }
 
@@ -81,7 +80,7 @@ void	count_create_redirout(t_node *node)
 				open(tmp->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
 				node->after = R_FLUX_APPEND;
 			}
-		}
+		} 
 		tmp = tmp->n;
 	}
 	node->fileout = hook;
@@ -106,8 +105,10 @@ void	ft_list_cleaner(t_node *node)
 		if (tmp->token_type == CMD)
 		{
 			if (count_create_redirin(tmp))
-				count_create_redirout(tmp);
+				count_create_redirout(tmp);	
 		}
+		if (tmp->token_type == CMD && tmp->n->token_type == TOKEN_PIPE)
+			tmp->after = TOKEN_PIPE;
 		tmp = tmp->n;
 	}
 	return ;

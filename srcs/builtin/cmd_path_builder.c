@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 14:40:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/29 12:56:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*testpath_builder(t_global *g, char *cmd, int i)
 **	to free everything and exit the process.
 **/
 
-void	find_cmd_path(char **builtcmd, t_global *g)
+void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 {
 	char	*pathname;
 	int		i;
@@ -83,6 +83,8 @@ void	find_cmd_path(char **builtcmd, t_global *g)
 	execve(pathname, builtcmd, g->env);
 	ft_to_break_free(g->path);
 	ft_to_break_free(builtcmd);
-	exit(0);
+	printf("NODE->IS_CHILD == %i\n", node->is_child);
+	if (node->is_child)
+		exit(0);
 	return ;
 }
