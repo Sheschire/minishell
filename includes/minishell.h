@@ -6,11 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/31 14:46:14 by barodrig         ###   ########.fr       */
-=======
-/*   Updated: 2021/12/09 15:08:20 by tlemesle         ###   ########.fr       */
->>>>>>> tlemesle
+/*   Updated: 2022/01/04 14:22:07 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +28,6 @@
 # include <sys/ioctl.h>
 # include <errno.h>
 # include <signal.h>
-# include <libc.h>
 # include <string.h>
 
 # include "../libft/libft.h"
@@ -43,7 +38,7 @@
 # define TOKEN_FLUX  3
 # define TOKEN_OPTION 4
 # define TOKEN_COMMAND 5
-# define	TOKEN_FILE 6
+# define TOKEN_FILE 6
 # define R_FLUX_CREATE 7
 # define L_FLUX_CREATE 8
 # define R_FLUX_APPEND 9
@@ -124,7 +119,7 @@ void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
-void	ft_here_doc(t_global *g, char *limiter);
+void	ft_here_doc(char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 
