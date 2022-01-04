@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/04 14:22:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:43:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,36 @@ void	ft_useless_here_doc(char *limiter)
 		waitpid(pid, NULL, 0);
 }
 
+void	clean_pipe(int pipe_here[2])
+{
+	pipe_here[0] = 0;
+	pipe_here[1] = 0;
+}
+
 void	ft_here_doc(char *limiter)
 {
 	char	*line;
+	int		_pipe_here[2];
 	int		pid;
 
+	if (pipe(_pipe_here) == -1)
+		write(2, "CA MARCHE PAS FRERE\n", 20);
 	pid = fork();
-	if (pipe(g->_pipe_heredoc) == -1)
-		write(2, "NOT WORKING PIPE\n", 17);
 	if (pid == 0)
 	{
 		while (get_next_line(0, &line))
 		{
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)))
 				exit(1);
-			write(STDIN_FILENO, line, ft_strlen(line));
+			write(_pipe_here[1], line, ft_strlen(line));
 		}
 	}
 	else
 	{
 		waitpid(pid, NULL, 0);
-		close(g->_pipe_heredoc[1]);
-		dup2(g->_pipe_heredoc[0], STDIN_FILENO);
-		close(g->_pipe_heredoc[0]);
-		ft_bzero_pipe(g);
+		close(_pipe_here[1]);
+		dup2(_pipe_here[0], STDIN_FILENO);
+		close(_pipe_here[0]);
+		//clean_pipe(_pipe_here);
 	}
 }
