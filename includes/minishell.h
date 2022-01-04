@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 14:09:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:46:51 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@
 # include <sys/ioctl.h>
 # include <errno.h>
 # include <signal.h>
-# include <libc.h>
 # include <string.h>
-
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
 
@@ -98,6 +96,7 @@ void	reorganize_commandline(t_node **list);
 void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
+void	expand_variables(t_node **list, t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -120,7 +119,7 @@ void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
-void	ft_here_doc(t_global *g, char *limiter);
+//void	ft_here_doc(t_global *g, char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 

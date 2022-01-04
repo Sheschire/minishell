@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/31 16:08:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:20:45 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 	else if (node->here_doc == 1)
 	{
 		close(_pipes[i - 1][0]);
-		ft_here_doc(i, _pipes, node->limiter);
+		//ft_here_doc(i, _pipes, node->limiter);
 	}
 	else
 	{
@@ -78,8 +78,8 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-	else if (node->here_doc == 1)
-		ft_here_doc(i, _pipes, node->limiter);
+//	else if (node->here_doc == 1)
+		//ft_here_doc(i, _pipes, node->limiter);
 	dup_exit_node(node, i, _pipes);
 	find_cmd_path(node->cmd, g, node);
 }

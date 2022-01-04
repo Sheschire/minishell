@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/31 14:49:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:22:03 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_bzero_pipe(t_global *g)
 	return ;
 }
 
-void	ft_here_doc(t_global *g, char *limiter)
+/*void	ft_here_doc(t_global *g, char *limiter)
 {
 	char	*line;
 	int		pid;
@@ -61,4 +61,4 @@ void	ft_here_doc(t_global *g, char *limiter)
 		close(g->_pipe_heredoc[0]);
 		ft_bzero_pipe(g);
 	}
-}
+}*/
