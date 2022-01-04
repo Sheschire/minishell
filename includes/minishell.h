@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/09 11:23:59 by tlemesle         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:08:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
-#include <errno.h>
+# include <errno.h>
 # include <signal.h>
+# include <libc.h>
 
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"

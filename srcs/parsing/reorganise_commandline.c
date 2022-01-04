@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:38:48 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 13:05:03 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/04 12:17:59 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	reparse_flux(t_node **list)
 	t_node	*tmp;
 
 	tmp = *list;
+	tmp->token_type = TOKEN_COMMAND;
 	while (tmp)
 	{
 		find_flux_direction(tmp);
