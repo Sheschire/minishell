@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 13:04:56 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/04 12:55:00 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	analyse_literal_token(t_node *tmp, int command_up)
 {
 	if (!command_up)
 	{
-		if (tmp->n && (tmp->n->token_type == TOKEN_OPTION || tmp->n->token_type == TOKEN_PIPE))
+		if (tmp->n && (tmp->n->token_type == TOKEN_OPTION))
 			if (tmp->token_type != TOKEN_OPTION)
 				tmp->token_type = TOKEN_COMMAND;
 	}

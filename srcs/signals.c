@@ -6,24 +6,24 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 14:02:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:07:05 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void    action(int signum, siginfo_t *info, void *context)
-// {
-// 	(void)context;
-// 	if (signum == SIGINT)
-// 	{
-// 		rl_replace_line("", 0);
-// 		// QUIT RUNNING PROCESS AND PROMPT A NEW LINE
-// 		return ;
-// 	}
-// 	if (signum == SIGQUIT)
-// 		printf("signal is %d\n", signum);
-// }
+void    action(int signum, siginfo_t *info, void *context)
+{
+	(void)context;
+	if (signum == SIGINT)
+	{
+		//rl_replace_line("", 0);
+		// QUIT RUNNING PROCESS AND PROMPT A NEW LINE
+		return ;
+	}
+	if (signum == SIGQUIT)
+		printf("signal is %d\n", signum);
+}
 
 // void    handle_signals(void)
 // {

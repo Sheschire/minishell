@@ -6,7 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/31 14:46:14 by barodrig         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/09 15:08:20 by tlemesle         ###   ########.fr       */
+>>>>>>> tlemesle
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +30,10 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
-# include <string.h>
 # include <errno.h>
 # include <signal.h>
+# include <libc.h>
+# include <string.h>
 
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
@@ -69,7 +74,6 @@ typedef struct s_node
 	int				is_child;
 	struct s_node	*n;
 }					t_node;
-
 typedef struct s_global
 {
 	char			**env;
