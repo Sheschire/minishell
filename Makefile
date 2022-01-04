@@ -22,7 +22,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -g3 -fsanitize=address -Wall -Wextra -Werror -I./includes -lreadline
+CFLAGS			= -Wall -Wextra -Werror -I./includes -lreadline
 
 NAME			= minishell
 

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/30 14:14:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/31 14:49:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,35 @@ void	ft_useless_here_doc(char *limiter)
 		waitpid(pid, NULL, 0);
 }
 
-// DON"T FORGET TO REMOVE VVVVV WRITE(2,...)
+void	ft_bzero_pipe(t_global *g)
+{
+	
+	return ;
+}
 
-void	ft_here_doc(int i, int _pipes[512][2], char *limiter)
+void	ft_here_doc(t_global *g, char *limiter)
 {
 	char	*line;
 	int		pid;
 
 	pid = fork();
+	if (pipe(g->_pipe_heredoc) == -1)
+		write(2, "NOT WORKING PIPE\n", 17);
 	if (pid == 0)
 	{
 		while (get_next_line(0, &line))
 		{
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)))
 				exit(1);
-			write(_pipes[i][1], line, ft_strlen(line));
+			write(g->_pipe_heredoc[1], line, ft_strlen(line));
 		}
 	}
 	else
 	{
 		waitpid(pid, NULL, 0);
-		close(_pipes[i][1]);
-		dup2(_pipes[i][0], STDIN_FILENO);
-		close(_pipes[i][0]);
+		close(g->_pipe_heredoc[1]);
+		dup2(g->_pipe_heredoc[0], STDIN_FILENO);
+		close(g->_pipe_heredoc[0]);
+		ft_bzero_pipe(g);
 	}
 }

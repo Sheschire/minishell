@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/30 14:13:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/31 14:46:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,31 @@
 # include "../libft/libft.h"
 # include "../includes/get_next_line.h"
 
-#define TOKEN_LITERAL  1
-#define TOKEN_PIPE  2
-#define TOKEN_FLUX  3
-#define TOKEN_OPTION 4
-#define TOKEN_COMMAND 5
-#define	TOKEN_FILE 6
-#define R_FLUX_CREATE 7
-#define L_FLUX_CREATE 8
-#define R_FLUX_APPEND 9
-#define L_FLUX_APPEND 10
-#define SINGLE_QUOTE_NODE 11
-#define DOUBLE_QUOTE_NODE 12
-#define TOKEN_ARG 13
-#define	HERE_DOC 14
+# define TOKEN_LITERAL  1
+# define TOKEN_PIPE  2
+# define TOKEN_FLUX  3
+# define TOKEN_OPTION 4
+# define TOKEN_COMMAND 5
+# define	TOKEN_FILE 6
+# define R_FLUX_CREATE 7
+# define L_FLUX_CREATE 8
+# define R_FLUX_APPEND 9
+# define L_FLUX_APPEND 10
+# define SINGLE_QUOTE_NODE 11
+# define DOUBLE_QUOTE_NODE 12
+# define TOKEN_ARG 13
+# define HERE_DOC 14
 
-#define CMD 100
+# define CMD 100
 
-#define ERROR_STDR 1
-#define CMD_NOT_FND 127
-#define WRNG_ARG 128
+# define ERROR_STDR 1
+# define CMD_NOT_FND 127
+# define WRNG_ARG 128
 
 typedef struct s_node
 {
-	char            *s;
-	int             token_type;
+	char			*s;
+	int				token_type;
 	char			**cmd;
 	int				before;
 	int				after;
@@ -68,12 +68,13 @@ typedef struct s_node
 	int				_error;
 	int				is_child;
 	struct s_node	*n;
-}                   t_node;
+}					t_node;
 
 typedef struct s_global
 {
 	char			**env;
 	char			**path;
+	int				_pipe_heredoc[2];
 	int				_pipes[512][2];
 	int				pids[512];
 	t_node			**list;
@@ -89,9 +90,9 @@ void	init_cmd_nodes(t_node **list);
 // PARSER 
 void	input_parser(char *line, t_global *g);
 void	analyse_literal_token(t_node *tmp, int command_up);
-void    find_flux_direction(t_node *tmp);
+void	find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);
-char    *create_quote_node(char *line, t_node **list);
+char	*create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
 void	reorganize_commandline(t_node **list);
 void	check_syntax_error(t_node **list);
@@ -119,7 +120,7 @@ void	pipex(t_global *g, t_node *node);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
-void	ft_here_doc(int i, int _pipes[512][2], char *limiter);
+void	ft_here_doc(t_global *g, char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 
@@ -130,7 +131,7 @@ void	_error_cmd(char **cmd, char *pathname, t_global *g);
 void	_error(int i, char **to_free);
 
 //SIGNALS
-void    handle_signals(void);
+void	handle_signals(void);
 
 void	print_list(t_node **list);
 

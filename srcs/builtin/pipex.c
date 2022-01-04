@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/30 14:14:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2021/12/31 16:08:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 		close(file);
 	}
 	else if (node->here_doc == 1)
-		ft_here_doc(node->limiter);
+		ft_here_doc(i, _pipes, node->limiter);
 	dup_exit_node(node, i, _pipes);
-	find_cmd_path(node->cmd, g, node);	
+	find_cmd_path(node->cmd, g, node);
 }
 
 void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
@@ -104,22 +104,25 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 
 void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
-		if (node->n)
-			node = node->n;
-		while (node->token_type != CMD)
-			node = node->n;
-		node->is_child = 0;
-		dup_entry_node(node, i, _pipes);
+	/*if (node->n)
+		node = node->n;
+	while (node->token_type != CMD)
+		node = node->n;*/
+	node->is_child = 0;
+	dup_entry_node(node, i, _pipes);
+	dup_exit_node(node, i, _pipes);
+	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
+	{
 		close(_pipes[i][1]);
 		close(_pipes[i][0]);
-		dup_exit_node(node, i, _pipes);
-		find_cmd_path(node->cmd, g, node);
+	}
+	find_cmd_path(node->cmd, g, node);
 }	
 
 void	pipex(t_global *g, t_node *node)
 {
 	int	i;
-	int pid;
+	int	pid;
 
 	i = -1;
 	ft_list_cleaner(node);
