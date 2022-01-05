@@ -6,57 +6,95 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 16:49:39 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:16:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parse_env(char *var, char **env)
+int	contain_expand(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == '$')
+			return (1);
+	return (0);
+}
+
+int	tablength(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+char	*parse_env(char *var, char **env)
 {
 	char	*var_value;
 
 	var_value = getenv(var);
 	if (var_value != NULL)
-		var = var_value;
+		return (var_value);
+	return ("");
 }
 
-void	rebuild_string(t_node *tmp, char **env, int i)
+char	*join_expanded(char **new)
 {
 	char	*buf;
-	char	*var;
-	char	*new_string;
+	char	*tmp;
+	int		i;
 
-	buf = NULL;
-	if (i > 0)
+	i = 0;
+	buf = ft_strdup(new[0]);
+	while (new[++i])
 	{
-		buf = ft_substr(tmp->s, 0, i);
-		tmp->s += i + 1;
-		i = 0;
+		tmp = ft_strjoin(buf, new[i]);
+		if (buf)
+			free(buf);
+		buf = tmp;
 	}
-	else
-		tmp->s++;
-	while (tmp->s[i] && tmp->s[i] != '$')
-		i++;
-	var = ft_substr(tmp->s, 0, i);
-	parse_env(var, env);
-	printf("var = %s\n", var);
+	return (buf);
+}
+
+void	rebuild_string(t_node *tmp, char **env)
+{
+	char	**tab;
+	char	**new;
+	int		size;
+	int		i;
+	
+	i = -1;
+	tab = ft_split(tmp->s, '$');
+	size = tablength(tab);
+	new = (char **)malloc(sizeof(char *) * size + 1);
+	new[size] = NULL;
+	if (tmp->s[0] != '$')
+	{
+		i = 0;
+		new[0] = ft_strdup(tab[0]);
+	}
+	while (tab[++i])
+		new[i] = ft_strdup(parse_env(tab[i], env));
+	free(tmp->s);
+	tmp->s = join_expanded(new);
+	free_array(tab);
+	free_array(new);
 }
 
 void	expand_variables(t_node **list, t_global *g)
 {
 	t_node	*tmp;
-	int		i;
 	
 	tmp = *list;
 	while (tmp)
 	{
-		i = -1;
-		while (tmp->s[++i])
-		{
-			if (tmp->s[i] == '$')
-				rebuild_string(tmp, g->env, i);
-		}
+		if (contain_expand(tmp->s) && tmp->token_type != SINGLE_QUOTE_NODE)
+			rebuild_string(tmp, g->env);
 		tmp = tmp->n;
 	}
 }
