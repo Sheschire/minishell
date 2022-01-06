@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 12:55:00 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:40:45 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char    *create_double_quote_node(char *line, t_node **list)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (line[i] && line[i] != '"')
 		i++;
 	if (line[i] == '"' && is_in_set(line[i + 1], " |><"))
@@ -109,7 +109,7 @@ char    *create_quote_node(char *line, t_node **list)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	if (*line == '\'')
 	{
 		while (line[i] && line[i] != '\'')

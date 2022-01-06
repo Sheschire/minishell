@@ -8,6 +8,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/parser_utils.c\
 				  srcs/parsing/expand_variables.c\
 				  srcs/parsing/reorganise_commandline.c\
+				  srcs/parsing/split_charset.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
 				  srcs/signals.c\

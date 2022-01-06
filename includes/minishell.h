@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 15:46:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:00:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ void	_error(int i, char **to_free);
 void	handle_signals(void);
 
 void	print_list(t_node **list);
+char	**split_charset(char const *s, char *set);
 
 #endif
