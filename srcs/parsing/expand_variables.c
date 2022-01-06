@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/05 18:16:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:53:33 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	rebuild_string(t_node *tmp, char **env)
 	i = -1;
 	tab = ft_split(tmp->s, '$');
 	size = tablength(tab);
-	new = (char **)malloc(sizeof(char *) * size + 1);
+	new = (char **)malloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
 	if (tmp->s[0] != '$')
 	{
