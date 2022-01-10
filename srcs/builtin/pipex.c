@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 15:25:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:36:25 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,6 @@ void	pipex(t_global *g, t_node *node)
 		node = node->n;
 	}
 	i = -1;
-	while (++i < g->cmd_nbr - 1)
+	while (++i < g->cmd_nbr)
 		waitpid(g->pids[i], 0, 0);
 }	

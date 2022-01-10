@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 15:25:02 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:26:41 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clean_pipe(int pipe_here[2])
 	pipe_here[1] = 0;
 }
 
-/*void	ft_here_doc(t_global *g, char *limiter)
+void	ft_here_doc(char *limiter)
 {
 	char	*line;
 	int		_pipe_here[2];
@@ -61,4 +61,4 @@ void	clean_pipe(int pipe_here[2])
 		dup2(_pipe_here[0], STDIN_FILENO);
 		close(_pipe_here[0]);
 	}
-}*/
+}
