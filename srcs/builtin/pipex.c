@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/04 14:34:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/04 17:20:03 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
 	{
 		dup2(_pipes[i][1], STDOUT_FILENO);
 		close(_pipes[i][1]);
+		close(_pipes[i][0]);
 	}
 	else
 	{
@@ -67,6 +68,19 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 	}
 }
 
+void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
+{
+	node->is_child = 0;
+	dup_entry_node(node, i, _pipes);
+	dup_exit_node(node, i, _pipes);
+	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
+	{
+		close(_pipes[i][1]);
+		close(_pipes[i][0]);
+	}
+	find_cmd_path(node->cmd, g, node);
+}	
+
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
@@ -89,9 +103,11 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 //	if (node->_error == 1)
 //		return ;
 	node->is_child = 1;
-	if (i == 0)
+	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
-	else if (i > 0)
+	else if (i == g->cmd_nbr - 1)
+		parent_process(g, node, i, _pipes);
+	else
 	{
 		dup_entry_node(node, i, _pipes);
 		dup_exit_node(node, i, _pipes);
@@ -102,33 +118,16 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 	}
 }
 
-void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
-{
-	/*if (node->n)
-		node = node->n;
-	while (node->token_type != CMD)
-		node = node->n;*/
-	node->is_child = 0;
-	dup_entry_node(node, i, _pipes);
-	dup_exit_node(node, i, _pipes);
-	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
-	{
-		close(_pipes[i][1]);
-		close(_pipes[i][0]);
-	}
-	find_cmd_path(node->cmd, g, node);
-}	
-
 void	pipex(t_global *g, t_node *node)
 {
 	int	i;
 	int	pid;
 
-	i = -1;
+	i = 0;
 	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
-	while (++i < g->cmd_nbr - 1)
+	while (i < g->cmd_nbr)
 	{
 		if (node->token_type == CMD && node->_error == 0)
 		{
@@ -139,7 +138,7 @@ void	pipex(t_global *g, t_node *node)
 			if (pid < 0)
 				return ;
 			else if (pid > 0)
-				break ;
+				i++;
 			else
 				child_process(g, node, i, g->_pipes);
 		}
@@ -148,5 +147,4 @@ void	pipex(t_global *g, t_node *node)
 	i = -1;
 	while (++i < g->cmd_nbr - 1)
 		waitpid(g->pids[i], 0, 0);
-	parent_process(g, node, i, g->_pipes);
 }	

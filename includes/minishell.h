@@ -6,10 +6,9 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 14:22:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 14:07:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
