@@ -6,7 +6,9 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/list_utils.c\
 				  srcs/parsing/parser.c\
 				  srcs/parsing/parser_utils.c\
+				  srcs/parsing/expand_variables.c\
 				  srcs/parsing/reorganise_commandline.c\
+				  srcs/parsing/split_charset.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
 				  srcs/signals.c\
@@ -22,7 +24,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I./includes -lreadline
+CFLAGS			= -Wall -Wextra -Werror -I./includes -lreadline #-fsanitize=address
 
 NAME			= minishell
 

@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 19:11:01 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/26 12:12:36 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:07:26 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
 	sub = (char *)malloc(sizeof(char) * len + 1);
 	if (sub == NULL)
 		return (0);
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
 	while (i < len)
 	{
 		sub[i] = s[start];

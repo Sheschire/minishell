@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/10 14:26:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:25:21 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	input_parser(char *line, t_global *g)
 	syntax_parser(&list);
 	if (found_token_flux(&list))
 		reorganize_commandline(&list);
-	group_nodes_into_commands(&list);
+	expand_variables(&list, g);
+//	group_nodes_into_commands(&list);
 	g->list = &list;
 	//print_list(g->list);
 	//free_list(&list); // NEED TO FIND A SOLUTION TO CHECK IF FREE IS NEEDED
