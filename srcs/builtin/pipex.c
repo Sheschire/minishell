@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 15:36:25 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:57:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
 		close(_pipes[i][1]);
 		close(_pipes[i][0]);
 	}
-	else
-	{
-		close(_pipes[i][0]);
-		close(_pipes[i][1]);
-	}
 }
 
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
@@ -71,7 +66,7 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
-	
+
 	node->is_child = 0;
 	if (i != 0)
 		dup_entry_node(node, i, _pipes);
@@ -161,4 +156,4 @@ void	pipex(t_global *g, t_node *node)
 	i = -1;
 	while (++i < g->cmd_nbr)
 		waitpid(g->pids[i], 0, 0);
-}	
+}

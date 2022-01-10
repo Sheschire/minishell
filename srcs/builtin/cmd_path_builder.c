@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/29 12:56:22 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:48:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 	execve(pathname, builtcmd, g->env);
 	ft_to_break_free(g->path);
 	ft_to_break_free(builtcmd);
-	printf("NODE->IS_CHILD == %i\n", node->is_child);
-	if (node->is_child)
-		exit(0);
+	exit(0);
 	return ;
 }
