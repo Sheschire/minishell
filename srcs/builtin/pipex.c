@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/04 17:20:03 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 14:20:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
 	}
 	else if (node->after == R_FLUX_APPEND && node->fileout)
 	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		dup2(file, STDOUT_FILENO);
 		close(file);
 		close(_pipes[i][0]);
@@ -79,7 +79,7 @@ void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 		close(_pipes[i][0]);
 	}
 	find_cmd_path(node->cmd, g, node);
-}	
+}
 
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
