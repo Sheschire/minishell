@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 14:20:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:17:01 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,22 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 
 void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
+	int	file;
+	
 	node->is_child = 0;
-	dup_entry_node(node, i, _pipes);
+	if (i != 0)
+		dup_entry_node(node, i, _pipes);
+	else
+	{
+		if (node->filein)
+		{
+			file = open(node->filein, O_RDONLY, 0777);
+			dup2(file, STDIN_FILENO);
+			close(file);
+		}
+		else if (node->here_doc == 1)
+			ft_here_doc(node->limiter);
+	}
 	dup_exit_node(node, i, _pipes);
 	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
 	{
