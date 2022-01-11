@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 15:57:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/11 13:43:28 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,19 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 	}
 }
 
+int	wait_children(t_global *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g->cmd_nbr)
+	{
+		waitpid(g->pids[i], 0, 0);
+		close(g->_pipes[i][0]);
+	}
+	return (1);
+}
+
 void	pipex(t_global *g, t_node *node)
 {
 	int	i;
@@ -147,13 +160,15 @@ void	pipex(t_global *g, t_node *node)
 			if (pid < 0)
 				return ;
 			else if (pid > 0)
+			{
+				close(g->_pipes[i][1]);
 				i++;
+			}
 			else
 				child_process(g, node, i, g->_pipes);
 		}
 		node = node->n;
 	}
 	i = -1;
-	while (++i < g->cmd_nbr)
-		waitpid(g->pids[i], 0, 0);
+	while (wait_children(g) != 1);
 }
