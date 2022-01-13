@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/11 13:24:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:16:03 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **env)
 	init_global(&g, env);
 	while (1)
 	{
-		handle_signals();
+		//handle_signals();
 		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
 		if (ft_strlen(line))
 		{

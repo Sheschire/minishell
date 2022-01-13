@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/11 13:43:28 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:14:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 		close(_pipes[i][1]);
 		close(_pipes[i][0]);
 	}
-	find_cmd_path(node->cmd, g, node);
+	cmd_path_parent(node->cmd, g, node);
 }
 
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
@@ -114,8 +114,6 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 	node->is_child = 1;
 	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
-	else if (i == g->cmd_nbr - 1)
-		parent_process(g, node, i, _pipes);
 	else
 	{
 		dup_entry_node(node, i, _pipes);
@@ -132,12 +130,29 @@ int	wait_children(t_global *g)
 	int	i;
 
 	i = -1;
-	while (++i < g->cmd_nbr)
+	while (++i < g->cmd_nbr - 1)
 	{
 		waitpid(g->pids[i], 0, 0);
 		close(g->_pipes[i][0]);
 	}
 	return (1);
+}
+
+void	finish_exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
+{
+	while (i < g->cmd_nbr)
+	{
+		if (node->_error)
+			i++;
+		else if (node->token_type == CMD)
+		{
+			parent_process(g, node, i, _pipes);
+			close(g->_pipes[i][1]);
+			i++;
+		}
+		if (node->n)
+			node = node->n;
+	}
 }
 
 void	pipex(t_global *g, t_node *node)
@@ -149,7 +164,7 @@ void	pipex(t_global *g, t_node *node)
 	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
-	while (i < g->cmd_nbr)
+	while (i < g->cmd_nbr - 1)
 	{
 		if (node->token_type == CMD && node->_error == 0)
 		{
@@ -171,4 +186,5 @@ void	pipex(t_global *g, t_node *node)
 	}
 	i = -1;
 	while (wait_children(g) != 1);
+	finish_exec_in_parent(g, node, ++i, g->_pipes);
 }

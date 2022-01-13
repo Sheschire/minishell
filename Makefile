@@ -18,13 +18,17 @@ SRCS			= srcs/minishell.c\
 				  srcs/builtin/here_doc.c\
 				  srcs/builtin/ft_list_cleaner.c\
 				  srcs/builtin/ft_errors_manager.c\
-				  srcs/builtin/cmd_path_builder.c
+				  srcs/builtin/cmd_path_builder.c\
+				  srcs/builtin/ft_cd.c\
+				  srcs/builtin/ft_env.c\
+				  srcs/builtin/ft_exit.c\
+				  srcs/builtin/ft_pwd.c
 
 OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes #-fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -g3 -fsanitize=address
 
 NAME			= minishell
 

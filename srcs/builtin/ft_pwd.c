@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/10 13:52:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:02:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,3 @@ int	ft_pwd(void)
 	free(cwd);
 	return (1);
 }
-
-// int main(int ac, char **av)
-// {
-//     if (ac != 2)
-//     {
-//         printf("Not enough args to test\n");
-//         return (0);
-//     }
-//     else
-//     {
-//         if (!ft_strncmp(av[1], "pwd", ft_strlen(av[1])))
-//             ft_pwd();
-//         else
-//             printf("ERROR IN AV[1]\n");
-//     }
-//     return (1);
-// }

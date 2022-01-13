@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/10 15:26:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:52:34 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,21 @@ void	ft_list_cleaner(t_node *node);
 void	ft_here_doc(char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
+void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
+void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
 void	_error_cmd(char **cmd, char *pathname, t_global *g);
 void	_error(int i, char **to_free);
+
+// BUILTINS
+int		is_builtin(char **builtcmd, t_global *g);
+int		ft_cd(char **builtcmd);
+int		ft_env(t_global *g);
+void	ft_exit(char **builtcmd);
+int		ft_pwd(void);
 
 //SIGNALS
 void	handle_signals(void);

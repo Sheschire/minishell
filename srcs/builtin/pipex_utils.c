@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2021/12/30 12:32:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:11:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,31 @@ void	define_after(t_node *tmp)
 	return ;
 }
 
-void	define_position(t_node *node)
+int	is_builtin(char **builtcmd, t_global *g)
 {
-	t_node	*tmp;
-	t_node	*begin;
-	int		i;
+	int	size;
 
-	tmp = node;
-	begin = node;
-	i = 0;
-	while (tmp)
+	size = ft_strlen(builtcmd[0]);
+	if (!ft_strncmp(builtcmd[0], "cd", size))
 	{
-		if (tmp->token_type == CMD)
-		{
-			if (i != 0)
-				tmp->before = TOKEN_PIPE;
-			define_after(tmp);
-			i++;
-		}
-		if (!tmp->n)
-			break ;
-		tmp = tmp->n;
+		ft_cd(builtcmd);
+		return (1);
 	}
+	else if (!ft_strncmp(builtcmd[0], "pwd", size))
+	{
+		ft_pwd();
+		return (1);
+	}
+	else if (!ft_strncmp(builtcmd[0], "exit", size))
+	{
+		ft_exit(builtcmd);
+		return (1);
+	}
+	else if (!ft_strncmp(builtcmd[0], "env", size))
+	{
+		ft_env(g);
+		return (1);
+	}
+	else
+		return (0);
 }

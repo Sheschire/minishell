@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/10 15:48:22 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:13:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,11 @@ char	*testpath_builder(t_global *g, char *cmd, int i)
 	return (pathname);
 }
 
-/**
-**	"find_cmd_path" will call "testpath_builder"
-**	and try to access() the test path given by it.
-**	In case of failure it will try another test path.
-**	In case of success it will execve() the cmd path
-**	and its flags if there are some.
-**	If there are no path to the cmd, it will launch _error_cmd()
-**	to free everything and exit the process.
-**/
-
-void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
+void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
 {
 	char	*pathname;
 	int		i;
+	int		pid;
 
 	i = -1;
 	pathname = NULL;
@@ -80,9 +71,55 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 		_error_cmd(builtcmd, pathname, g);
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
+	pid = fork();
+	if (pid > 0)
+		execve(pathname, builtcmd, g->env);
+	ft_to_break_free(g->path);
+	ft_to_break_free(builtcmd);
+}
+
+void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node)
+{
+	if (is_builtin(builtcmd, g))
+		return ;
+	else
+		create_cmd_parent(builtcmd, g, node);
+}
+
+/**
+**	"find_cmd_path" will call "testpath_builder"
+**	and try to access() the test path given by it.
+**	In case of failure it will try another test path.
+**	In case of success it will execve() the cmd path
+**	and its flags if there are some.
+**	If there are no path to the cmd, it will launch _error_cmd()
+**	to free everything and exit the process.
+**/
+
+void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
+{
+	char	*pathname;
+	int		i;
+
+	i = -1;
+	pathname = NULL;
+	if (is_builtin(builtcmd, g))
+		exit(0);
+	if (access(builtcmd[0], F_OK) == 0)
+		pathname = builtcmd[0];
+	while (g->path && g->path[++i] && pathname == NULL)
+	{
+		pathname = testpath_builder(g, builtcmd[0], i);
+		if (access(pathname, F_OK) == 0)
+			break ;
+		free(pathname);
+		pathname = NULL;
+	}
+	if (pathname == NULL)
+		_error_cmd(builtcmd, pathname, g);
+	free(builtcmd[0]);
+	builtcmd[0] = pathname;
 	execve(pathname, builtcmd, g->env);
 	ft_to_break_free(g->path);
 	ft_to_break_free(builtcmd);
-	exit(0);
-	return ;
 }
