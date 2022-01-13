@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/13 13:14:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/13 15:13:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 		close(_pipes[i - 1][0]);
 	}
 }
-
-void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
+void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
-
-	node->is_child = 0;
+	
 	if (i != 0)
 		dup_entry_node(node, i, _pipes);
 	else
@@ -83,11 +81,8 @@ void	parent_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 	}
 	dup_exit_node(node, i, _pipes);
 	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
-	{
 		close(_pipes[i][1]);
-		close(_pipes[i][0]);
-	}
-	cmd_path_parent(node->cmd, g, node);
+	close(_pipes[i][0]);
 }
 
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
@@ -140,15 +135,32 @@ int	wait_children(t_global *g)
 
 void	finish_exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
+	int	pid;
+
+	if (i != 0)
+		close(g->_pipes[i - 1][1]);
 	while (i < g->cmd_nbr)
 	{
-		if (node->_error)
-			i++;
-		else if (node->token_type == CMD)
+		if (node->token_type == CMD)
 		{
-			parent_process(g, node, i, _pipes);
+			if (pipe(g->_pipes[i]) == -1)
+				ft_error_pipe(g);
+			node->is_child = 0;
+			parent_process_fd(node, i, _pipes);
+			if (!is_builtin(node->cmd, g))
+			{
+				pid = fork();
+				if (!pid)
+				{
+					close(g->_pipes[i][1]);
+					close(g->_pipes[i][0]);
+					create_cmd_parent(node->cmd, g, node);
+				}
+			}
 			close(g->_pipes[i][1]);
+			close(g->_pipes[i][0]);
 			i++;
+			sleep(1);
 		}
 		if (node->n)
 			node = node->n;
@@ -184,7 +196,6 @@ void	pipex(t_global *g, t_node *node)
 		}
 		node = node->n;
 	}
-	i = -1;
 	while (wait_children(g) != 1);
-	finish_exec_in_parent(g, node, ++i, g->_pipes);
+	finish_exec_in_parent(g, node, i, g->_pipes);
 }
