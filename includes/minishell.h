@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/13 12:52:34 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:42:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,21 @@ void	ft_delnode(t_node *node);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
-int		ft_are_digits(char *str);
-int		count_cmd(t_node *node);
-void	ft_list_cleaner(t_node *node);
 void	ft_here_doc(char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
+
+// EXECUTION UTILS
+int		wait_children(t_global *g);
+int		ft_are_digits(char *str);
+int		count_cmd(t_node *node);
+void	ft_list_cleaner(t_node *node);
+
+// FD MANAGEMENT
+void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
+void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
@@ -131,7 +138,8 @@ void	_error_cmd(char **cmd, char *pathname, t_global *g);
 void	_error(int i, char **to_free);
 
 // BUILTINS
-int		is_builtin(char **builtcmd, t_global *g);
+int		is_builtin(char **builtcmd);
+int		is_builtin_exec(char **builtcmd, t_global *g);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
 void	ft_exit(char **builtcmd);

@@ -6,62 +6,12 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/13 15:13:59 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:45:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
-{
-	int	file;
-
-	file = 0;
-	if (node->after == R_FLUX_CREATE && node->fileout)
-	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		dup2(file, STDOUT_FILENO);
-		close(file);
-		close(_pipes[i][0]);
-	}
-	else if (node->after == R_FLUX_APPEND && node->fileout)
-	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
-		dup2(file, STDOUT_FILENO);
-		close(file);
-		close(_pipes[i][0]);
-	}
-	else if (node->is_child == 1)
-	{
-		dup2(_pipes[i][1], STDOUT_FILENO);
-		close(_pipes[i][1]);
-		close(_pipes[i][0]);
-	}
-}
-
-void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
-{
-	int	file;
-
-	file = 0;
-	if (node->filein)
-	{
-		close(_pipes[i - 1][0]);
-		file = open(node->filein, O_RDONLY, 0777);
-		dup2(file, STDIN_FILENO);
-		close(file);
-	}
-	else if (node->here_doc == 1)
-	{
-		close(_pipes[i - 1][0]);
-		ft_here_doc(node->limiter);
-	}
-	else
-	{
-		dup2(_pipes[i - 1][0], STDIN_FILENO);
-		close(_pipes[i - 1][0]);
-	}
-}
 void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
@@ -120,20 +70,7 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 	}
 }
 
-int	wait_children(t_global *g)
-{
-	int	i;
-
-	i = -1;
-	while (++i < g->cmd_nbr - 1)
-	{
-		waitpid(g->pids[i], 0, 0);
-		close(g->_pipes[i][0]);
-	}
-	return (1);
-}
-
-void	finish_exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
+void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 	int	pid;
 
@@ -151,11 +88,7 @@ void	finish_exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 			{
 				pid = fork();
 				if (!pid)
-				{
-					close(g->_pipes[i][1]);
-					close(g->_pipes[i][0]);
 					create_cmd_parent(node->cmd, g, node);
-				}
 			}
 			close(g->_pipes[i][1]);
 			close(g->_pipes[i][0]);
@@ -176,7 +109,7 @@ void	pipex(t_global *g, t_node *node)
 	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
-	while (i < g->cmd_nbr - 1)
+	while (i < g->cmd_nbr)
 	{
 		if (node->token_type == CMD && node->_error == 0)
 		{
@@ -191,11 +124,11 @@ void	pipex(t_global *g, t_node *node)
 				close(g->_pipes[i][1]);
 				i++;
 			}
-			else
+			else if (pid == 0)
 				child_process(g, node, i, g->_pipes);
 		}
 		node = node->n;
 	}
-	while (wait_children(g) != 1);
-	finish_exec_in_parent(g, node, i, g->_pipes);
+	exec_in_parent(g, node, i, g->_pipes);
+	wait_children(g);
 }

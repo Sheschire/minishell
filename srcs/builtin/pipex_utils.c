@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/13 13:11:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:45:23 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,42 +53,24 @@ int	count_cmd(t_node *node)
 	return (i);
 }
 
-void	define_after_next(t_node *tmp)
+int	is_builtin(char **builtcmd)
 {
-	if (tmp->n && tmp->n->token_type == R_FLUX_APPEND)
-	{
-		tmp->after = R_FLUX_APPEND;
-		tmp->fileout = (tmp->n->n)->s;
-	}
-	else if (tmp->n && tmp->n->token_type == L_FLUX_APPEND)
-	{
-		tmp->after = L_FLUX_APPEND;
-		tmp->limiter = (tmp->n->n)->s;
-	}
+	int	size;
+
+	size = ft_strlen(builtcmd[0]);
+	if (!ft_strncmp(builtcmd[0], "cd", size))
+		return (1);
+	else if (!ft_strncmp(builtcmd[0], "pwd", size))
+		return (1);
+	else if (!ft_strncmp(builtcmd[0], "exit", size))
+		return (1);
+	else if (!ft_strncmp(builtcmd[0], "env", size))
+		return (1);
 	else
-		tmp->after = 0;
+		return (0);
 }
 
-void	define_after(t_node *tmp)
-{
-	if (tmp->n && tmp->n->token_type == R_FLUX_CREATE)
-	{
-		tmp->after = R_FLUX_CREATE;
-		tmp->fileout = (tmp->n->n)->s;
-	}
-	else if (tmp->n && tmp->n->token_type == L_FLUX_CREATE)
-	{
-		tmp->after = L_FLUX_CREATE;
-		tmp->filein = (tmp->n->n)->s;
-	}
-	else if (tmp->n && tmp->n->token_type == TOKEN_PIPE)
-		tmp->after = TOKEN_PIPE;
-	else
-		define_after_next(tmp);
-	return ;
-}
-
-int	is_builtin(char **builtcmd, t_global *g)
+int	is_builtin_exec(char **builtcmd, t_global *g)
 {
 	int	size;
 
@@ -115,4 +97,17 @@ int	is_builtin(char **builtcmd, t_global *g)
 	}
 	else
 		return (0);
+}
+
+void	wait_children(t_global *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g->cmd_nbr - 1)
+	{
+		waitpid(g->pids[i], 0, 0);
+		close(g->_pipes[i][0]);
+	}
+	return (1);
 }

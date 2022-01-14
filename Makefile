@@ -22,7 +22,8 @@ SRCS			= srcs/minishell.c\
 				  srcs/builtin/ft_cd.c\
 				  srcs/builtin/ft_env.c\
 				  srcs/builtin/ft_exit.c\
-				  srcs/builtin/ft_pwd.c
+				  srcs/builtin/ft_pwd.c\
+				  srcs/builtin/ft_dupper.c
 
 OBJS			= $(SRCS:.c=.o)
 
