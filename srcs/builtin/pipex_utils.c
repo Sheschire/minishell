@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/14 11:45:23 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:47:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ void	wait_children(t_global *g)
 		waitpid(g->pids[i], 0, 0);
 		close(g->_pipes[i][0]);
 	}
-	return (1);
+	return ;
 }
