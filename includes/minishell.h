@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 11:47:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 13:58:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,16 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
 
+// PROCESS
+void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2]);
+void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
+
 // EXECUTION UTILS
 void	wait_children(t_global *g);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
+int		check_pid(int pid, int i, t_global *g, t_node *node);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);

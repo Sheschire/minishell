@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/14 10:44:38 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 13:28:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
 	execve(pathname, builtcmd, g->env);
-	ft_to_break_free(g->path);
-	ft_to_break_free(builtcmd);
+	//ft_to_break_free(g->path);
+	//ft_to_break_free(builtcmd);
 }
 
 /**
@@ -110,6 +110,6 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
 	execve(pathname, builtcmd, g->env);
-	ft_to_break_free(g->path);
-	ft_to_break_free(builtcmd);
+	//ft_to_break_free(g->path);
+	//ft_to_break_free(builtcmd);
 }
