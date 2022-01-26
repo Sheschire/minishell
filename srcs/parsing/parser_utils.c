@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/06 12:40:45 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/14 15:48:09 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_syntax_error(t_node **list)
 	tmp = *list;
 	while (tmp)
 	{
-		if (is_redir(tmp) && (!tmp->n || is_redir(tmp->n)))
+		if (is_redir(tmp) && (!tmp->n || is_redir(tmp->n) || tmp->n->token_type == TOKEN_PIPE))
 			printf("SYNTAX ERROR\n");
 		if (!tmp->n && tmp->token_type == TOKEN_PIPE)
 			printf("SYNTAX ERROR\n");
@@ -73,12 +73,12 @@ void    find_flux_direction(t_node *tmp)
 		tmp->token_type = R_FLUX_APPEND;
 	if (!ft_strcmp(tmp->s, "<"))
 		tmp->token_type = L_FLUX_CREATE;
-	if (tmp->n && is_redir(tmp))
+	if (tmp->n && is_redir(tmp) && tmp->n->token_type != TOKEN_PIPE)
 		tmp->n->token_type = TOKEN_FILE;
 	if (!ft_strcmp(tmp->s, "<<"))
 	{
 		tmp->token_type = L_FLUX_APPEND;
-		if (tmp->n)
+		if (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 			tmp->n->token_type = HERE_DOC;
 	}
 }
@@ -132,6 +132,37 @@ char    *create_quote_node(char *line, t_node **list)
 	return (line);
 }
 
+int	find_matching_quotes(char *s)
+{
+	int	i;
+	int	s_quote;
+	int	d_quote;
+	
+	i = -1;
+	s_quote = 0;
+	d_quote = 0;
+	while (s[++i])
+	{
+		if (s[i] == '\'')
+			s_quote++;
+		if (s[i] == '\"')
+			d_quote++;
+	}
+	if ((s_quote % 2 == 0) && (d_quote % 2 == 0))
+		return (1);
+	return (0);
+}
+
+int	find_quote_pair(char *line, char c, int i, t_node **list)
+{
+	while (line[i] && line[i] != c)
+		i++;
+	if (line[i] == c)
+		return (i + 1);
+	else
+		return (1);
+}
+
 char	*create_option_node(char *line, t_node **list)
 {
 	int		i;
@@ -145,8 +176,12 @@ char	*create_option_node(char *line, t_node **list)
 	}
 	else
 	{
-		while (find_token_type(line[i]) == TOKEN_LITERAL)
+		while (find_token_type(line[i]))
+		{
+			if (line[i] == '\'' || line[i] == '\"')
+				i += find_quote_pair(line, line[i], i + 1, list);
 			i++;
+		}
 		newnode_add_back(ft_substr(line, 0, i), TOKEN_OPTION, list);
 		return (line + i);
 	}
@@ -157,13 +192,13 @@ int		find_token_type(char c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (TOKEN_LITERAL);
-	if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$')
+	if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$' || c == '-')
 		return (TOKEN_LITERAL);
 	if (c == '|')
 		return (TOKEN_PIPE);
 	if (c == '>' || c == '<')
 		return (TOKEN_FLUX);
-	if (c == '-')
-		return (TOKEN_OPTION);
+	// if (c == '-')
+	// 	return (TOKEN_OPTION);
 	return (0);
 }

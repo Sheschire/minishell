@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/10 16:44:32 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:06:34 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@ void	lexer_parser(char *line, t_node **list)
 		if (find_token_type(*line))
 		{
 			current_token_type = find_token_type(*line);
-			if (current_token_type == TOKEN_OPTION)
-				line = create_option_node(line, list);
-			if (*line == '\'' || *line == '"')
-				line = create_quote_node(line, list);
+			// if (current_token_type == TOKEN_OPTION)
+			// 	line = create_option_node(line, list);
+			// if (*line == '\'' || *line == '"')
+			// 	line = create_quote_node(line, list);
 			while (find_token_type(line[i]) == current_token_type)
-				i++;
+			{
+				if (line[i] == '\'' || line[i] == '\"')
+					i = find_quote_pair(line, line[i], i + 1, list);
+				if (find_token_type(line[i]) == current_token_type)
+					i++;
+			}
 			if (*line && find_token_type(*line))
 				newnode_add_back(ft_substr(line, 0, i), current_token_type, list);
 			line += i;
@@ -53,8 +58,8 @@ void	syntax_parser(t_node **list)
 	}
 	while (tmp)
 	{
-		if (tmp->token_type == TOKEN_LITERAL)
-			analyse_literal_token(tmp, command_up);
+	//	if (tmp->token_type == TOKEN_LITERAL)
+	//		analyse_literal_token(tmp, command_up);
 		if (tmp->token_type == TOKEN_FLUX)
 			find_flux_direction(tmp);
 		if (tmp->token_type == TOKEN_PIPE)
@@ -76,9 +81,9 @@ void	input_parser(char *line, t_global *g)
 	syntax_parser(&list);
 	if (found_token_flux(&list))
 		reorganize_commandline(&list);
-	//expand_variables(&list, g);
-	group_nodes_into_commands(&list);
+	expand_variables(&list, g);
+	// group_nodes_into_commands(&list);
 	g->list = &list;
-	//print_list(g->list);
+	print_list(g->list);
 	//free_list(&list); // NEED TO FIND A SOLUTION TO CHECK IF FREE IS NEEDED
 }

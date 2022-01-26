@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/06 15:14:45 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:56:48 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,29 @@ void	rebuild_string(t_node *tmp, char **env)
 	free_array(new);
 }
 
+int	is_dollar_between_single_quotes(t_node *tmp)
+{
+	int	i;
+	int	dollar;
+	
+	i = -1;
+	dollar = 0;
+	while (tmp->s[++i])
+	{
+		if (tmp->s[i] == '\'')
+		{
+			while (tmp->s[++i] && tmp->s[i] != '\'')
+				if (tmp->s[i] == '$')
+					dollar++;
+			if (tmp->s[i] == '\'')
+				return (1);
+			else
+				return (0);
+		}
+	}
+	return (0);
+}
+
 void	expand_variables(t_node **list, t_global *g)
 {
 	t_node	*tmp;
@@ -93,8 +116,12 @@ void	expand_variables(t_node **list, t_global *g)
 	tmp = *list;
 	while (tmp)
 	{
-		if (contain_expand(tmp->s) && tmp->token_type != SINGLE_QUOTE_NODE)
-			rebuild_string(tmp, g->env);
+		if (contain_expand(tmp->s))
+			if (!is_dollar_between_single_quotes(tmp))
+			{
+				//clear_quotes(tmp);
+				rebuild_string(tmp, g->env);
+			}
 		tmp = tmp->n;
 	}
 }
