@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 17:12:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 17:12:26 by barodrig         ###   ########.fr       */
+/*   Created: 2021/11/28 16:06:35 by barodrig          #+#    #+#             */
+/*   Updated: 2022/01/13 13:02:00 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
+#include "../../libft/libft.h"
 
-t_list	*ft_lstnew(void *content)
+int	ft_env(t_global *g)
 {
-	t_list	*new;
+	int	i;
 
-	new = (t_list *)calloc(sizeof(t_list));
-	if (new == NULL)
-		return (0);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	i = -1;
+	while (g->env[++i])
+		printf("%s\n", g->env[i]);
+	return (1);
 }

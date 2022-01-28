@@ -3,44 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/11/29 10:34:50 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:45:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	**get_path(char **env)
-{
-	char	**path;
-	char	*path_string;
-
-	path_string = getenv("PATH");
-	path = ft_split(path_string, ':');
-	return (path);
-}
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
 
 int	main(int ac, char **av, char **env)
 {
+	char		*line;
+	t_global	g;
+
 	(void)ac;
 	(void)av;
-	char		**path;
-	char	*line;
-
-	path = NULL;
-	if (!*env)
-		return (0); // TO DO : generate env manually and continue program
-	path = get_path(env);
+	init_global(&g, env);
 	while (1)
 	{
+		handle_signals();
 		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
 		if (ft_strlen(line))
 		{
 			add_history((const char *)line);
-			input_parser(line);
+			input_parser(line, &g);
+			pipex(&g, (*g.list));
 		}
+		free(line);
 	}
-  	return 0;
+	return (0);
 }
