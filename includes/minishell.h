@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/26 14:29:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:22:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_global
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
+	int				cp_stdin;
+	int				cp_stdout;
 }					t_global;
 
 // MAIN
@@ -132,10 +134,12 @@ int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
+void	ft_close_pipe(t_global *g, int i);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
+void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
@@ -145,7 +149,7 @@ void	_error(int i, char **to_free);
 
 // BUILTINS
 int		is_builtin(char **builtcmd);
-int		is_builtin_exec(char **builtcmd, t_global *g);
+int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
 void	ft_exit(char **builtcmd);

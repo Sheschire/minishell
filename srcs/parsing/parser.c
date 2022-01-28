@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 16:06:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:46:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	input_parser(char *line, t_global *g)
 	if (found_token_flux(&list))
 		reorganize_commandline(&list);
 	expand_variables(&list, g);
-	// group_nodes_into_commands(&list);
+	group_nodes_into_commands(&list);
 	g->list = &list;
-	print_list(g->list);
+	//print_list(g->list);
 	//free_list(&list); // NEED TO FIND A SOLUTION TO CHECK IF FREE IS NEEDED
 }

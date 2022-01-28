@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/14 11:47:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:13:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,26 @@ int	is_builtin(char **builtcmd)
 		return (0);
 }
 
-int	is_builtin_exec(char **builtcmd, t_global *g)
+int	is_builtin_exec(char **builtcmd, t_global *g, int i)
 {
-	int	size;
-
-	size = ft_strlen(builtcmd[0]);
-	if (!ft_strncmp(builtcmd[0], "cd", size))
+	if (i != INT_MAX && is_builtin(builtcmd))
+		ft_close_pipe(g, i);
+	if (!ft_strncmp(builtcmd[0], "cd", ft_strlen(builtcmd[0])))
 	{
 		ft_cd(builtcmd);
 		return (1);
 	}
-	else if (!ft_strncmp(builtcmd[0], "pwd", size))
+	else if (!ft_strncmp(builtcmd[0], "pwd", ft_strlen(builtcmd[0])))
 	{
 		ft_pwd();
 		return (1);
 	}
-	else if (!ft_strncmp(builtcmd[0], "exit", size))
+	else if (!ft_strncmp(builtcmd[0], "exit", ft_strlen(builtcmd[0])))
 	{
 		ft_exit(builtcmd);
 		return (1);
 	}
-	else if (!ft_strncmp(builtcmd[0], "env", size))
+	else if (!ft_strncmp(builtcmd[0], "env", ft_strlen(builtcmd[0])))
 	{
 		ft_env(g);
 		return (1);
@@ -99,15 +98,22 @@ int	is_builtin_exec(char **builtcmd, t_global *g)
 		return (0);
 }
 
-void	wait_children(t_global *g)
+void	ft_close_pipe(t_global *g, int i)
 {
-	int	i;
-
-	i = -1;
-	while (++i < g->cmd_nbr - 1)
+	if (i == INT_MAX)
+		i = 0;
+	else
 	{
-		waitpid(g->pids[i], 0, 0);
 		close(g->_pipes[i][0]);
+		close(g->_pipes[i][1]);
+		return ;
 	}
-	return ;
+	while (i < g->cmd_nbr)
+	{
+		if (g->_pipes[i][1])
+			close(g->_pipes[i][1]);
+		if (g->_pipes[i][0])
+			close(g->_pipes[i][0]);
+		i++;
+	}
 }
