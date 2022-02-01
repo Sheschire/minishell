@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 13:55:33 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:48:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 void	expand_variables(t_node **list, t_global *g);
 int		find_quote_pair(char *line, char c, int i, t_node **list);
+void	quote_parser(t_node **list, t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);

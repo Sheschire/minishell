@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/11 13:27:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/01/18 11:37:28 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void    action(int signum, siginfo_t *info, void *context)
 	(void)context;
 	if (signum == SIGINT)
 	{
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		return ;
 	}
 	else
-		printf("signal is %d\n", signum);
+		exit(0);
 }
 
 void    handle_signals(void)

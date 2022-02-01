@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 16:06:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:06:33 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	lexer_parser(char *line, t_node **list)
 {
 	int		current_token_type;
 	int		i;
+
 	
 	while (*line) 
 	{
@@ -78,10 +79,11 @@ void	input_parser(char *line, t_global *g)
 
 	list = 0;
 	lexer_parser(line, &list);
-	syntax_parser(&list);
-	if (found_token_flux(&list))
-		reorganize_commandline(&list);
-	expand_variables(&list, g);
+//	syntax_parser(&list);
+//	if (found_token_flux(&list))
+//		reorganize_commandline(&list);
+//	quote_parser(&list, g);
+	//expand_variables(&list, g);
 	// group_nodes_into_commands(&list);
 	g->list = &list;
 	print_list(g->list);
