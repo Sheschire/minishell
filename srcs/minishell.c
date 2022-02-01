@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/28 13:45:51 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:41:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ int	main(int ac, char **av, char **env)
 	{
 		handle_signals();
 		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
+		g.cp_stdin = dup(STDIN_FILENO);
+		g.cp_stdout = dup(STDOUT_FILENO);
 		if (ft_strlen(line))
 		{
 			add_history((const char *)line);
 			input_parser(line, &g);
 			pipex(&g, (*g.list));
+			dup_cp_std(&g);
 		}
 		free(line);
 	}

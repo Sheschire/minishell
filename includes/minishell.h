@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/28 15:22:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:41:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_node
 	int				is_child;
 	struct s_node	*n;
 }					t_node;
+
 typedef struct s_global
 {
 	char			**env;
@@ -82,6 +83,7 @@ typedef struct s_global
 }					t_global;
 
 // MAIN
+void	dup_cp_std(t_global *g);
 void	init_global(t_global *g, char **env);
 char	**get_path(char **env);
 void	init_cmd_nodes(t_node **list);

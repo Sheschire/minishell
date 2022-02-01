@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 12:47:09 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:22:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	dup_cp_std(t_global *g)
+{
+	dup2(g->cp_stdin, STDIN_FILENO);
+	close(g->cp_stdin);
+	dup2(g->cp_stdout, STDOUT_FILENO);
+	close(g->cp_stdout);
+}
 
 char	**get_path(char **env)
 {
