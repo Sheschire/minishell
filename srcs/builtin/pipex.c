@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/01 14:04:04 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:48:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	wait_pids(t_global *g)
 
 	i = -1;
 	while (++i < g->cmd_nbr)
-		waitpid(g->pids[i], 0, 0);
+		waitpid(g_sig.pids[i], 0, 0);
 }
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
@@ -57,7 +57,7 @@ void	pipex(t_global *g, t_node *node)
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
 			pid = fork();
-			g->pids[i] = pid;
+			g_sig.pids[i] = pid;
 			i = check_pid(pid, i, g, node);
 		}
 		node = node->n;

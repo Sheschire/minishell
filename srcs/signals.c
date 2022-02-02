@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 11:33:57 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:50:43 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void    action(int signum, siginfo_t *info, void *context)
 	if (signum == SIGINT)
 	{
 		kill_pids();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
+		// rl_on_new_line();
+		// rl_redisplay();
 		return ;
 	}
 	else
