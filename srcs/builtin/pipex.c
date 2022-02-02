@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/02 14:51:03 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 15:14:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	pipex(t_global *g, t_node *node)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
+			node->is_child = 1;
 			pid = fork();
 			g_sig.pids[i] = pid;
 			i = check_pid(pid, i, g, node);

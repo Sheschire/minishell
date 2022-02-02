@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 14:02:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 15:14:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 	int	file;
 
 	file = 0;
-	if (node->filein)
+	if (node->filein && node->is_child)
 	{
 		file = open(node->filein, O_RDONLY, 0777);
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}
-	else if (node->here_doc == 1)
+	else if (node->here_doc == 1 && node->is_child)
 		ft_here_doc(node->limiter);
-	dup_exit_node(node, i, _pipes);
+	if (!node->is_child)
+		dup_exit_node(node, i, _pipes);
 	find_cmd_path(node->cmd, g, node);
 }
 
@@ -33,7 +34,6 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 //	if (node->_error == 1)
 //		return ;
-	node->is_child = 1;
 	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
 	else
