@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/14 12:06:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:38:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	count_create_redirin(t_node *node)
 				if (ret == -1)
 				{
 					node->_error = 1;
+					g_sig.exit_status = 1;
 					printf("%s: No such file or directory\n", hook);
 					return (0);
 				}
@@ -54,7 +55,7 @@ int	count_create_redirin(t_node *node)
 				handling_flux_append(node, hook);
 		}
 		tmp = tmp->n;
-	}	
+	}
 	return (1);
 }
 

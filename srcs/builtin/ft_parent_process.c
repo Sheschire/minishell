@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parent_process.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/02 11:49:25 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:48:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 	pid = 0;
 	while (i < g->cmd_nbr)
 	{
-		if (node->token_type == CMD)
+		if (node->token_type == CMD && !node->_error)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
