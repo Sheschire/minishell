@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/10 17:16:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:03:35 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ void	ft_delnode(t_node *node)
 		free(node->limiter);
 	free(node);
 	node = 0;
+}
+
+void	free_exec(t_global *g)
+{
+	int	i;
+
+	i = -1;
+	while (g_sig.pids[++i])
+		g_sig.pids[i] = 0;
 }

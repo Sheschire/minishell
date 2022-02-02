@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 11:33:40 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:13:31 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int		found_token_flux(t_node **list);
 void	free_list(t_node **list);
 void	free_array(char **array);
 void	ft_delnode(t_node *node);
+void	free_exec(t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
