@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/18 15:53:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 07:40:28 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*parse_env(char *var, char **env)
 		return (var_value);
 	return ("");
 }
+din file descriptor to return end-of-file. Any input-reading function will reflect this, and you can then exit the program when you reach end-of-file. By the way, the C example should work verbatim in C++, though it may not be the most idiomatic C++.
 
-int	find_pair(char *s, int i, int j, char c)
-{
+Is this homework, by the way? If so, ple
 	while (s[++j])
 	{
 		if (s[j] == c)
@@ -170,7 +170,12 @@ void	quote_parser(t_node **list, t_global *g)
 	tmp = *list;
 	while (tmp)
 	{
-		substr_without_quotes(tmp->s, g);
+		if (!strcmp(tmp->s, "$?"))
+		{
+			free(tmp->s);
+			tmp->s = ft_itoa(g_sig.exit_status);
+		}
+		//substr_without_quotes(tmp->s, g);
 		tmp = tmp->n;
 	}
 }
