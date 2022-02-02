@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 11:13:37 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:31:27 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdio.h>
+
+t_signal	g_sig;
 
 void	dup_cp_std(t_global *g)
 {

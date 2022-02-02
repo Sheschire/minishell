@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 11:12:59 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:33:40 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@
 # define CMD_NOT_FND 127
 # define WRNG_ARG 128
 
+typedef struct	s_signal
+{
+	int	exit_status;
+	int	pids[512];
+}				t_signal;
+
 typedef struct s_node
 {
 	char			*s;
@@ -67,19 +73,21 @@ typedef struct s_node
 	int				is_child;
 	struct s_node	*n;
 }					t_node;
+
 typedef struct s_global
 {
 	char			**env;
 	char			**path;
 	int				_pipe_heredoc[2];
 	int				_pipes[512][2];
-	int				pids[512];
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
 	int				cp_stdin;
 	int				cp_stdout;
 }					t_global;
+
+extern t_signal	g_sig;
 
 // MAIN
 void	init_global(t_global *g, char **env);
