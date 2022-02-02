@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/18 16:03:52 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:09:02 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int		find_token_type(char c)
 		return (TOKEN_FLUX);
 	if (c == ' ')
 		return (0);
-	else
+	if (c >= 32 && c <= 127)
 		return (TOKEN_LITERAL);
 	// if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$' || c == '-')
 	// 	return (TOKEN_LITERAL);
