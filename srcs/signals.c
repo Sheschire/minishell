@@ -6,35 +6,51 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 11:50:43 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:55:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	kill_pids()
+int	kill_pids()
 {
 	int	i;
 
 	i = -1;
 	while (g_sig.pids[++i])
 		kill(g_sig.pids[i], SIGTERM);
+	return (i);
 }
 
 void    action(int signum, siginfo_t *info, void *context)
 {
+	int	kill_ret;
 	(void)context;
+
 	if (signum == SIGINT)
 	{
-		kill_pids();
-		// rl_replace_line("", 0);
+		kill_ret = kill_pids();
 		write(1, "\n", 1);
-		// rl_on_new_line();
-		// rl_redisplay();
+		//TO DO : INSERT FREE FUNCTION
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		if (!kill_ret)
+			rl_redisplay();
 		return ;
 	}
-	else
-		exit(0);
+	else if (signum == SIGQUIT)
+	{
+		kill_ret = kill_pids();
+		if (kill_ret)
+		{
+			write(2, "Quitter (core dumped)", ft_strlen("Quitter (core dumped)"));
+			write(1, "\n", 1);
+		}
+	}
+	else // TO DO : HANDLE OTHER CONTROLS
+	{
+		
+	}
 }
 
 void    handle_signals(void)
