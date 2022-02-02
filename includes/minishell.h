@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/18 14:48:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:12:59 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_global
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
+	int				cp_stdin;
+	int				cp_stdout;
 }					t_global;
 
 // MAIN
@@ -123,15 +125,22 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
 
+// PROCESS
+void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2]);
+void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
+
 // EXECUTION UTILS
 void	wait_children(t_global *g);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
+int		check_pid(int pid, int i, t_global *g, t_node *node);
+void	ft_close_pipe(t_global *g, int i);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
+void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
@@ -141,7 +150,7 @@ void	_error(int i, char **to_free);
 
 // BUILTINS
 int		is_builtin(char **builtcmd);
-int		is_builtin_exec(char **builtcmd, t_global *g);
+int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
 void	ft_exit(char **builtcmd);
