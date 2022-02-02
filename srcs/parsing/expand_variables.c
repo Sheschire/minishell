@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/18 15:53:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 15:35:45 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,12 @@ void	quote_parser(t_node **list, t_global *g)
 	tmp = *list;
 	while (tmp)
 	{
-		substr_without_quotes(tmp->s, g);
+		if (!strcmp(tmp->s, "$?"))
+		{
+			free(tmp->s);
+			tmp->s = ft_itoa(g_sig.exit_status);
+		}
+		//substr_without_quotes(tmp->s, g);
 		tmp = tmp->n;
 	}
 }
