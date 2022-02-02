@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 14:13:24 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:13:26 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	if (ac >= 2)
+	{
+		printf("NO SUCH FILE OR DIRECTORY\n"); // REPLACE WITH RETURN ERROR
+		exit (0);
+	}
 	init_global(&g, env);
+	line = NULL;
+	g.cp_stdin = dup(STDIN_FILENO);
+	g.cp_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
 		handle_signals();
 		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
-		g.cp_stdin = dup(STDIN_FILENO);
-		g.cp_stdout = dup(STDOUT_FILENO);
 		if (ft_strlen(line))
 		{
 			add_history((const char *)line);

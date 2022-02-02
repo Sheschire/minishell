@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 15:17:42 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:05:22 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ void    action(int signum, siginfo_t *info, void *context)
 		}
 		else
 			ft_putstr_fd("\b\b  \b\b", 1);
-	}
-	else // TO DO : HANDLE OTHER CONTROLS
-	{
-		
 	}
 }
 
