@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/08 12:47:09 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:33:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_global(t_global *g, char **env)
 	g->list = NULL;
 	g->cmd_nbr = 0;
 	g->status = 0;
+	g_sig.exit_status = 0;
 }
 
 void	init_cmd_nodes(t_node **list)

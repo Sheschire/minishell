@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 14:38:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:18:07 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
 		pathname = NULL;
 	}
 	if (pathname == NULL)
-		_error_cmd(builtcmd, pathname, g);
+		_error_cmd(builtcmd, pathname, g, node);
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
 	execve(pathname, builtcmd, g->env);
@@ -106,7 +106,7 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 		pathname = NULL;
 	}
 	if (pathname == NULL)
-		_error_cmd(builtcmd, pathname, g);
+		_error_cmd(builtcmd, pathname, g, node);
 	free(builtcmd[0]);
 	builtcmd[0] = pathname;
 	execve(pathname, builtcmd, g->env);

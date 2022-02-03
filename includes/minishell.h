@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 14:13:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:09:55 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	free_list(t_node **list);
 void	free_array(char **array);
 void	ft_delnode(t_node *node);
 void	free_exec(t_global *g);
+void	free_minishell(t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
@@ -145,6 +146,7 @@ int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
+char	*testpath_builder(t_global *g, char *cmd, int i);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
@@ -154,7 +156,7 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
-void	_error_cmd(char **cmd, char *pathname, t_global *g);
+void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node);
 void	_error(int i, char **to_free);
 
 // BUILTINS
@@ -162,7 +164,7 @@ int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
-void	ft_exit(char **builtcmd);
+void	ft_exit(char **builtcmd, t_global *g);
 int		ft_pwd(void);
 
 //SIGNALS

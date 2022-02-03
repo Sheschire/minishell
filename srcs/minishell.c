@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 02:55:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:28:39 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history((const char *)line);
 			input_parser(line, &g);
-			pipex(&g, (*g.list));
+			//pipex(&g, (*g.list));
 			dup_cp_std(&g);
 			free_exec(&g);
 		}
 		else
-			ft_exit(ft_split("exit 0", ' '));
+			ft_exit(ft_split("exit 0", ' '), &g);
 		free(line);
 	}
 	return (0);

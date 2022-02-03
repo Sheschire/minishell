@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 07:40:28 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:01:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*parse_env(char *var, char **env)
 		return (var_value);
 	return ("");
 }
-din file descriptor to return end-of-file. Any input-reading function will reflect this, and you can then exit the program when you reach end-of-file. By the way, the C example should work verbatim in C++, though it may not be the most idiomatic C++.
 
-Is this homework, by the way? If so, ple
+int	find_pair(char *s, int i, int j, char c)
+{
 	while (s[++j])
 	{
 		if (s[j] == c)
