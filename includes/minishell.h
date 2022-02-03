@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 14:13:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:26:21 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_node
 	int				here_doc;
 	int				_error;
 	int				is_child;
+	int				d_quotes;
 	struct s_node	*n;
 }					t_node;
 
@@ -106,7 +107,7 @@ void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 void	expand_variables(t_node **list, t_global *g);
-int		find_quote_pair(char *line, char c, int i, t_node **list);
+int		find_quote_pair(char *line, char c, int i);
 void	quote_parser(t_node **list, t_global *g);
 
 // LIST UTILS

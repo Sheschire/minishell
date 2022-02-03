@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 15:37:12 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:31:11 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	lexer_parser(char *line, t_node **list)
 			while (find_token_type(line[i]) == current_token_type)
 			{
 				if (line[i] == '\'' || line[i] == '\"')
-					i = find_quote_pair(line, line[i], i + 1, list);
+					i = find_quote_pair(line, line[i], i + 1);
 				if (find_token_type(line[i]) == current_token_type)
 					i++;
 			}
@@ -84,8 +84,8 @@ void	input_parser(char *line, t_global *g)
 		reorganize_commandline(&list);
 	quote_parser(&list, g);
 	//expand_variables(&list, g);
-	group_nodes_into_commands(&list);
+//	group_nodes_into_commands(&list);
 	g->list = &list;
-//	print_list(g->list);
+	print_list(g->list);
 	//free_list(&list); // NEED TO FIND A SOLUTION TO CHECK IF FREE IS NEEDED
 }
