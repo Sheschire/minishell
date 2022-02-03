@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 17:02:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:13:10 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	expand_variables(t_node *node, t_global *g)
 			printf("[2] s = %s\n", node->s);
 			free(tmp);
 			free(var);
-			i = 0;
+			i = -1;
 		}
 	}
 }
