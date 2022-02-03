@@ -6,11 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/02 15:20:32 by barodrig         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/02 16:13:26 by tlemesle         ###   ########.fr       */
->>>>>>> tlemesle
+/*   Updated: 2022/02/03 02:55:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +45,7 @@ int	main(int ac, char **av, char **env)
 	{
 		handle_signals();
 		line = readline("\033[1;33m➜  Shell  ✗ \033[0m");
-		if (ft_strlen(line))
+		if (line)
 		{
 			add_history((const char *)line);
 			input_parser(line, &g);
@@ -57,6 +53,9 @@ int	main(int ac, char **av, char **env)
 			dup_cp_std(&g);
 			free_exec(&g);
 		}
+		else
+			ft_exit(ft_split("exit 0", ' '));
 		free(line);
 	}
 	return (0);
+}
