@@ -6,22 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 03:01:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:34:18 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	contain_expand(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		if (s[i] == '$')
-			return (1);
-	return (0);
-}
 
 char	*parse_env(char *var, char **env)
 {
@@ -32,95 +21,6 @@ char	*parse_env(char *var, char **env)
 		return (var_value);
 	return ("");
 }
-
-int	find_pair(char *s, int i, int j, char c)
-{
-	while (s[++j])
-	{
-		if (s[j] == c)
-			return (j - i);
-	}
-	return (0);
-}
-
-// void	sub_and_join(char *s, char c, int i, int j)
-// {
-// 	char	*begin_to_quote;
-// 	char	*quote_to_quote;
-// 	char	*join;
-// 	char	*tmp;
-
-// 	begin_to_quote = ft_substr(s, 0, i);
-// 	quote_to_quote = ft_substr(s, i + 1, j - 1);
-// 	join = ft_strjoin(begin_to_quote, quote_to_quote);
-// 	tmp = ft_strjoin(join, s + i + j + 1);
-// 	free(begin_to_quote);
-// 	free(quote_to_quote);
-// 	free(join);
-// 	free(s);
-// 	s = ft_strdup(tmp);
-// 	free(tmp);
-// }
-
-// void	parse_dollar(char *s, char c)
-// {
-// 	if (c != '\'')
-// 	{
-		
-// 	}
-// }
-
-// int	expand_variable(char *s, int dollar_pos, t_global *g)
-// {
-// 	char	*var;
-// 	char	*tmp;
-// 	char	*var_to_end;
-// 	int		i;
-	
-// 	i = dollar_pos;
-// 	while (s[i] && s[i] != '\'' && s[i] != '\"' && s[i] != ' ')
-// 		i++;
-// 	tmp = ft_substr(s, dollar_pos + 1, i);
-// 	var = ft_strdup(parse_env(tmp, g->env));
-// 	var_to_end = ft_substr(s, i, ft_strlen(s - i));
-// 	printf("var_to_end = %s\n", var_to_end);
-// 	i = ft_strlen(var);
-// 	free(tmp);
-// 	tmp = ft_substr(s, 0, dollar_pos);
-// 	free(s);
-// 	s = ft_strjoin(tmp, var);
-// 	printf("STRING = %s\n", s);
-// 	free (var);
-// 	free(tmp);
-// 	return (i);
-// }
-
-// void	substr_without_quotes(char *s, t_global *g)
-// {
-// 	int	i;
-// 	int	j;
-	
-// 	i = -1;
-// 	while (s[++i])
-// 	{
-// 		if (!s[i])
-// 			return ;
-// 		j = i;
-// 		if (s[i] == '$')
-// 			i = expand_variable(s, i, g);
-// 		if (s[i] == '\'' || s[i] == '\"')
-// 		{
-// 			if (find_pair(s, i, j, s[i]))
-// 			{
-// 				//parse_dollar(s, s[i]);
-// 				sub_and_join(s, s[i], i, find_pair(s, i, j, s[i]));
-// 				i = find_pair(s, i, j, s[i]);
-// 			}
-// 			else
-// 				return ;
-// 		}
-// 	}
-// }
 
 char	*expand_variable(char *s, t_global *g)
 {
@@ -148,25 +48,77 @@ void	big_join(char *s1, char *s2, int i)
 	free(s2);
 }
 
-void	substr_without_quotes(char *s, t_global *g)
+int	find_pair(char *s, int i, char c)
 {
-	int	i;
-	int	j;
+	while (s[++i])
+		if (s[i] == c)
+			return (1);
+	return (0);
+}
 
+int	dup_size(char *s)
+{
+	int		i;
+	char	actual_quote;
+	int		pair_to_remove;
+	
 	i = -1;
+	actual_quote = 0;
+	pair_to_remove = 0;
 	while (s[++i])
 	{
-		if (s[i] == '$')
+		if (s[i] == '\'' || s[i] == '\"')
 		{
-			big_join(s, expand_variable(s + i + 1, g), i);
+			actual_quote = s[i];
+			if (find_pair(s, i, actual_quote))
+				pair_to_remove++;
+			i++;
+			while (s[i] && s[i] != actual_quote)
+				i++;
+			if (!s[i])
+				return (i);
 		}
 	}
+	return (i - (pair_to_remove * 2));
+}
+
+void	dup_without_quotes(t_node *tmp, char *s, t_global *g)
+{
+	int		i;
+	int		j;
+	char	*dup;
+	char	actual_quote;
+	
+	i = -1;
+	j = 0;
+	tmp->d_quotes = 0;
+	//dup = (char *)malloc(sizeof(char) * (dup_size(s) + 1));
+	// if (!dup)
+	// 	ft_exit(ft_split("exit 0", ' '));
+	// while (s[++i])
+	// {
+	// 	if ((s[i] == '\'' || s[i] == '\"') && find_pair(s, i, s[i]))
+	// 	{
+	// 		printf("yoooooo\n");
+	// 		// actual_quote = s[i];
+	// 		// while (s[++i] != actual_quote)
+	// 		// {
+	// 		// 	dup[j] = s[i];
+	// 		// 	j++;
+	// 		// }
+	// 		// i++;
+	// 	}
+	// 	dup[j] = s[i];
+	// 	j++;
+	// }
+	// dup[j] = '\0';
+	// printf("DUP = %s\n", dup);
 }
 
 void	quote_parser(t_node **list, t_global *g)
 {
 	t_node	*tmp;
-	
+
 	tmp = *list;
 	while (tmp)
 	{
@@ -175,7 +127,7 @@ void	quote_parser(t_node **list, t_global *g)
 			free(tmp->s);
 			tmp->s = ft_itoa(g_sig.exit_status);
 		}
-		//substr_without_quotes(tmp->s, g);
+		dup_without_quotes(tmp, tmp->s, g);
 		tmp = tmp->n;
 	}
 }

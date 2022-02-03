@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/03 05:27:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 06:27:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_set_exit_value(char *arg)
 	}
 }
 
-void	ft_exit_no_arg(t_global *g)
+void	ft_exit_no_arg(t_global *g, char **builtcmd)
 {
 		ft_putstr_fd("exit\n", 1);
 		free_minishell(g);
@@ -74,6 +74,13 @@ void	ft_exit_not_alone(t_global *g)
 	}
 }
 
+void	ft_exit_signal(t_global *g)
+{
+		ft_putstr_fd("exit\n", 1);
+		free_minishell(g);
+		exit(0);
+}
+
 void	ft_exit(char **builtcmd, t_global *g)
 {
 	int	exit_value;
@@ -86,7 +93,7 @@ void	ft_exit(char **builtcmd, t_global *g)
 		return ;
 	}
 	else if (!builtcmd[1])
-		ft_exit_no_arg(g);
+		ft_exit_no_arg(g, builtcmd);
 	else if (ft_are_digits(builtcmd[1]) && !builtcmd[2])
 	{
 		ft_putstr_fd("exit\n", 1);

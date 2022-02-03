@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 03:36:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:46:18 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,10 @@ void	lexer_parser(char *line, t_node **list)
 		if (find_token_type(*line))
 		{
 			current_token_type = find_token_type(*line);
-			// if (current_token_type == TOKEN_OPTION)
-			// 	line = create_option_node(line, list);
-			// if (*line == '\'' || *line == '"')
-			// 	line = create_quote_node(line, list);
 			while (find_token_type(line[i]) == current_token_type)
 			{
 				if (line[i] == '\'' || line[i] == '\"')
-					i = find_quote_pair(line, line[i], i + 1, list);
+					i = find_quote_pair(line, line[i], i + 1);
 				if (find_token_type(line[i]) == current_token_type)
 					i++;
 			}
@@ -59,8 +55,6 @@ void	syntax_parser(t_node **list)
 	}
 	while (tmp)
 	{
-	//	if (tmp->token_type == TOKEN_LITERAL)
-	//		analyse_literal_token(tmp, command_up);
 		if (tmp->token_type == TOKEN_FLUX)
 			find_flux_direction(tmp);
 		if (tmp->token_type == TOKEN_PIPE)
@@ -86,6 +80,6 @@ void	input_parser(char *line, t_global *g)
 	//expand_variables(&list, g);
 	group_nodes_into_commands(&list);
 	g->list = &list;
-//	print_list(g->list);
+	//print_list(g->list);
 	//free_list(&list); // NEED TO FIND A SOLUTION TO CHECK IF FREE IS NEEDED
 }

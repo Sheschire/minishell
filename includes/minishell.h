@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 05:09:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 06:28:26 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_node
 	int				here_doc;
 	int				_error;
 	int				is_child;
+	int				d_quotes;
 	struct s_node	*n;
 }					t_node;
 
@@ -106,7 +107,7 @@ void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 void	expand_variables(t_node **list, t_global *g);
-int		find_quote_pair(char *line, char c, int i, t_node **list);
+int		find_quote_pair(char *line, char c, int i);
 void	quote_parser(t_node **list, t_global *g);
 
 // LIST UTILS
@@ -165,6 +166,7 @@ int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
 void	ft_exit(char **builtcmd, t_global *g);
+void	ft_exit_signal(t_global *g);
 int		ft_pwd(void);
 
 //SIGNALS

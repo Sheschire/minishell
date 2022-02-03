@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 05:30:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 06:40:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	free_array(char **array)
 {
 	int		i;
 
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
+	i = -1;
+	while (array[++i])
+		free(array[i]);
+	if (array)
+		free(array);
 }
 
 void	free_cmd(t_node *node)
@@ -44,14 +45,13 @@ void	free_list(t_node **list)
 	to_free = *list;
 	while (to_free)
 	{
-		if (to_free->n)
-			save = to_free->n;
+		save = to_free->n;
 		if (to_free->s)
 			free(to_free->s);
 		if (to_free->token_type == CMD)
 			free_cmd(to_free);
 		if (to_free)
-		free(to_free);
+			free(to_free);
 		to_free = save;
 	}
 	
@@ -97,5 +97,6 @@ void	free_minishell(t_global *g)
 	free_array(g->env);
 	free_array(g->path);
 	ft_close_pipe(g, INT_MAX);
+	if (g->list)
 	free_list(g->list);
 }

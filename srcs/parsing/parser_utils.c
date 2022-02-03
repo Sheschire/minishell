@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 15:20:39 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:30:27 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,17 @@ char    *create_quote_node(char *line, t_node **list)
 }
 
 
-int	find_quote_pair(char *line, char c, int i, t_node **list)
+int	find_quote_pair(char *line, char c, int i)
 {
+	int	save;
+
+	save = i;
 	while (line[i] && line[i] != c)
 		i++;
 	if (line[i] == c)
 		return (i + 1);
 	else
-		return (1);
+		return (save);
 }
 
 char	*create_option_node(char *line, t_node **list)
@@ -159,7 +162,7 @@ char	*create_option_node(char *line, t_node **list)
 		while (find_token_type(line[i]))
 		{
 			if (line[i] == '\'' || line[i] == '\"')
-				i += find_quote_pair(line, line[i], i + 1, list);
+				i += find_quote_pair(line, line[i], i + 1);
 			i++;
 		}
 		newnode_add_back(ft_substr(line, 0, i), TOKEN_OPTION, list);

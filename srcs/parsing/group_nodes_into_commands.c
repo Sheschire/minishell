@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   group_nodes_into_commands.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 11:30:57 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:59:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	create_cmd_node(t_node **list, t_node **new_list)
 		if (tmp->token_type == TOKEN_COMMAND)
 		{
 			size = get_cmd_size(tmp);
-			cmd = (char **)malloc(sizeof(char *) * size + 1);
+			cmd = (char **)ft_calloc(size + 1, sizeof(char *));
 			cmd[size] = NULL;
 			if (cmd == NULL)
 				return ;
