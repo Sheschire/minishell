@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 05:44:36 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/04 05:55:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_node	*newnode(char *s, int token_type)
 {
 	t_node	*new;
 
-	new = (t_node *)calloc(sizeof(t_node), 1);
+	new = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (new == NULL)
 		return (0);
 	new->s = s;

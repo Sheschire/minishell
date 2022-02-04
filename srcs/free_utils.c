@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 07:30:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/04 06:08:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,16 @@ void	free_list(t_node **list)
 	{
 		if (to_free->n)
 			save = to_free->n;
-			if (to_free->s)
-				free(to_free->s);
-			if (to_free->token_type == CMD)
-				free_cmd(to_free);
-			if (to_free)
-				free(to_free);
+		else
+			save = NULL;
+		if (to_free->s)
+			free(to_free->s);
+		if (to_free->cmd)
+			free_cmd(to_free);
+		if (to_free)
+			free(to_free);
 		to_free = save;
 	}
-	
 }
 
 void	ft_delnode(t_node *node)
