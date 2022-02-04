@@ -6,11 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/03 15:06:47 by tlemesle         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/04 15:13:32 by tlemesle         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2022/02/04 16:16:55 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +106,7 @@ void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 int		find_quote_pair(char *line, char c, int i);
-void	dequote(t_node *tmp);
+void	dequote(t_node *tmp, t_global *g);
 int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);
@@ -131,6 +127,7 @@ void	free_list(t_node **list);
 void	free_array(char **array);
 void	ft_delnode(t_node *node);
 void	free_exec(t_global *g);
+void	free_minishell(t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
@@ -151,6 +148,7 @@ int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
+char	*testpath_builder(t_global *g, char *cmd, int i);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
@@ -160,7 +158,7 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
-void	_error_cmd(char **cmd, char *pathname, t_global *g);
+void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node);
 void	_error(int i, char **to_free);
 
 // BUILTINS
@@ -168,7 +166,8 @@ int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
-void	ft_exit(char **builtcmd);
+void	ft_exit(char **builtcmd, t_global *g);
+void	ft_exit_signal(t_global *g);
 int		ft_pwd(void);
 
 //SIGNALS

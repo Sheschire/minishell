@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/04 16:10:50 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:17:12 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	dup_without_quotes(char *dup, char *s)
 	dup[j] = '\0';
 }
 
-void	dequote(t_node *tmp)
+void	dequote(t_node *tmp, t_global *g)
 {
 	char	*dup;
 
 	dup = (char *)malloc(sizeof(char) * (dup_size(tmp->s) + 1));
 	if (!dup)
-		ft_exit(ft_split("exit 0", ' '));
+		ft_exit_signal(g);
 	dup_without_quotes(dup, tmp->s);
 	free(tmp->s);
 	tmp->s = dup;
@@ -99,7 +99,7 @@ void	quote_expand_parser(t_node **list, t_global *g)
 			tmp->s = ft_itoa(g_sig.exit_status);
 		}
 		expand_variables(tmp, g);
-		dequote(tmp);
+		dequote(tmp, g);
 		tmp = tmp->n;
 	}
 }

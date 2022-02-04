@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/04 15:22:30 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/04 07:06:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ int	main(int ac, char **av, char **env)
 			pipex(&g, (*g.list));
 			dup_cp_std(&g);
 			free_exec(&g);
+			free_list(g.list);
 		}
 		else
-			ft_exit(ft_split("exit 0", ' '));
+			ft_exit_signal(&g);
 		free(line);
 	}
 	return (0);

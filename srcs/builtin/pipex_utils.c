@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 15:13:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/03 04:44:41 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	count_cmd(t_node *node)
 		return (1);
 	while (tmp->n)
 	{
-		if (tmp->token_type == CMD)
+		if (tmp->token_type == CMD && !tmp->_error)
 			i++;
 		if (tmp->n)
 			tmp = tmp->n;
@@ -86,7 +86,7 @@ int	is_builtin_exec(char **builtcmd, t_global *g, int i)
 	}
 	else if (!ft_strncmp(builtcmd[0], "exit", ft_strlen(builtcmd[0])))
 	{
-		ft_exit(builtcmd);
+		ft_exit(builtcmd, g);
 		return (1);
 	}
 	else if (!ft_strncmp(builtcmd[0], "env", ft_strlen(builtcmd[0])))
