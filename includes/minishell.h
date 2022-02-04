@@ -6,7 +6,11 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/03 15:06:47 by tlemesle         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/04 15:13:32 by tlemesle         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +110,10 @@ void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 int		find_quote_pair(char *line, char c, int i);
-void	quote_parser(t_node **list, t_global *g);
+void	dequote(t_node *tmp);
+int		find_pair(char *s, int i, char c);
+void	quote_expand_parser(t_node **list, t_global *g);
+void	expand_variables(t_node *node, t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
