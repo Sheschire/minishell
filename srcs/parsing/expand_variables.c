@@ -6,11 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/03 17:13:10 by tlemesle         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/04 15:12:57 by tlemesle         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2022/02/04 16:02:40 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,50 +64,6 @@ void	recreate_string(char *to_find, char *to_replace, t_node *node)
 	node->s = dup;
 }
 
-<<<<<<< HEAD
-void	expand_variables(t_node *node, t_global *g)
-{
-	int		i;
-	int		j;
-	char	*var;
-	char	*tmp;
-	
-	i = -1;
-	while (node->s[++i])
-	{
-		if (node->s[i] == '$')
-		{
-			i++;
-			j = i;
-			while (node->s[i] != ' ' && node->s[i] != '\'' && node->s[i] != '\"' && node->s[i] != '$')
-				i++;
-			tmp = ft_substr(node->s, j, i - j);
-			var = ft_strdup(parse_env(tmp, g->env));
-			recreate_string(tmp, var, node);
-			printf("[2] s = %s\n", node->s);
-			free(tmp);
-			free(var);
-			i = -1;
-		}
-	}
-}
-
-void	quote_parser(t_node **list, t_global *g)
-{
-	t_node	*tmp;
-
-	tmp = *list;
-	while (tmp)
-	{
-		if (!strcmp(tmp->s, "$?"))
-		{
-			free(tmp->s);
-			tmp->s = ft_itoa(g_sig.exit_status);
-		}
-		expand_variables(tmp, g);
-		dequote(tmp->s);
-		tmp = tmp->n;
-=======
 void	expand_variables_2(t_node *node, t_global *g, int i, int j)
 {
 	char	*tmp;
@@ -147,6 +99,5 @@ void	expand_variables(t_node *node, t_global *g)
 			expand_variables_2(node, g, i, j);
 			i = -1;
 		}
->>>>>>> master
 	}
 }
