@@ -3,28 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/11 13:27:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:05:22 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	kill_pids()
+{
+	int	i;
+
+	i = -1;
+	while (g_sig.pids[++i])
+		kill(g_sig.pids[i], SIGTERM);
+	return (i);
+}
+
 void    action(int signum, siginfo_t *info, void *context)
 {
+	int	kill_ret;
 	(void)context;
+
 	if (signum == SIGINT)
 	{
-		//rl_replace_line("", 0);
+		kill_ret = kill_pids();
 		write(1, "\n", 1);
+		//TO DO : INSERT FREE FUNCTION
+		rl_replace_line("", 0);
 		rl_on_new_line();
-		rl_redisplay();
+		if (!kill_ret)
+			rl_redisplay();
 		return ;
 	}
-	else
-		printf("signal is %d\n", signum);
+	else if (signum == SIGQUIT)
+	{
+		kill_ret = kill_pids();
+		if (kill_ret)
+		{
+			write(2, "Quitter (core dumped)", ft_strlen("Quitter (core dumped)"));
+			write(1, "\n", 1);
+		}
+		else
+			ft_putstr_fd("\b\b  \b\b", 1);
+	}
 }
 
 void    handle_signals(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/28 15:22:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:13:32 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@
 # define CMD_NOT_FND 127
 # define WRNG_ARG 128
 
+typedef struct	s_signal
+{
+	int	exit_status;
+	int	pids[512];
+}				t_signal;
+
 typedef struct s_node
 {
 	char			*s;
@@ -67,19 +73,21 @@ typedef struct s_node
 	int				is_child;
 	struct s_node	*n;
 }					t_node;
+
 typedef struct s_global
 {
 	char			**env;
 	char			**path;
 	int				_pipe_heredoc[2];
 	int				_pipes[512][2];
-	int				pids[512];
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
 	int				cp_stdin;
 	int				cp_stdout;
 }					t_global;
+
+extern t_signal	g_sig;
 
 // MAIN
 void	init_global(t_global *g, char **env);
@@ -97,8 +105,11 @@ void	reorganize_commandline(t_node **list);
 void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
-void	expand_variables(t_node **list, t_global *g);
-int		find_quote_pair(char *line, char c, int i, t_node **list);
+int		find_quote_pair(char *line, char c, int i);
+void	dequote(t_node *tmp);
+int		find_pair(char *s, int i, char c);
+void	quote_expand_parser(t_node **list, t_global *g);
+void	expand_variables(t_node *node, t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -115,6 +126,7 @@ int		found_token_flux(t_node **list);
 void	free_list(t_node **list);
 void	free_array(char **array);
 void	ft_delnode(t_node *node);
+void	free_exec(t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);

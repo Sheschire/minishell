@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/02 11:34:16 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:48:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	dup_cp_std(t_global *g)
+void	wait_pids(t_global *g)
 {
-	dup2(g->cp_stdin, STDIN_FILENO);
-	close(g->cp_stdin);
-	dup2(g->cp_stdout, STDOUT_FILENO);
-	close(g->cp_stdout);
+	int	i;
+
+	i = -1;
+	while (++i < g->cmd_nbr)
+		waitpid(g_sig.pids[i], 0, 0);
 }
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
@@ -26,7 +27,6 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 		return (-1);
 	else if (pid > 0)
 	{
-		waitpid(pid, 0, 0);
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
 		if (g->_pipes[i - 1][0])
@@ -50,8 +50,6 @@ void	pipex(t_global *g, t_node *node)
 	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
-	g->cp_stdin = dup(STDIN_FILENO);
-	g->cp_stdout = dup(STDOUT_FILENO);
 	while (i < g->cmd_nbr - 1)
 	{
 		if (node->token_type == CMD && node->_error == 0)
@@ -65,6 +63,6 @@ void	pipex(t_global *g, t_node *node)
 		node = node->n;
 	}
 	exec_in_parent(g, node, i, g->_pipes);
-	dup_cp_std(g);
 	ft_close_pipe(g, INT_MAX);
+	wait_pids(g);
 }
