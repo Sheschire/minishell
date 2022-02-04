@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/04 06:00:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/04 07:06:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history((const char *)line);
 			input_parser(line, &g);
-			//pipex(&g, (*g.list));
+			pipex(&g, (*g.list));
 			dup_cp_std(&g);
 			free_exec(&g);
 			free_list(g.list);
