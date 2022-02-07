@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 12:10:16 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/25 14:48:27 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:51:43 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (0);
 	nb_word = ft_wordcount(s, c);
-	tab = (char **)malloc(sizeof(char *) * (nb_word + 1));
+	tab = (char **)ft_calloc(nb_word + 1, sizeof(char *));
 	if (tab == NULL)
 		return (0);
 	j = 0;
@@ -71,7 +71,7 @@ char			**ft_split(char const *s, char c)
 		while (*s == c && *s)
 			s++;
 		wordlen = ft_wordlen(s, c);
-		if (!(tab[j] = (char*)malloc(sizeof(char) * wordlen + 1)))
+		if (!(tab[j] = (char*)ft_calloc(wordlen + 1, sizeof(char))))
 			return (ft_free(tab));
 		ft_strlcpy(tab[j], s, wordlen + 1);
 		j++;

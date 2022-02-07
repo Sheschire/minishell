@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reorganise_commandline.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:38:48 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/04 12:17:59 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 05:49:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**build_flux_array(t_node **list)
 	
 	tmp = *list;
 	i = found_token_flux(list);
-	array = (char **)malloc(sizeof(char *) * i + 1);
+	array = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (array == NULL)
 		return (NULL);
 	array[i] = NULL;

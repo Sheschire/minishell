@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 15:48:09 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:30:27 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,35 +132,18 @@ char    *create_quote_node(char *line, t_node **list)
 	return (line);
 }
 
-int	find_matching_quotes(char *s)
-{
-	int	i;
-	int	s_quote;
-	int	d_quote;
-	
-	i = -1;
-	s_quote = 0;
-	d_quote = 0;
-	while (s[++i])
-	{
-		if (s[i] == '\'')
-			s_quote++;
-		if (s[i] == '\"')
-			d_quote++;
-	}
-	if ((s_quote % 2 == 0) && (d_quote % 2 == 0))
-		return (1);
-	return (0);
-}
 
-int	find_quote_pair(char *line, char c, int i, t_node **list)
+int	find_quote_pair(char *line, char c, int i)
 {
+	int	save;
+
+	save = i;
 	while (line[i] && line[i] != c)
 		i++;
 	if (line[i] == c)
 		return (i + 1);
 	else
-		return (1);
+		return (save);
 }
 
 char	*create_option_node(char *line, t_node **list)
@@ -179,7 +162,7 @@ char	*create_option_node(char *line, t_node **list)
 		while (find_token_type(line[i]))
 		{
 			if (line[i] == '\'' || line[i] == '\"')
-				i += find_quote_pair(line, line[i], i + 1, list);
+				i += find_quote_pair(line, line[i], i + 1);
 			i++;
 		}
 		newnode_add_back(ft_substr(line, 0, i), TOKEN_OPTION, list);
@@ -190,14 +173,18 @@ char	*create_option_node(char *line, t_node **list)
 
 int		find_token_type(char c)
 {
-	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (TOKEN_LITERAL);
-	if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$' || c == '-')
-		return (TOKEN_LITERAL);
+	// if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	// 	return (TOKEN_LITERAL);
 	if (c == '|')
 		return (TOKEN_PIPE);
 	if (c == '>' || c == '<')
 		return (TOKEN_FLUX);
+	if (c == ' ')
+		return (0);
+	if (c >= 32 && c <= 127)
+		return (TOKEN_LITERAL);
+	// if (c == '\'' || c == '"' || c == '/' || c == '=' || c == '$' || c == '-')
+	// 	return (TOKEN_LITERAL);
 	// if (c == '-')
 	// 	return (TOKEN_OPTION);
 	return (0);

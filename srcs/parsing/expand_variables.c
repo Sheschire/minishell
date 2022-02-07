@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/14 16:56:48 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/04 07:06:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	contain_expand(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		if (s[i] == '$')
-			return (1);
-	return (0);
-}
-
-int	tablength(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 char	*parse_env(char *var, char **env)
 {
@@ -43,85 +22,82 @@ char	*parse_env(char *var, char **env)
 	return ("");
 }
 
-char	*join_expanded(char **new)
-{
-	char	*buf;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	buf = ft_strdup(new[0]);
-	while (new[++i])
-	{
-		tmp = ft_strjoin(buf, new[i]);
-		if (buf)
-			free(buf);
-		buf = tmp;
-	}
-	return (buf);
-}
-
-void	rebuild_string(t_node *tmp, char **env)
-{
-	char	**tab;
-	char	**new;
-	int		size;
-	int		i;
-	
-	i = -1;
-	tab = ft_split(tmp->s, '$');
-	size = tablength(tab);
-	new = (char **)malloc(sizeof(char *) * (size + 1));
-	new[size] = NULL;
-	if (tmp->s[0] != '$')
-	{
-		i = 0;
-		new[0] = ft_strdup(tab[0]);
-	}
-	while (tab[++i])
-		new[i] = ft_strdup(parse_env(tab[i], env));
-	free(tmp->s);
-	tmp->s = join_expanded(new);
-	free_array(tab);
-	free_array(new);
-}
-
-int	is_dollar_between_single_quotes(t_node *tmp)
+int	replace_expand(char *dup, char *to_replace, int j)
 {
 	int	i;
-	int	dollar;
-	
+
 	i = -1;
-	dollar = 0;
-	while (tmp->s[++i])
+	while (to_replace[++i])
 	{
-		if (tmp->s[i] == '\'')
-		{
-			while (tmp->s[++i] && tmp->s[i] != '\'')
-				if (tmp->s[i] == '$')
-					dollar++;
-			if (tmp->s[i] == '\'')
-				return (1);
-			else
-				return (0);
-		}
+		dup[j] = to_replace[i];
+		j++;
 	}
-	return (0);
+	return (j);
 }
 
-void	expand_variables(t_node **list, t_global *g)
+void	recreate_string(char *to_find, char *to_replace, t_node *node)
 {
-	t_node	*tmp;
-	
-	tmp = *list;
-	while (tmp)
+	char	*dup;
+	int		i;
+	int		j;
+	int		replaced_one;
+
+	dup = (char *)malloc(sizeof(char) * (ft_strlen(node->s) + ft_strlen(to_replace) - (ft_strlen(to_find) + 1) + 1));
+	if (!dup)
+		return ;
+	i = -1;
+	j = 0;
+	replaced_one = 0;
+	while (node->s[++i])
 	{
-		if (contain_expand(tmp->s))
-			if (!is_dollar_between_single_quotes(tmp))
-			{
-				//clear_quotes(tmp);
-				rebuild_string(tmp, g->env);
-			}
-		tmp = tmp->n;
+		if (node->s[i] == '$' && !replaced_one)
+		{
+			j = replace_expand(dup, to_replace, j);
+			i += ft_strlen(to_find) + 1;
+			replaced_one = 1;
+		}
+		dup[j] = node->s[i];
+		j++;
+	}
+	dup[j] = '\0';
+	free(node->s);
+	node->s = dup;
+}
+
+void	expand_variables_2(t_node *node, t_global *g, int i, int j)
+{
+	char	*tmp;
+	char	*var;
+	
+	tmp = ft_substr(node->s, j, i - j);
+	var = ft_strdup(parse_env(tmp, g->env));
+	if (var)
+		recreate_string(tmp, var, node);
+	free(tmp);
+	free(var);
+}
+
+void	expand_variables(t_node *node, t_global *g)
+{
+	int		i;
+	int		j;
+	
+	i = -1;
+	while (node->s[++i])
+	{
+		if (node->s[i] == '\'' && find_pair(node->s, i, node->s[i]))
+			while (node->s[++i] && node->s[i] != '\'')
+				i++;
+		if (node->s[i] == '$')
+		{
+			if (!node->s[i + 1] || is_in_set(node->s[i + 1], "\'\""))
+				return ;
+			i++;
+			j = i;
+			while (node->s[i] && !is_in_set(node->s[i], " \'\"$"))
+				i++;
+			expand_variables_2(node, g, i, j);
+			i = -1;
+		}
 	}
 }

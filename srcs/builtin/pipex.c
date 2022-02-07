@@ -6,19 +6,19 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/01 16:22:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 08:45:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	wait_all_pids(t_global *g)
+void	wait_pids(t_global *g)
 {
 	int	i;
 
 	i = -1;
 	while (++i < g->cmd_nbr)
-		waitpid(g->pids[i], 0, 0);
+		waitpid(g_sig.pids[i], 0, 0);
 }
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
@@ -52,18 +52,20 @@ void	pipex(t_global *g, t_node *node)
 	pid = 0;
 	while (i < g->cmd_nbr - 1)
 	{
-		if (node->token_type == CMD && node->_error == 0)
+		if (node->token_type == CMD && !node->_error)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
+			node->is_child = 1;
 			pid = fork();
-			g->pids[i] = pid;
+			g_sig.pids[i] = pid;
 			i = check_pid(pid, i, g, node);
 		}
 		node = node->n;
 	}
 	exec_in_parent(g, node, i, g->_pipes);
+	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
-	wait_all_pids(g);
+	wait_pids(g);
 	dup_cp_std(g);
 }

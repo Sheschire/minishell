@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/01 16:41:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 08:42:42 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@
 # define CMD_NOT_FND 127
 # define WRNG_ARG 128
 
+typedef struct s_signal
+{
+	int	exit_status;
+	int	pids[512];
+}				t_signal;
+
 typedef struct s_node
 {
 	char			*s;
@@ -74,13 +80,14 @@ typedef struct s_global
 	char			**path;
 	int				_pipe_heredoc[2];
 	int				_pipes[512][2];
-	int				pids[512];
 	t_node			**list;
 	int				cmd_nbr;
 	int				status;
 	int				cp_stdin;
 	int				cp_stdout;
 }					t_global;
+
+extern t_signal	g_sig;
 
 // MAIN
 void	dup_cp_std(t_global *g);
@@ -99,8 +106,11 @@ void	reorganize_commandline(t_node **list);
 void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
-void	expand_variables(t_node **list, t_global *g);
-int		find_quote_pair(char *line, char c, int i, t_node **list);
+int		find_quote_pair(char *line, char c, int i);
+void	dequote(t_node *tmp);
+int		find_pair(char *s, int i, char c);
+void	quote_expand_parser(t_node **list, t_global *g);
+void	expand_variables(t_node *node, t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -117,6 +127,8 @@ int		found_token_flux(t_node **list);
 void	free_list(t_node **list);
 void	free_array(char **array);
 void	ft_delnode(t_node *node);
+void	free_exec(t_global *g);
+void	free_minishell(t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
@@ -137,6 +149,7 @@ int		count_cmd(t_node *node);
 void	ft_list_cleaner(t_node *node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
+char	*testpath_builder(t_global *g, char *cmd, int i);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
@@ -146,7 +159,7 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
-void	_error_cmd(char **cmd, char *pathname, t_global *g);
+void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node);
 void	_error(int i, char **to_free);
 
 // BUILTINS
@@ -154,7 +167,8 @@ int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i);
 int		ft_cd(char **builtcmd);
 int		ft_env(t_global *g);
-void	ft_exit(char **builtcmd);
+void	ft_exit(char **builtcmd, t_global *g);
+void	ft_exit_signal(t_global *g);
 int		ft_pwd(void);
 
 //SIGNALS
