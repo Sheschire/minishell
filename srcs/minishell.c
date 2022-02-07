@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/07 08:43:25 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 05:03:57 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@
 #include <stdio.h>
 
 t_signal	g_sig;
-
-void	dup_cp_std(t_global *g)
-{
-	dup2(g->cp_stdin, STDIN_FILENO);
-	close(g->cp_stdin);
-	dup2(g->cp_stdout, STDOUT_FILENO);
-	close(g->cp_stdout);
-}
 
 int	main(int ac, char **av, char **env)
 {

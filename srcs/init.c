@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/07 13:48:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 05:16:25 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ char	**ft_get_all_env(char **envp)
 
 void	init_global(t_global *g, char **envp)
 {
-	if (!envp)
+	if (!*envp)
 	{
 		write(2, "No environment detected\n", 24);
 		write(2, "Minishell needs an environment to run properly.\n", 48);
+		write(2, "exit\n", 5);
 		exit(1);
 	}
 	g->path = get_path(envp);
