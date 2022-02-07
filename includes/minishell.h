@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/07 08:42:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 13:50:03 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	check_syntax_error(t_node **list);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 int		find_quote_pair(char *line, char c, int i);
-void	dequote(t_node *tmp);
+void	dequote(t_node *tmp, t_global *g);
 int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/07 08:43:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/07 13:48:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_get_all_env(char **envp)
 	int		i;
 	int		j;
 	char	**new_env;
-	
+
 	i = 0;
 	while (envp[i])
 		i++;
@@ -46,20 +46,24 @@ char	**ft_get_all_env(char **envp)
 	while (envp[++i])
 	{
 		new_env[i] = (char *)ft_calloc(ft_strlen(envp[i]) + 1,
-			sizeof(char));
+				sizeof(char));
 		j = -1;
-		while(envp[i][++j])
+		while (envp[i][++j])
 			new_env[i][j] = envp[i][j];
 		new_env[i][j] = '\0';
-	}
+	}	
 	new_env[i] = NULL;
 	return (new_env);
 }
 
 void	init_global(t_global *g, char **envp)
 {
-	// if (!*env)
-	// 	return (0); // TO DO : generate env manually and continue program
+	if (!envp)
+	{
+		write(2, "No environment detected\n", 24);
+		write(2, "Minishell needs an environment to run properly.\n", 48);
+		exit(1);
+	}
 	g->path = get_path(envp);
 	g->env = ft_get_all_env(envp);
 	g->list = NULL;
