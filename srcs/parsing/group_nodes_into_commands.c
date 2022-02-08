@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   group_nodes_into_commands.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 07:37:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:11:52 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	group_nodes_into_commands(t_node **list)
 	create_cmd_node(list, &new_list);
 	free_list(list);
 	*list = new_list;
-	new_list = NULL;
+	free_list(&new_list);
 }
