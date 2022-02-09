@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/08 14:54:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:04:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,4 @@ void	input_parser(char *line, t_global *g)
 	quote_expand_parser(&list, g);
 	group_nodes_into_commands(&list);
 	g->list = &list;
-	//print_list(g->list);
 }
