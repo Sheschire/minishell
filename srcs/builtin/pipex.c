@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/08 07:10:52 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:16:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,31 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 }
 
-void	pipex(t_global *g, t_node *node)
+void	pipex(t_global *g)
 {
-	int	i;
-	int	pid;
+	int		i;
+	int		pid;
+	t_node	*tmp;
 
 	i = 0;
-	ft_list_cleaner(node);
-	g->cmd_nbr = count_cmd(node);
 	pid = 0;
+	ft_list_cleaner(g->list);
+	g->cmd_nbr = count_cmd(g->list);
+	tmp = (*g->list);
 	while (i < g->cmd_nbr - 1)
 	{
-		if (node->token_type == CMD && !node->_error)
+		if (tmp->token_type == CMD && !tmp->_error)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
-			node->is_child = 1;
+			tmp->is_child = 1;
 			pid = fork();
 			g_sig.pids[i] = pid;
-			i = check_pid(pid, i, g, node);
+			i = check_pid(pid, i, g, tmp);
 		}
-		node = node->n;
+		tmp = tmp->n;
 	}
-	exec_in_parent(g, node, i, g->_pipes);
+	exec_in_parent(g, tmp, i, g->_pipes);
 	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
 	wait_pids(g);

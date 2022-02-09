@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_cleaner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/08 15:14:39 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:08:01 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void	count_create_redirout(t_node *node)
 // depending on the flux type.
 */
 
-void	ft_list_cleaner(t_node *node)
+void	ft_list_cleaner(t_node **node)
 {
 	t_node	*tmp;
 
-	tmp = node;
+	tmp = *node;
 	while (tmp->n)
 	{
 		if (tmp->token_type == CMD)

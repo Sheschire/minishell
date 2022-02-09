@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/08 07:10:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:08:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	free_exec(t_global *g);
 void	free_minishell(t_global *g);
 
 // EXECUTION
-void	pipex(t_global *g, t_node *node);
+void	pipex(t_global *g);
 void	ft_here_doc(char *limiter);
 void	ft_useless_here_doc(char *limiter);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
@@ -145,8 +145,8 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
 // EXECUTION UTILS
 void	wait_children(t_global *g);
 int		ft_are_digits(char *str);
-int		count_cmd(t_node *node);
-void	ft_list_cleaner(t_node *node);
+int		count_cmd(t_node **node);
+void	ft_list_cleaner(t_node **node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);

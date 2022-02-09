@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/07 06:05:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:08:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	ft_are_digits(char *str)
 	return (1);
 }
 
-int	count_cmd(t_node *node)
+int	count_cmd(t_node **node)
 {
 	int		i;
 	t_node	*tmp;
 
 	i = 0;
-	tmp = node;
+	tmp = *node;
 	if (!tmp->n)
 		return (1);
 	while (tmp->n)
