@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/09 08:34:59 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/09 08:35:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,6 @@ void	group_nodes_into_commands(t_node **list)
 	cmd_list = 0;
 	create_cmd_node(list, &cmd_list);
 	free_list(list);
-<<<<<<< HEAD
-	*list = new_list;
-	//free_list(&new_list);
-}
-=======
 	copy_cmdlist_into_list(list, &cmd_list);
 	free_list(&cmd_list);
 }
->>>>>>> tlemesle
