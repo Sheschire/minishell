@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/03 06:27:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:51:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	ft_exit_not_alone(t_global *g)
 	i = 0;
 	while (g->list)
 	{
-		if ((*g->list)->cmd)
+		if (g->list->cmd)
 		{
-			if (ft_strncmp((*g->list)->cmd[0], "exit",
-				ft_strlen((*g->list)->cmd[0])))
+			if (ft_strncmp(g->list->cmd[0], "exit",
+				ft_strlen(g->list->cmd[0])))
 			{
-				if ((*g->list)->is_child == 1)
+				if (g->list->is_child == 1)
 				{
 					free_minishell(g);
 					exit(0);

@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 15:42:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:49:13 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ void	free_list(t_node **list)
 		else
 			save = NULL;
 		to_free->s = NULL;
-		// if (to_free->s)
-		// {
-		// //	free(to_free->s);
-		// 	to_free->s = NULL;
-		// }
 		if (to_free->cmd)
 			free_cmd(to_free);
 		if (to_free)
@@ -108,5 +103,5 @@ void	free_minishell(t_global *g)
 	free_array(g->path);
 	ft_close_pipe(g, INT_MAX);
 	if (g->list)
-		free_list(g->list);
+		free_list(&g->list);
 }

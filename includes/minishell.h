@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 15:22:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:40:23 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_global
 	char			**path;
 	int				_pipe_heredoc[2];
 	int				_pipes[512][2];
-	t_node			**list;
+	t_node			*list;
 	int				cmd_nbr;
 	int				status;
 	int				cp_stdin;

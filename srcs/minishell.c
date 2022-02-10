@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 15:06:03 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:52:00 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history((const char *)line);
 			input_parser(line, &g);
-			// pipex(&g, (*g.list));
-			// dup_cp_std(&g);
-			// free_exec(&g);
-			// print_list(g.list);
-			// free_list(g.list);
+			pipex(&g, g.list);
+			dup_cp_std(&g);
+			free_exec(&g);
+			free_list(&g.list);
 		}
 		else
 			ft_exit_signal(&g);
