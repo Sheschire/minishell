@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/10 17:31:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:33:16 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	is_builtin_exec(char **builtcmd, t_global *g, int i)
 	}
 	else if (!ft_strncmp(builtcmd[0], "export", ft_strlen(builtcmd[0])))
 	{
-		ft_export(g);
+		ft_export(builtcmd, g);
 		return (1);
 	}
 	else
