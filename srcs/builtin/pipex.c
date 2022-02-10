@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/10 16:57:25 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:57:54 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ void	pipex(t_global *g, t_node *node)
 	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
 }
-lol
