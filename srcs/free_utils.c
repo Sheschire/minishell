@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/09 14:07:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 15:42:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ void	free_list(t_node **list)
 			save = to_free->n;
 		else
 			save = NULL;
-		if (to_free->s)
-			free(to_free->s);
+		to_free->s = NULL;
+		// if (to_free->s)
+		// {
+		// //	free(to_free->s);
+		// 	to_free->s = NULL;
+		// }
 		if (to_free->cmd)
 			free_cmd(to_free);
 		if (to_free)
