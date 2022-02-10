@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 16:49:31 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:03:45 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	lexer_parser(char *line, t_node **list)
 	int		current_token_type;
 	int		i;
 
-	
-	while (*line) 
+	while (*line)
 	{
 		i = 0;
 		if (find_token_type(*line))
@@ -32,7 +31,8 @@ void	lexer_parser(char *line, t_node **list)
 					i++;
 			}
 			if (*line && find_token_type(*line))
-				newnode_add_back(ft_substr(line, 0, i), current_token_type, list);
+				newnode_add_back(ft_substr(line, 0, i), \
+				current_token_type, list);
 			line += i;
 		}
 		if (*line && find_token_type(*line) == 0)
@@ -42,13 +42,14 @@ void	lexer_parser(char *line, t_node **list)
 
 void	syntax_parser(t_node **list)
 {
-	t_node *tmp;
-	int	command_up;
+	t_node	*tmp;
+	int		command_up;
 
 	tmp = *list;
 	command_up = 0;
 	check_syntax_error(list);
-	if (!tmp->n || (tmp->token_type != TOKEN_PIPE && tmp->token_type != TOKEN_FLUX))
+	if (!tmp->n || (tmp->token_type != TOKEN_PIPE && \
+	tmp->token_type != TOKEN_FLUX))
 	{
 		tmp->token_type = TOKEN_COMMAND;
 		command_up = 1;

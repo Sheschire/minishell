@@ -1,4 +1,5 @@
 SRC        =   ft_atoi.c \
+				ft_arraydup.c\
 				ft_bzero.c \
 				ft_calloc.c \
 				ft_isalnum.c \
