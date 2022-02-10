@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/09 14:07:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:36:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,25 @@ void	free_cmd(t_node *node)
 
 void	free_list(t_node **list)
 {
-	t_node	*to_free;
 	t_node	*save;
 	
 	save = NULL;
 	if (!list)
 		return ;
-	to_free = *list;
-	while (to_free)
+	while (*list)
 	{
-		if (to_free->n)
-			save = to_free->n;
+		if ((*list)->n)
+			save = (*list)->n;
 		else
 			save = NULL;
-		if (to_free->s)
-			free(to_free->s);
-		if (to_free->cmd)
-			free_cmd(to_free);
-		if (to_free)
-			free(to_free);
-		to_free = save;
+		(*list)->s = NULL;
+		if ((*list)->cmd)
+			free_cmd(*list);
+		(*list)->cmd = NULL;
+		if (*list)
+			free(*list);
+		*list = save;
 	}
-	*list = NULL;
 }
 
 void	ft_delnode(t_node *node)
@@ -97,12 +94,34 @@ void	free_exec(t_global *g)
 		g_sig.pids[i] = 0;
 }
 
+void	free_list_g(t_node *list)
+{
+	t_node	*save;
+	
+	save = NULL;
+	if (list)
+		return ;
+	while (list)
+	{
+		if (list->n)
+			save = list->n;
+		else
+			save = NULL;
+		if (list->cmd)
+			free_cmd(list);
+		list->cmd = NULL;
+		if (list)
+			free(list);
+		list = save;
+	}
+}
+
 void	free_minishell(t_global *g)
 {
 	free_exec(g);
 	free_array(g->env);
 	free_array(g->path);
 	ft_close_pipe(g, INT_MAX);
-	if (g->list)
-		free_list(g->list);
+	if ((*g->list))
+		free_list_g((*g->list));
 }

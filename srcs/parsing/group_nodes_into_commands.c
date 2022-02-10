@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/09 08:35:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:03:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	fill_cmd_array(char **cmd, t_node *list)
 		i++;
 		tmp = tmp->n;
 	}
+	cmd[i] = NULL;
+	free(list->s);
+	list->s = NULL;
 }
 
 void	create_cmd_node(t_node **list, t_node **new_list)
@@ -57,13 +60,12 @@ void	create_cmd_node(t_node **list, t_node **new_list)
 		{
 			size = get_cmd_size(tmp);
 			cmd = (char **)ft_calloc(size + 1, sizeof(char *));
-			cmd[size] = NULL;
 			if (cmd == NULL)
 				return ;
 			fill_cmd_array(cmd, tmp);
 			newnode_cmd_add_back(cmd, new_list);
 		}
-		if (is_redir(tmp) || tmp->token_type == TOKEN_PIPE || tmp->token_type == TOKEN_FILE || tmp->token_type == HERE_DOC)
+		else if (is_redir(tmp) || tmp->token_type == TOKEN_PIPE || tmp->token_type == TOKEN_FILE || tmp->token_type == HERE_DOC)
 			newnode_add_back(ft_strdup(tmp->s), tmp->token_type, new_list);
 		tmp = tmp->n;
 	}
