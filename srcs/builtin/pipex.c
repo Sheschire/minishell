@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/10 16:57:54 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:30:57 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	{
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
-		if (g->_pipes[i - 1][0])
-			close(g->_pipes[i - 1][0]);
+		/*if (g->_pipes[i - 1][0])
+			close(g->_pipes[i - 1][0]);*/
 		i++;
 		return (i);
 	}
