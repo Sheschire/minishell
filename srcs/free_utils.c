@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/24 15:47:20 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:17:41 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,6 @@ void	free_array(char **array)
 	}
 	if (array)
 		free(array);
-}
-
-void	free_cmd(t_node *node)
-{
-	free_array(node->cmd);
-	if (node->filein)
-		free(node->filein);
-	if (node->fileout)
-		free(node->fileout);
-	if (node->limiter)
-		free(node->limiter);
 }
 
 void	free_list(t_node **list)
@@ -55,7 +44,7 @@ void	free_list(t_node **list)
 		free(to_free->s);
 		to_free->s = NULL;
 		if (to_free->cmd)
-			free_cmd(to_free);
+			free_array(to_free->cmd);
 		if (to_free)
 			free(to_free);
 		to_free = save;
