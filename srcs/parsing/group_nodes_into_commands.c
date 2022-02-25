@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 15:34:52 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:19:47 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	fill_cmd_array(char **cmd, t_node *list)
 {
 	t_node	*tmp;
 	int		i;
-	
+
 	tmp = list;
 	i = 0;
 	while (tmp && !is_redir(tmp) && tmp->token_type != TOKEN_PIPE)
@@ -50,7 +50,7 @@ void	create_cmd_node(t_node **list, t_node **new_list)
 	t_node	*tmp;
 	int		size;
 	char	**cmd;
-	
+
 	tmp = *list;
 	size = 0;
 	cmd = NULL;
@@ -65,33 +65,17 @@ void	create_cmd_node(t_node **list, t_node **new_list)
 			fill_cmd_array(cmd, tmp);
 			newnode_cmd_add_back(cmd, new_list);
 		}
-		else if (is_redir(tmp) || tmp->token_type == TOKEN_PIPE || tmp->token_type == TOKEN_FILE || tmp->token_type == HERE_DOC)
+		else if (is_redir(tmp) || tmp->token_type == TOKEN_PIPE || \
+		tmp->token_type == TOKEN_FILE || tmp->token_type == HERE_DOC)
 			newnode_add_back(ft_strdup(tmp->s), tmp->token_type, new_list);
 		tmp = tmp->n;
 	}
 }
 
-char	**ft_arraydup(char **tab)
-{
-	char	**dup;
-	int		i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	dup = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (!dup)
-		return (0);
-	i = -1;
-	while (tab[++i])
-		dup[i] = ft_strdup(tab[i]);
-	return (dup);
-}
-
 void	copy_cmdlist_into_list(t_node **list, t_node **cmd_list)
 {
-	t_node *tmp;
-	int	i = 0;
+	t_node	*tmp;
+
 	tmp = *cmd_list;
 	while (tmp)
 	{
@@ -100,7 +84,6 @@ void	copy_cmdlist_into_list(t_node **list, t_node **cmd_list)
 		else
 			newnode_add_back(ft_strdup(tmp->s), tmp->token_type, list);
 		tmp = tmp->n;
-		i++;
 	}
 }
 

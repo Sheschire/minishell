@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reorganise_commandline.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:38:48 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/03 05:49:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:25:11 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**build_flux_array(t_node **list)
 	t_node	*tmp;
 	int		i;
 	char	**array;
-	
+
 	tmp = *list;
 	i = found_token_flux(list);
 	array = (char **)ft_calloc(i + 1, sizeof(char *));
@@ -51,14 +51,14 @@ char	**build_flux_array(t_node **list)
 	return (array);
 }
 
-void	push_array_into_list(t_node **new_list, char **flux_array, int size, t_node *tmp)
+void	push_array_list(t_node **new_list, char **tab, int size, t_node *tmp)
 {
 	static int	i = 0;
 
 	while (i < size)
 	{
-		newnode_add_back(ft_strdup(flux_array[i]), TOKEN_FLUX, new_list);
-		newnode_add_back(ft_strdup(flux_array[++i]), TOKEN_FILE, new_list);
+		newnode_add_back(ft_strdup(tab[i]), TOKEN_FLUX, new_list);
+		newnode_add_back(ft_strdup(tab[++i]), TOKEN_FILE, new_list);
 		i++;
 	}
 	if (!tmp)
@@ -74,15 +74,16 @@ void	re_create_list(t_node **list, char **flux_array, t_node **new_list)
 	i = 0;
 	while (tmp)
 	{
-		if (!is_redir(tmp) && tmp->token_type != TOKEN_FILE && tmp->token_type != HERE_DOC)
+		if (!is_redir(tmp) && tmp->token_type != \
+		TOKEN_FILE && tmp->token_type != HERE_DOC)
 			newnode_add_back(ft_strdup(tmp->s), tmp->token_type, new_list);
 		else
 			i++;
 		if (tmp->n && tmp->n->token_type == TOKEN_PIPE)
-			push_array_into_list(new_list, flux_array, i, tmp);
+			push_array_list(new_list, flux_array, i, tmp);
 		tmp = tmp->n;
 	}
-	push_array_into_list(new_list, flux_array, i, tmp);
+	push_array_list(new_list, flux_array, i, tmp);
 }
 
 void	reorganize_commandline(t_node **list)

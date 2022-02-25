@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/04 16:17:12 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:37:40 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	dup_size(char *s)
 	int		i;
 	char	actual_quote;
 	int		pair_to_remove;
-	
+
 	i = -1;
 	actual_quote = 0;
 	pair_to_remove = 0;
@@ -51,7 +51,7 @@ void	dup_without_quotes(char *dup, char *s)
 	int		i;
 	int		j;
 	char	actual_quote;
-	
+
 	i = -1;
 	j = 0;
 	while (s[++i])
@@ -93,13 +93,15 @@ void	quote_expand_parser(t_node **list, t_global *g)
 	tmp = *list;
 	while (tmp)
 	{
-		if (!strcmp(tmp->s, "$?"))
+		if (!ft_strcmp(tmp->s, "$?"))
 		{
 			free(tmp->s);
 			tmp->s = ft_itoa(g_sig.exit_status);
 		}
-		expand_variables(tmp, g);
-		dequote(tmp, g);
+		if (ft_strchr(tmp->s, '$'))
+			expand_variables(tmp, g);
+		if (ft_strchr(tmp->s, '\'') || ft_strchr(tmp->s, '\"'))
+			dequote(tmp, g);
 		tmp = tmp->n;
 	}
 }

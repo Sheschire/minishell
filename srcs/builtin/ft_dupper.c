@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dupper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 15:19:12 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:31:35 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 		close(_pipes[i - 1][0]);
 		ft_here_doc(node->limiter);
 	}
-	else
+	else if (i > 0)
 	{
 		dup2(_pipes[i - 1][0], STDIN_FILENO);
 		close(_pipes[i - 1][0]);

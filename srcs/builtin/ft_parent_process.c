@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/03 03:29:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:06:41 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	check_error_ret(char **builtcmd, t_global *g, t_node *node)
 	{
 		pathname = testpath_builder(g, builtcmd[0], i);
 		if (access(pathname, F_OK) == 0)
+		{
+			free(pathname);
 			break ;
+		}
 		free(pathname);
 		pathname = NULL;
 	}

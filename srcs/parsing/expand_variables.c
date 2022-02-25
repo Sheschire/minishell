@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/04 07:06:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:12:46 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	recreate_string(char *to_find, char *to_replace, t_node *node)
 	int		j;
 	int		replaced_one;
 
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(node->s) + ft_strlen(to_replace) - (ft_strlen(to_find) + 1) + 1));
-	if (!dup)
-		return ;
+	dup = (char *)malloc(sizeof(char) * (ft_strlen(node->s) + \
+	ft_strlen(to_replace) - (ft_strlen(to_find) + 1) + 1));
 	i = -1;
 	j = 0;
 	replaced_one = 0;
@@ -68,7 +67,7 @@ void	expand_variables_2(t_node *node, t_global *g, int i, int j)
 {
 	char	*tmp;
 	char	*var;
-	
+
 	tmp = ft_substr(node->s, j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
 	if (var)
@@ -81,7 +80,7 @@ void	expand_variables(t_node *node, t_global *g)
 {
 	int		i;
 	int		j;
-	
+
 	i = -1;
 	while (node->s[++i])
 	{
