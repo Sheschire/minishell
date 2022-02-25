@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/25 17:06:12 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:36:33 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	pipex(t_global *g, t_node *node)
 	exec_in_parent(g, node, i, g->_pipes);
 	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
+	dup_cp_std(g);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 16:40:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:04:52 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);
 
 // FD MANAGEMENT
+void	dup_cp_std(t_global *g);
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);

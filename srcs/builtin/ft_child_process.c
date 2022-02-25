@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/02 15:14:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:17:18 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 	}
 	else if (node->here_doc == 1 && node->is_child)
 		ft_here_doc(node->limiter);
-	if (!node->is_child)
+	if (node->is_child == 1)
 		dup_exit_node(node, i, _pipes);
 	find_cmd_path(node->cmd, g, node);
 }
