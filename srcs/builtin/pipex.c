@@ -6,19 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 15:22:44 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:15:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	dup_cp_std(t_global *g)
-{
-	dup2(g->cp_stdin, STDIN_FILENO);
-	close(g->cp_stdin);
-	dup2(g->cp_stdout, STDOUT_FILENO);
-	close(g->cp_stdout);
-}
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
 {
@@ -58,8 +50,9 @@ void	pipex(t_global *g, t_node *node)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
+			node->is_child = 1;
 			pid = fork();
-			g->pids[i] = pid;
+			g_sig.pids[i] = pid;
 			i = check_pid(pid, i, g, node);
 		}
 		node = node->n;

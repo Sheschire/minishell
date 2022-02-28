@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/01/06 12:14:11 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:20:48 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_list(t_node **list)
 	t_node	*tmp;
 	int		i;
 	int		pos;
-	
+
 	tmp = *list;
 	pos = 0;
 	while (tmp)
@@ -77,7 +77,7 @@ void	newnode_cmd_add_back(char **cmd, t_node **list)
 
 void	newnode_add_back(char *s, int token_type, t_node **list)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	tmp = newnode(s, token_type);
 	add_back(list, tmp);
@@ -87,12 +87,15 @@ t_node	*newnode(char *s, int token_type)
 {
 	t_node	*new;
 
-	new = (t_node *)calloc(sizeof(t_node), 1);
+	new = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (new == NULL)
 		return (0);
 	new->s = s;
 	new->token_type = token_type;
 	new->cmd = NULL;
+	new->filein = NULL;
+	new->fileout = NULL;
+	new->limiter = NULL;
 	new->n = NULL;
 	return (new);
 }
@@ -106,7 +109,6 @@ void	add_back(t_node **s, t_node *new)
 	last = *s;
 	if (*s == NULL)
 		*s = new;
-
 	else
 	{
 		while (last->n)
@@ -114,22 +116,4 @@ void	add_back(t_node **s, t_node *new)
 		last->n = new;
 		new->n = NULL;
 	}
-}
-
-void	add_front(t_node **s, t_node *new)
-{
-	if (new && s)
-	{
-		new->n = *s;
-		*s = new;
-	}
-}
-
-t_node	*getlast(t_node *s)
-{
-	if (s == NULL)
-		return (0);
-	while (s->n)
-		s = s->n;
-	return (s);
 }

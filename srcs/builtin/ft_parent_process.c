@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 15:16:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:13:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 			if (!is_builtin_exec(node->cmd, g, i))
 			{
 				pid = fork();
-				g->pids[i] = pid;
+				g_sig.pids[i] = pid;
 				i = check_pid(pid, i, g, node);
 			}
 			if (!pid)

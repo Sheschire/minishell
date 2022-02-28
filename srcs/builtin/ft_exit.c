@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/13 13:02:02 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:51:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,70 @@ int	ft_set_exit_value(char *arg)
 	}
 }
 
-void	ft_exit(char **builtcmd)
+void	ft_exit_no_arg(t_global *g, char **builtcmd)
+{
+		ft_putstr_fd("exit\n", 1);
+		free_minishell(g);
+		exit(0);
+}
+
+void	ft_exit_not_alone(t_global *g)
+{
+	int	i;
+
+	i = 0;
+	while (g->list)
+	{
+		if (g->list->cmd)
+		{
+			if (ft_strncmp(g->list->cmd[0], "exit",
+				ft_strlen(g->list->cmd[0])))
+			{
+				if (g->list->is_child == 1)
+				{
+					free_minishell(g);
+					exit(0);
+				}
+				else
+					return ;
+			}
+		}
+	}
+}
+
+void	ft_exit_signal(t_global *g)
+{
+		ft_putstr_fd("exit\n", 1);
+		free_minishell(g);
+		exit(0);
+}
+
+void	ft_exit(char **builtcmd, t_global *g)
 {
 	int	exit_value;
 
-	if (ft_are_digits(builtcmd[1]) && !builtcmd[2])
-	{
-		ft_putstr_fd("exit\n", 1);
-		exit_value = ft_set_exit_value(builtcmd[1]);
-		exit(exit_value);
-	}
+	if (g->cmd_nbr > 1)
+		ft_exit_not_alone(g);
 	else if (builtcmd[2])
 	{
 		ft_putstr_fd("exit\nexit: too many arguments\n", 1);
 		return ;
+	}
+	else if (!builtcmd[1])
+		ft_exit_no_arg(g, builtcmd);
+	else if (ft_are_digits(builtcmd[1]) && !builtcmd[2])
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit_value = ft_set_exit_value(builtcmd[1]);
+		free_minishell(g);
+		exit(exit_value);
 	}
 	else
 	{
 		ft_putstr_fd("exit\n exit: ", 1);
 		ft_putstr_fd(builtcmd[1], 1);
 		ft_putstr_fd(": numeric argument required\n", 1);
+		free_minishell(g);
 		exit(255);
 	}
 }
