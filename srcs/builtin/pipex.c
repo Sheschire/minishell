@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/28 16:15:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:53:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 		waitpid(pid, 0, 0);
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
-		if (g->_pipes[i - 1][0])
+		if (i > 0)
 			close(g->_pipes[i - 1][0]);
 		i++;
 		return (i);
