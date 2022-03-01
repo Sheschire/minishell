@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/13 13:01:57 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:56:12 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_cd(char **builtcmd)
 {
 	if (chdir(builtcmd[0]) == -1)
 	{
-		write(1, "no such file or directory : %s\n", ft_strlen(builtcmd[0]));
+		write(2, "no such file or directory : %s\n", ft_strlen(builtcmd[0]));
 		return (-1);
 	}
 	return (0);

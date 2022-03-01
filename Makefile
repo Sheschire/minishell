@@ -24,6 +24,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/builtin/ft_env.c\
 				  srcs/builtin/ft_exit.c\
 				  srcs/builtin/ft_pwd.c\
+				  srcs/builtin/ft_export.c\
 				  srcs/builtin/ft_dupper.c\
 				  srcs/builtin/ft_parent_process.c\
 				  srcs/builtin/ft_child_process.c
@@ -32,7 +33,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -g3 #-fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -g3
 
 NAME			= minishell
 

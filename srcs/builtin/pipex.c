@@ -6,11 +6,20 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/28 16:53:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:06:18 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	wait_pids(t_global *g)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g->cmd_nbr)
+		waitpid(g_sig.pids[i], 0, 0);
+}
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
 {
@@ -18,7 +27,6 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 		return (-1);
 	else if (pid > 0)
 	{
-		waitpid(pid, 0, 0);
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
 		if (i > 0)
@@ -58,6 +66,6 @@ void	pipex(t_global *g, t_node *node)
 		node = node->n;
 	}
 	exec_in_parent(g, node, i, g->_pipes);
-	dup_cp_std(g);
+	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
 }

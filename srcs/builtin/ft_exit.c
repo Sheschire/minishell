@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/02/10 16:51:30 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:53:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	ft_set_exit_value(char *arg)
 
 void	ft_exit_no_arg(t_global *g, char **builtcmd)
 {
-		ft_putstr_fd("exit\n", 1);
-		free_minishell(g);
-		exit(0);
+	ft_putstr_fd("exit\n", 1);
+	free_minishell(g);
+	exit(0);
 }
 
 void	ft_exit_not_alone(t_global *g)
@@ -60,7 +60,7 @@ void	ft_exit_not_alone(t_global *g)
 		if (g->list->cmd)
 		{
 			if (ft_strncmp(g->list->cmd[0], "exit",
-				ft_strlen(g->list->cmd[0])))
+					ft_strlen(g->list->cmd[0])))
 			{
 				if (g->list->is_child == 1)
 				{
@@ -76,9 +76,19 @@ void	ft_exit_not_alone(t_global *g)
 
 void	ft_exit_signal(t_global *g)
 {
-		ft_putstr_fd("exit\n", 1);
-		free_minishell(g);
-		exit(0);
+	ft_putstr_fd("exit\n", 1);
+	free_minishell(g);
+	exit(0);
+}
+
+int	too_many_args_exit(char **builtcmd)
+{
+	int	i;
+
+	i = 0;
+	while (builtcmd[i])
+		i++;
+	return (i);
 }
 
 void	ft_exit(char **builtcmd, t_global *g)
@@ -87,7 +97,7 @@ void	ft_exit(char **builtcmd, t_global *g)
 
 	if (g->cmd_nbr > 1)
 		ft_exit_not_alone(g);
-	else if (builtcmd[2])
+	else if (too_many_args_exit(builtcmd) > 2)
 	{
 		ft_putstr_fd("exit\nexit: too many arguments\n", 1);
 		return ;
@@ -103,9 +113,9 @@ void	ft_exit(char **builtcmd, t_global *g)
 	}
 	else
 	{
-		ft_putstr_fd("exit\n exit: ", 1);
-		ft_putstr_fd(builtcmd[1], 1);
-		ft_putstr_fd(": numeric argument required\n", 1);
+		ft_putstr_fd("exit\n exit: ", 2);
+		ft_putstr_fd(builtcmd[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		free_minishell(g);
 		exit(255);
 	}
