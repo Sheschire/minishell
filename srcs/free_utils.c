@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/24 16:17:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:54:00 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_array(char **array)
 	int		i;
 
 	i = -1;
+	if (!array)
+		return ;
 	while (array[++i])
 	{
 		if (array[i])
@@ -30,7 +32,7 @@ void	free_list(t_node **list)
 {
 	t_node	*to_free;
 	t_node	*save;
-	
+
 	save = NULL;
 	if (!list)
 		return ;

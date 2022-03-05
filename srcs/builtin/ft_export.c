@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 05:27:06 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/04 13:42:12 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:26:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,38 @@ int	ft_check_variable(t_global *g, char *cmd)
 	return (1);
 }
 
+char	**create_new_env(char *var, int	count, t_global *g)
+{
+	int	i;
+	char	**new_env;
+
+	i = 0;
+	new_env = (char **)ft_calloc(count + 1, sizeof(char *));
+	if (!new_env)
+		return (NULL);
+	new_env[i] = var;
+	while (++i < count)
+		new_env[i] = ft_strdup(g->env[i - 1]);
+	new_env[i] = NULL;
+	return (new_env);
+}
+
 void	ft_put_in_env(char *var, t_global *g, int index)
 {
+	int		count;
 	char	*dequoted_var;
+	char	**new_env;
 
-	if (index = -1)
+	count = 0;
+	dequoted_var = (char *)ft_calloc(dup_size(var), sizeof(char));
+	if (index == -1)
 	{
-		return ;
+		while (g->env[count])
+			count++;
+		dup_without_quotes(dequoted_var, var);
+		new_env = create_new_env(dequoted_var, count + 1, g);
+		free_array(g->env);
+		g->env = new_env;
 	}
 	else
 	{
@@ -104,7 +129,6 @@ void	ft_put_in_env(char *var, t_global *g, int index)
 		dup_without_quotes(dequoted_var, var);
 		g->env[index] = dequoted_var;
 	}
-	return ;
 }
 
 void	ft_export_variable(char *var, t_global *g)
@@ -114,13 +138,15 @@ void	ft_export_variable(char *var, t_global *g)
 	char	**var_split;
 
 	i = -1;
-	if (ft_strchr(var, '='))
-		var_split = ft_split(var, '=');
+	if (!ft_strchr(var, '='))
+		return ;
+	var_split = ft_split(var, '=');
 	if (var_split[0])
 	{
 		while (g->env[++i])
 		{
-			if (ft_strnstr(g->env[i], var_split[0], ft_strlen(var_split[0])))
+			if (ft_strnstr(g->env[i], var_split[0], ft_strlen(var_split[0]))
+				&& g->env[i][ft_strlen(var_split[0])] == '=')
 			{
 				if (!var_split[1])
 				{
@@ -130,10 +156,9 @@ void	ft_export_variable(char *var, t_global *g)
 				ft_put_in_env(var, g, i);
 			}
 		}
+		free_array(var_split);
+		ft_put_in_env(var, g, -1);
 	}
-	free_array(var_split);
-	ft_put_in_env(var, g, -1);
-	return ;
 }
 
 void	ft_export(char **cmd, t_global *g)
@@ -158,7 +183,7 @@ void	ft_export(char **cmd, t_global *g)
 				ft_putstr_fd("': not a valid identifier\n", 2);
 			}
 			else
-				ft_export_variable(g, cmd[i]);
+				ft_export_variable(cmd[i], g);
 		}
 	}
 	return ;

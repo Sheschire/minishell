@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 17:12:46 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:18:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,24 @@
 char	*parse_env(char *var, char **env)
 {
 	char	*var_value;
+	int	i;
 
-	var_value = getenv(var);
-	if (var_value != NULL)
-		return (var_value);
+	i = -1;
+	var_value = NULL;
+	while(env[++i])
+	{
+		if (!ft_strncmp(env[i], var, ft_strlen(var)))
+		{
+			if (env[i][ft_strlen(var)] == '=')
+			{
+				var_value = env[i];
+				while (*var_value != '=')
+					var_value++;
+				var_value++;
+				return(var_value);
+			}
+		}
+	}
 	return ("");
 }
 
