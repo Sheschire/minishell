@@ -14,21 +14,22 @@ SRCS			= srcs/minishell.c\
 				  srcs/init.c\
 				  srcs/signals.c\
 				  srcs/parsing/group_nodes_into_commands.c\
-				  srcs/builtin/pipex.c\
-				  srcs/builtin/pipex_utils.c\
-				  srcs/builtin/here_doc.c\
-				  srcs/builtin/ft_list_cleaner.c\
-				  srcs/builtin/ft_errors_manager.c\
-				  srcs/builtin/cmd_path_builder.c\
+				  srcs/exec/pipex.c\
+				  srcs/exec/pipex_utils.c\
+				  srcs/exec/here_doc.c\
+				  srcs/exec/ft_list_cleaner.c\
+				  srcs/exec/ft_errors_manager.c\
+				  srcs/exec/cmd_path_builder.c\
 				  srcs/builtin/ft_cd.c\
 				  srcs/builtin/ft_env.c\
 				  srcs/builtin/ft_exit.c\
 				  srcs/builtin/ft_pwd.c\
 				  srcs/builtin/ft_export.c\
 				  srcs/builtin/ft_export_declare.c\
-				  srcs/builtin/ft_dupper.c\
-				  srcs/builtin/ft_parent_process.c\
-				  srcs/builtin/ft_child_process.c
+				  srcs/builtin/ft_echo.c\
+				  srcs/exec/ft_dupper.c\
+				  srcs/exec/ft_parent_process.c\
+				  srcs/exec/ft_child_process.c
 
 OBJS			= $(SRCS:.c=.o)
 

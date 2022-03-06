@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/05 21:18:39 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/06 11:01:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void	ft_declare_env(t_global *g);
 int		env_lenght(char **env);
 void	dup_without_quotes(char *dup, char *s);
 int		dup_size(char *s);
+void	ft_echo(char **builtcmd);
 
 //SIGNALS
 void	handle_signals(void);
