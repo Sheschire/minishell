@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:19:34 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/05 18:07:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/06 13:56:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
 void (*del)(void *));
 int 				is_in_set(char c, char *s);
 char				*strdup_set(char *s, char *charset);
+int					ft_strallcmp(char *s1, char *s2, int flag);
 #endif

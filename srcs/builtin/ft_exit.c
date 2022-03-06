@@ -6,17 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/01 15:53:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:37:41 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
-
-/*
-** When it will be plugged to the parser, 
-** we'll have to check if it works with "exit ' 3'".
-*/
 
 int	ft_set_exit_value(char *arg)
 {
@@ -50,7 +44,7 @@ void	ft_exit_no_arg(t_global *g, char **builtcmd)
 	exit(0);
 }
 
-void	ft_exit_not_alone(t_global *g)
+int	ft_exit_not_alone(t_global *g)
 {
 	int	i;
 
@@ -59,19 +53,20 @@ void	ft_exit_not_alone(t_global *g)
 	{
 		if (g->list->cmd)
 		{
-			if (ft_strncmp(g->list->cmd[0], "exit",
-					ft_strlen(g->list->cmd[0])))
+			if (ft_strallcmp(g->list->cmd[0], "exit", 0))
 			{
 				if (g->list->is_child == 1)
 				{
 					free_minishell(g);
 					exit(0);
+					return (0);
 				}
 				else
-					return ;
+					return (0);
 			}
 		}
 	}
+	return (0);
 }
 
 void	ft_exit_signal(t_global *g)
@@ -91,16 +86,17 @@ int	too_many_args_exit(char **builtcmd)
 	return (i);
 }
 
-void	ft_exit(char **builtcmd, t_global *g)
+int	ft_exit(char **builtcmd, t_global *g)
 {
 	int	exit_value;
 
+	g_sig.exit_status = 0;
 	if (g->cmd_nbr > 1)
-		ft_exit_not_alone(g);
+		return (ft_exit_not_alone(g));
 	else if (too_many_args_exit(builtcmd) > 2)
 	{
-		ft_putstr_fd("exit\nexit: too many arguments\n", 1);
-		return ;
+		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
+		return (1);
 	}
 	else if (!builtcmd[1])
 		ft_exit_no_arg(g, builtcmd);
@@ -119,4 +115,5 @@ void	ft_exit(char **builtcmd, t_global *g)
 		free_minishell(g);
 		exit(255);
 	}
+	return (0);
 }

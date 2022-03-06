@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_strallcmp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 16:06:35 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:27:32 by barodrig         ###   ########.fr       */
+/*   Created: 2022/03/06 11:39:06 by barodrig          #+#    #+#             */
+/*   Updated: 2022/03/06 13:56:39 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../libft/libft.h"
+#include "libft.h"
 
-int	ft_env(t_global *g)
+int	ft_strallcmp(char *s1, char *s2, int flag)
 {
 	int	i;
 
 	i = -1;
-	g_sig.exit_status = 0;
-	while (g->env[++i])
-		printf("%s\n", g->env[i]);
-	return (0);
+	while (s1[++i] || s2[i])
+	{
+		if (!s1[i] || !s2[i])
+			break ;
+		else if (s1[i] != s2[i])
+			return (1);
+	}
+	if (!s2[i] && s1[i] == '=' && flag == 1)
+		return (0);
+	if (!s2[i] && flag == 0)
+		return (0);
+	return (1);
 }

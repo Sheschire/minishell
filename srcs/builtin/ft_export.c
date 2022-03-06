@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:03:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/05 21:18:18 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:30:11 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_export_variable(char *var, t_global *g)
 	}
 }
 
-void	ft_export(char **cmd, t_global *g)
+int	ft_export(char **cmd, t_global *g)
 {
 	int	i;
 
@@ -109,7 +109,7 @@ void	ft_export(char **cmd, t_global *g)
 	if (!cmd[1])
 	{
 		ft_declare_env(g);
-		return ;
+		return (0);
 	}
 	while (cmd[++i])
 	{
@@ -123,5 +123,5 @@ void	ft_export(char **cmd, t_global *g)
 		else
 			ft_export_variable(cmd[i], g);
 	}
-	return ;
+	return (0);
 }

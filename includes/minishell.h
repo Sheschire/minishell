@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/06 11:01:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:32:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,19 +163,22 @@ void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node);
 void	_error(int i, char **to_free);
 
 // BUILTINS
+int		ft_cd(char **builtcmd, t_global *g);
+int		ft_env(t_global *g);
+int		ft_exit(char **builtcmd, t_global *g);
+int		ft_pwd(void);
+int		ft_export(char **cmd, t_global *g);
+int		ft_echo(char **builtcmd);
+
+// BUILTINS UTILS
+void	ft_exit_signal(t_global *g);
 int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i);
-int		ft_cd(char **builtcmd);
-int		ft_env(t_global *g);
-void	ft_exit(char **builtcmd, t_global *g);
-void	ft_exit_signal(t_global *g);
-int		ft_pwd(void);
-void	ft_export(char **cmd, t_global *g);
-void	ft_declare_env(t_global *g);
+char	*get_in_env(char *str, t_global *g);
 int		env_lenght(char **env);
+void	ft_declare_env(t_global *g);
 void	dup_without_quotes(char *dup, char *s);
 int		dup_size(char *s);
-void	ft_echo(char **builtcmd);
 
 //SIGNALS
 void	handle_signals(void);
