@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/01 14:06:18 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:23:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	pipex(t_global *g, t_node *node)
 	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
-	g->cp_stdin = dup(STDIN_FILENO);
-	g->cp_stdout = dup(STDOUT_FILENO);
 	while (i < g->cmd_nbr - 1)
 	{
 		if (node->token_type == CMD && node->_error == 0)
