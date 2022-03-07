@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 16:05:21 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:22:43 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,26 @@ void	syntax_parser(t_node **list, t_global *g)
 	tmp = *list;
 	command_up = 0;
 	check_syntax_error(list, g);
-	if (!tmp->n || (tmp->token_type != TOKEN_PIPE && \
-	tmp->token_type != TOKEN_FLUX))
+	if (!g->syntax_err)
 	{
-		tmp->token_type = TOKEN_COMMAND;
-		command_up = 1;
-	}
-	while (tmp)
-	{
-		if (tmp->token_type == TOKEN_FLUX)
-			find_flux_direction(tmp);
-		if (tmp->token_type == TOKEN_PIPE)
+		if (!tmp->n || (tmp->token_type != TOKEN_PIPE && \
+		tmp->token_type != TOKEN_FLUX))
 		{
-			if (tmp->n)
-				tmp->n->token_type = TOKEN_COMMAND;
-			command_up = 0;
+			tmp->token_type = TOKEN_COMMAND;
+			command_up = 1;
 		}
-		tmp = tmp->n;
+		while (tmp)
+		{
+			if (tmp->token_type == TOKEN_FLUX)
+				find_flux_direction(tmp);
+			if (tmp->token_type == TOKEN_PIPE)
+			{
+				if (tmp->n)
+					tmp->n->token_type = TOKEN_COMMAND;
+				command_up = 0;
+			}
+			tmp = tmp->n;
+		}
 	}
 }
 

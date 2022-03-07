@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 16:10:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:22:09 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	check_syntax_error(t_node **list, t_global *g)
 {
 	t_node	*tmp;
 	char	*token_err;
-	
+
 	tmp = *list;
 	token_err = ft_strdup("");
 	while (tmp)
 	{
 		if ((is_redir(tmp) && (!tmp->n || is_redir(tmp->n) || \
-		tmp->n->token_type == TOKEN_PIPE)) || (!tmp->n && tmp->token_type == TOKEN_PIPE))
+		tmp->n->token_type == TOKEN_PIPE)) || \
+		(!tmp->n && tmp->token_type == TOKEN_PIPE))
 		{
 			free(token_err);
 			token_err = ft_strdup(tmp->s);
