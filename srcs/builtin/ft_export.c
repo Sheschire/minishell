@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:03:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:30:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:15:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	ft_check_variable(t_global *g, char *cmd)
 	i = 0;
 	if (!cmd || !cmd[0] || cmd[0] == '='
 		|| ((cmd[0] < 'A' || cmd[0] > 'Z')
-			&& (cmd[0] < 'a' || cmd[0] > 'b') && cmd[0] != '_'))
+			&& (cmd[0] < 'a' || cmd[0] > 'z') && cmd[0] != '_'))
 		return (0);
 	i++;
 	while (cmd[i] && cmd[i] != '=')
 	{
 		if (((cmd[i] < 'A' || cmd[i] > 'Z')
-				&& (cmd[i] < 'a' && cmd[i] > 'b') && cmd[i] != '_'))
+				&& (cmd[i] < 'a' && cmd[i] > 'z') && cmd[i] != '_'))
 			return (0);
 		i++;
 	}
@@ -55,7 +55,7 @@ void	ft_put_in_env(char *var, t_global *g, int index)
 	char	**new_env;
 
 	count = env_lenght(g->env);
-	dequoted_var = (char *)ft_calloc(dup_size(var), sizeof(char));
+	dequoted_var = (char *)ft_calloc(dup_size(var) + 1, sizeof(char));
 	if (index == -1)
 	{
 		dup_without_quotes(dequoted_var, var);
@@ -77,15 +77,12 @@ void	ft_export_variable(char *var, t_global *g)
 	char	**var_split;
 
 	i = -1;
-	if (!ft_strchr(var, '='))
-		return ;
 	var_split = ft_split(var, '=');
 	if (var_split[0])
 	{
 		while (g->env[++i])
 		{
-			if (ft_strnstr(g->env[i], var_split[0], ft_strlen(var_split[0]))
-				&& g->env[i][ft_strlen(var_split[0])] == '=')
+			if (!ft_strallcmp(g->env[i], var_split[0], 1))
 			{
 				if (!var_split[1])
 				{
@@ -93,6 +90,7 @@ void	ft_export_variable(char *var, t_global *g)
 					return ;
 				}
 				ft_put_in_env(var, g, i);
+				return ;
 			}
 		}
 		free_array(var_split);

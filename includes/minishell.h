@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 14:20:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:57:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int		ft_exit(char **builtcmd, t_global *g);
 int		ft_pwd(void);
 int		ft_export(char **cmd, t_global *g);
 int		ft_echo(char **builtcmd);
+int		ft_unset(char **cmd, t_global *g);
 
 // BUILTINS UTILS
 void	ft_exit_signal(t_global *g);

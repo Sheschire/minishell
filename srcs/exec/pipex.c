@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 14:23:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:41:42 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 	else
 	{
-		child_process(g, node, i, g->_pipes);
+		if (!is_builtin(node->cmd))
+			child_process(g, node, i, g->_pipes);
+		else
+		{
+			is_builtin_exec(node->cmd, g, i);
+			exit(g_sig.exit_status);
+		}
 		return (-1);
 	}
 }
@@ -54,7 +60,6 @@ void	pipex(t_global *g, t_node *node)
 	{
 		if (node->token_type == CMD && node->_error == 0)
 		{
-			printf("%i\n", i);
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
 			node->is_child = 1;

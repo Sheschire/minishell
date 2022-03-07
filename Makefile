@@ -27,6 +27,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/builtin/ft_export.c\
 				  srcs/builtin/ft_export_declare.c\
 				  srcs/builtin/ft_echo.c\
+				  srcs/builtin/ft_unset.c\
 				  srcs/builtin/builtin_utils.c\
 				  srcs/exec/ft_dupper.c\
 				  srcs/exec/ft_parent_process.c\
