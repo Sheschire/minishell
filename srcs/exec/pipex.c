@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 09:23:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:23:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	pipex(t_global *g, t_node *node)
 	{
 		if (node->token_type == CMD && node->_error == 0)
 		{
+			printf("%i\n", i);
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
 			node->is_child = 1;
@@ -66,4 +67,5 @@ void	pipex(t_global *g, t_node *node)
 	exec_in_parent(g, node, i, g->_pipes);
 	wait_pids(g);
 	ft_close_pipe(g, INT_MAX);
+	dup_cp_std(g);
 }

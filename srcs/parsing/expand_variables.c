@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/05 18:18:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:26:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 char	*parse_env(char *var, char **env)
 {
 	char	*var_value;
-	int	i;
+	int		i;
 
 	i = -1;
 	var_value = NULL;
-	while(env[++i])
+	while (env[++i])
 	{
 		if (!ft_strncmp(env[i], var, ft_strlen(var)))
 		{
@@ -29,7 +29,7 @@ char	*parse_env(char *var, char **env)
 				while (*var_value != '=')
 					var_value++;
 				var_value++;
-				return(var_value);
+				return (var_value);
 			}
 		}
 	}

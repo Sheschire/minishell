@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/28 16:17:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:19:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@
 #include <stdio.h>
 
 t_signal	g_sig;
-
-void	dup_cp_std(t_global *g)
-{
-	dup2(g->cp_stdin, STDIN_FILENO);
-	close(g->cp_stdin);
-	dup2(g->cp_stdout, STDOUT_FILENO);
-	close(g->cp_stdout);
-}
 
 int	main(int ac, char **av, char **env)
 {
@@ -52,13 +44,15 @@ int	main(int ac, char **av, char **env)
 				add_history((const char *)line);
 				input_parser(line, &g);
 				pipex(&g, g.list);
-				dup_cp_std(&g);
 				free_exec(&g);
 				free_list(&g.list);
 			}
 		}
 		else
+		{
+			printf("I QUIT BITCH !\n");
 			ft_exit_signal(&g);
+		}
 		free(line);
 	}
 	return (0);

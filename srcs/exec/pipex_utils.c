@@ -6,12 +6,18 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:12:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:23:11 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
+
+void	dup_cp_std(t_global *g)
+{
+	dup2(g->cp_stdin, STDIN_FILENO);
+	dup2(g->cp_stdout, STDOUT_FILENO);
+}
 
 int	ft_are_digits(char *str)
 {

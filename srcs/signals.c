@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 13:44:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:49:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	kill_pids()
+int	kill_pids(void)
 {
 	int	i;
 
@@ -22,11 +22,11 @@ int	kill_pids()
 	return (i);
 }
 
-void    action(int signum, siginfo_t *info, void *context)
+void	action(int signum, siginfo_t *info, void *context)
 {
 	int	kill_ret;
-	(void)context;
 
+	(void)context;
 	if (signum == SIGINT)
 	{
 		kill_ret = kill_pids();
@@ -53,7 +53,7 @@ void    action(int signum, siginfo_t *info, void *context)
 
 void    handle_signals(void)
 {
-	struct sigaction    sa;
+	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;

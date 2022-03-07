@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/01/28 14:02:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:08:57 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 //	if (node->_error == 1)
 //		return ;
-	node->is_child = 1;
 	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
 	else

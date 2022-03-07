@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/05 16:54:00 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:58:37 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,6 @@ void	free_list(t_node **list)
 		to_free = save;
 	}
 	*list = NULL;
-}
-
-void	ft_delnode(t_node *node)
-{
-	int		i;
-
-	i = -1;
-	if (node->n)
-		node->n = NULL;
-	if (node->s)
-		free(node->s);
-	if (node->cmd)
-	{
-		while (node->cmd[++i])
-			free(node->cmd[i]);
-		free(node->cmd);
-	}
-	if (node->fileout)
-		free(node->fileout);
-	if (node->filein)
-		free(node->filein);
-	if (node->limiter)
-		free(node->limiter);
-	free(node);
-	node = 0;
 }
 
 void	free_exec(t_global *g)

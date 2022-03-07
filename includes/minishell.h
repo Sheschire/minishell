@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/06 14:32:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:20:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define CMD_NOT_FND 127
 # define WRNG_ARG 128
 
-typedef struct	s_signal
+typedef struct s_signal
 {
 	int	exit_status;
 	int	pids[512];
@@ -118,7 +118,6 @@ t_node	*getlast(t_node *s);
 void	add_back(t_node **s, t_node *new);
 void	add_front(t_node **s, t_node *new);
 void	free_list(t_node **s);
-void	ft_delnode(t_node *node);
 void	newnode_add_back(char *s, int token_type, t_node **list);
 void	newnode_cmd_add_back(char **cmd, t_node **list);
 int		found_token_flux(t_node **list);
@@ -126,7 +125,6 @@ int		found_token_flux(t_node **list);
 // FREE UTILS
 void	free_list(t_node **list);
 void	free_array(char **array);
-void	ft_delnode(t_node *node);
 void	free_exec(t_global *g);
 void	free_minishell(t_global *g);
 
@@ -150,6 +148,7 @@ void	ft_list_cleaner(t_node *node);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);
+void	dup_cp_std(t_global *g);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
