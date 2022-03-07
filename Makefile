@@ -36,7 +36,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include -g3 -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -g3
 
 NAME			= minishell
 
