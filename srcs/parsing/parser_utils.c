@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 17:21:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:10:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,30 @@ int	find_quote_pair(char *line, char c, int i)
 		return (save);
 }
 
-void	check_syntax_error(t_node **list)
+void	check_syntax_error(t_node **list, t_global *g)
 {
 	t_node	*tmp;
-
+	char	*token_err;
+	
 	tmp = *list;
+	token_err = ft_strdup("");
 	while (tmp)
 	{
-		if (is_redir(tmp) && (!tmp->n || is_redir(tmp->n) || \
-		tmp->n->token_type == TOKEN_PIPE))
-			printf("SYNTAX ERROR\n");
-		if (!tmp->n && tmp->token_type == TOKEN_PIPE)
-			printf("SYNTAX ERROR\n");
+		if ((is_redir(tmp) && (!tmp->n || is_redir(tmp->n) || \
+		tmp->n->token_type == TOKEN_PIPE)) || (!tmp->n && tmp->token_type == TOKEN_PIPE))
+		{
+			free(token_err);
+			token_err = ft_strdup(tmp->s);
+		}
 		tmp = tmp->n;
 	}
+	if (ft_strcmp(token_err, ""))
+	{
+		printf("bash: syntax error near unexpected token '%s'\n", token_err);
+		g->syntax_err = 1;
+		free_list(list);
+	}
+	free(token_err);
 }
 
 int	find_token_type(char c)

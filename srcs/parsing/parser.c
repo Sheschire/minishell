@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/24 15:48:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:05:21 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	lexer_parser(char *line, t_node **list)
 	}
 }
 
-void	syntax_parser(t_node **list)
+void	syntax_parser(t_node **list, t_global *g)
 {
 	t_node	*tmp;
 	int		command_up;
 
 	tmp = *list;
 	command_up = 0;
-	check_syntax_error(list);
+	check_syntax_error(list, g);
 	if (!tmp->n || (tmp->token_type != TOKEN_PIPE && \
 	tmp->token_type != TOKEN_FLUX))
 	{
@@ -71,7 +71,7 @@ void	syntax_parser(t_node **list)
 void	input_parser(char *line, t_global *g)
 {
 	lexer_parser(line, &g->list);
-	syntax_parser(&g->list);
+	syntax_parser(&g->list, g);
 	if (found_token_flux(&g->list))
 		reorganize_commandline(&g->list);
 	quote_expand_parser(&g->list, g);

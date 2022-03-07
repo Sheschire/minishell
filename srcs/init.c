@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/10 16:39:15 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:51:01 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_global(t_global *g, char **envp)
 	g->cmd_nbr = 0;
 	g->status = 0;
 	g_sig.exit_status = 0;
+	g->syntax_err = 0;
 }
 
 void	init_cmd_nodes(t_node **list)

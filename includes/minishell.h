@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 14:57:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:52:12 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_global
 	int				status;
 	int				cp_stdin;
 	int				cp_stdout;
+	int				syntax_err;
 }					t_global;
 
 extern t_signal	g_sig;
@@ -102,7 +103,7 @@ char	*create_option_node(char *line, t_node **list);
 char	*create_quote_node(char *line, t_node **list);
 int		find_token_type(char c);
 void	reorganize_commandline(t_node **list);
-void	check_syntax_error(t_node **list);
+void	check_syntax_error(t_node **list, t_global *g);
 int		is_redir(t_node *tmp);
 void	group_nodes_into_commands(t_node **list);
 int		find_quote_pair(char *line, char c, int i);
