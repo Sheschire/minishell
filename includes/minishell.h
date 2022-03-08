@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/08 11:22:51 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/08 19:21:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,9 @@ int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);
 void	dup_cp_std(t_global *g);
+void	wait_pids(t_global *g, t_node *node);
 
-// FD MANAGEMENT
+// FD MANAGEMENTmake
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
