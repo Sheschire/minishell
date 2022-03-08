@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:57 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 15:35:00 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/08 18:09:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,19 @@ void	ft_remove_from_env(t_global *g, int index)
 int	ft_unset(char **cmd, t_global *g)
 {
 	int	i;
+	int	j;
 
 	g_sig.exit_status = 0;
-	i = -1;
-	while (g->env[++i])
+	j = 0;
+	while (cmd[++j])
 	{
-		if (!ft_strallcmp(g->env[i], cmd[1], 1))
+		i = -1;
+		while (g->env[++i])
 		{
-			ft_remove_from_env(g, i);
+			if (!ft_strallcmp(g->env[i], cmd[1], 1))
+				ft_remove_from_env(g, i);
+			if (!ft_strallcmp(g->env[i], "PATH", 1))
+				free_array(g->path);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 15:28:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/08 18:36:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_builtin(char **builtcmd)
 {
 	int	size;
 
+	if (!builtcmd)
+		return (0);
 	size = ft_strlen(builtcmd[0]);
 	if (!ft_strncmp(builtcmd[0], "cd", size))
 		return (1);
