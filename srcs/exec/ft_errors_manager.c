@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 13:46:10 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 14:01:57 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:20:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ void	ft_to_break_free(char **str)
 
 void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node)
 {
-	write(2, "Error: Command not found.\n", 26);
+	ft_putstr_fd("Error: Command not found.\n", 2);
 	if (pathname)
 		free(pathname);
-	// if (cmd)
-	// 	ft_to_break_free(cmd);
-	// if (g->path)
-	// 	ft_to_break_free(g->path);
+	free_array(g->env);
+	free_array(g->path);
+	free_list(&g->list);
 	exit(127);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 15:51:01 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:23:28 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**ft_get_all_env(char **envp)
 	int		i;
 	int		j;
 	char	**new_env;
-	
+
 	i = 0;
 	while (envp[i])
 		i++;
@@ -38,9 +38,9 @@ char	**ft_get_all_env(char **envp)
 	while (envp[++i])
 	{
 		new_env[i] = (char *)ft_calloc(ft_strlen(envp[i]) + 1,
-			sizeof(char));
+				sizeof(char));
 		j = -1;
-		while(envp[i][++j])
+		while (envp[i][++j])
 			new_env[i][j] = envp[i][j];
 		new_env[i][j] = '\0';
 	}
@@ -57,6 +57,7 @@ void	init_global(t_global *g, char **envp)
 	g->list = NULL;
 	g->cmd_nbr = 0;
 	g->status = 0;
+	g->child_exist = 0;
 	g_sig.exit_status = 0;
 	g->syntax_err = 0;
 }

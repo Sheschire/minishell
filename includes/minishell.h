@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 16:22:13 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:22:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@
 # define CMD_NOT_FND 127
 # define WRNG_ARG 128
 
+# define TRUE  1
+# define FALSE (!TRUE)
+
 typedef struct s_signal
 {
 	int	exit_status;
@@ -83,6 +86,7 @@ typedef struct s_global
 	t_node			*list;
 	int				cmd_nbr;
 	int				status;
+	int				child_exist;
 	int				cp_stdin;
 	int				cp_stdout;
 	int				syntax_err;
