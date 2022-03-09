@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/08 19:20:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:04:36 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	wait_pids(t_global *g, t_node *node)
 	i = -1;
 	while (++i < g->cmd_nbr - 1)
 		waitpid(g_sig.pids[i], 0, WUNTRACED);
-	printf("I = %i\n", i);
 	if (!node->is_child && !is_builtin(node->cmd))
 	{
-		printf("PROUTS\n");
 		tmp_status = waitpid(g_sig.pids[i], &status, WUNTRACED);
 		while (!WIFEXITED(status) && !WIFSIGNALED(status))
 			tmp_status = waitpid(g_sig.pids[i], &status, WUNTRACED);
