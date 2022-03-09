@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:40:06 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/02/02 16:17:44 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:40:57 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_concat(char *s1, char *s2, int len)
 	return (s3);
 }
 
-int		check_n(char *p)
+int	check_n(char *p)
 {
 	int			i;
 
@@ -51,7 +51,7 @@ int		check_n(char *p)
 	return (i);
 }
 
-int		handling_return(int r, char *buf, char **line, char *p)
+int	handling_return(int r, char *buf, char **line, char *p)
 {
 	if (r > 0)
 	{
@@ -71,7 +71,7 @@ int		handling_return(int r, char *buf, char **line, char *p)
 	return (-1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	buf[BUFFER_SIZE + 1];
 	static int	i = 0;
@@ -82,6 +82,7 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	p = 0;
 	*line = 0;
+	write(1, "> ", 2);
 	while (BUFFER_SIZE > 0)
 	{
 		if (i && !(*line = ft_concat(p, buf + i, check_n(buf + i))))
