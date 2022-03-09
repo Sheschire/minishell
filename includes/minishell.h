@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/09 10:02:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:43:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_node
 	char			**cmd;
 	int				before;
 	int				after;
+	int				here_doc_fd;
 	char			*filein;
 	char			*fileout;
 	char			*limiter;
@@ -98,6 +99,7 @@ extern t_signal	g_sig;
 void	init_global(t_global *g, char **env);
 char	**get_path(char **env);
 void	init_cmd_nodes(t_node **list);
+void	ft_export_variable(char *var, t_global *g);
 
 // PARSER
 void	input_parser(char *line, t_global *g);
@@ -116,6 +118,7 @@ int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);
 char	**ft_arraydup(char **tab);
+char	*parse_env(char *var, char **env);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -134,9 +137,9 @@ void	free_exec(t_global *g);
 void	free_minishell(t_global *g);
 
 // EXECUTION
-void	pipex(t_global *g, t_node *node);
-void	ft_here_doc(char *limiter);
-void	ft_useless_here_doc(char *limiter);
+void	pipex(t_global *g, t_node *node, int i);
+int		ft_here_doc(char *limiter, t_global *g);
+void	heredoc_expand(char *s, t_global *g);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
@@ -149,12 +152,13 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
 void	wait_children(t_global *g);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
-void	ft_list_cleaner(t_node *node);
+void	ft_list_cleaner(t_node *node, t_global *g);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);
 void	dup_cp_std(t_global *g);
 void	wait_pids(t_global *g, t_node *node);
+int		replace_expand(char *dup, char *to_replace, int j);
 
 // FD MANAGEMENTmake
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 10:32:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:15:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	wait_pids(t_global *g, t_node *node)
 
 int	check_pid(int pid, int i, t_global *g, t_node *node)
 {
+	g_sig.pids[i] = pid;
 	if (pid < 0)
 		return (-1);
 	else if (pid > 0)
@@ -63,29 +64,29 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 }
 
-void	pipex(t_global *g, t_node *node)
+void	pipex(t_global *g, t_node *node, int i)
 {
-	int	i;
 	int	pid;
 
-	i = 0;
-	ft_list_cleaner(node);
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
 	while (i < g->cmd_nbr - 1)
 	{
-		if (node->token_type == CMD && node->_error == 0)
+		ft_list_cleaner(node, g);
+		while (node->token_type != TOKEN_PIPE)
 		{
-			if (pipe(g->_pipes[i]) == -1)
-				ft_error_pipe(g);
-			node->is_child = 1;
-			pid = fork();
-			g_sig.pids[i] = pid;
-			i = check_pid(pid, i, g, node);
+			if (node->token_type == CMD && node->_error == 0)
+			{
+				if (pipe(g->_pipes[i]) == -1)
+					ft_error_pipe(g);
+				node->is_child = 1;
+				pid = fork();
+				i = check_pid(pid, i, g, node);
+			}
+			node = node->n;
 		}
 		node = node->n;
 	}
-	g->child_exist = 0;
 	exec_in_parent(g, node, i, g->_pipes);
 	ft_close_pipe(g, INT_MAX);
 	dup_cp_std(g);
