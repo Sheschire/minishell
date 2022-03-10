@@ -6,18 +6,18 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 14:16:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:11:42 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	handling_flux_append(t_node *node, char *hook, t_global *g)
+void	handling_flux_append(t_node *node, char *hook)
 {
 	node->filein = NULL;
 	node->here_doc = 1;
 	if (node->limiter)
-		node->here_doc_fd = ft_here_doc(node->limiter, g);
+		ft_useless_here_doc(node->limiter);
 	node->limiter = hook;
 }
 
@@ -33,7 +33,7 @@ void	handling_flux_append(t_node *node, char *hook, t_global *g)
 	}
 }*/
 
-int	count_create_redirin(t_node *node, t_global *g)
+int	count_create_redirin(t_node *node)
 {
 	t_node	*tmp;
 	char	*hook;
@@ -45,7 +45,7 @@ int	count_create_redirin(t_node *node, t_global *g)
 	{
 		if (tmp->token_type == 8 || tmp->token_type == 10)
 		{
-			hook = tmp->n->s;
+			hook =  tmp->n->s;
 			if (tmp->token_type == L_FLUX_CREATE)
 			{
 				node->here_doc = 0;
@@ -57,13 +57,13 @@ int	count_create_redirin(t_node *node, t_global *g)
 					return (0);
 				}
 				if (node->limiter)
-					node->here_doc_fd = ft_here_doc(node->limiter, g);
+					ft_useless_here_doc(node->limiter);
 				node->limiter = NULL;
 				node->filein = hook;
 				close(ret);
 			}
 			else if (tmp->token_type == L_FLUX_APPEND)
-				handling_flux_append(node, hook, g);
+				handling_flux_append(node, hook);
 		}
 		tmp = tmp->n;
 	}	
@@ -108,7 +108,7 @@ void	count_create_redirout(t_node *node)
 // depending on the flux type.
 */
 
-void	ft_list_cleaner(t_node *node, t_global *g)
+void	ft_list_cleaner(t_node *node)
 {
 	t_node	*tmp;
 
@@ -117,7 +117,7 @@ void	ft_list_cleaner(t_node *node, t_global *g)
 	{
 		if (tmp->token_type == CMD)
 		{
-			if (count_create_redirin(tmp, g))
+			if (count_create_redirin(tmp))
 				count_create_redirout(tmp);
 		}
 		if (tmp->token_type == CMD && tmp->n->token_type == TOKEN_PIPE)

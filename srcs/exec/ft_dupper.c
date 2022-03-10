@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 14:43:59 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:20:16 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
 	{
 		if (i != 0)
 			close(_pipes[i - 1][0]);
-		dup2(node->, STDIN_FILENO);
-		close(node->here_doc_fd);
+		ft_here_doc(node->limiter);
 	}
 	else if (i > 0)
 	{

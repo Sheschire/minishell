@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 14:38:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:17:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
+void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
 
@@ -27,10 +27,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
 			close(file);
 		}
 		else if (node->here_doc == 1)
-		{
-			dup2(make_here_doc_fd(1), STDIN_FILENO);
-			close(node->here_doc_fd);
-		}
+			ft_here_doc(node->limiter);
 	}
 	dup_exit_node_parent(node, i, _pipes);
 	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
@@ -58,7 +55,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 			}
 			else
 			{
-				parent_process_fd(node, i, _pipes, g);
+				parent_process_fd(node, i, _pipes);
 				is_builtin_exec(node->cmd, g, i);
 			}
 			if (!pid)
