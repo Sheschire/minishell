@@ -6,18 +6,18 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 10:17:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:28:57 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
+void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
 {
 	int	file;
 
 	if (i != 0)
-		dup_entry_node(node, i, _pipes);
+		dup_entry_node(node, i, _pipes, g);
 	else
 	{
 		if (node->filein)
@@ -27,7 +27,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 			close(file);
 		}
 		else if (node->here_doc == 1)
-			ft_here_doc(node->limiter);
+			ft_here_doc(node->limiter, g);
 	}
 	dup_exit_node_parent(node, i, _pipes);
 	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
@@ -55,7 +55,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 			}
 			else
 			{
-				parent_process_fd(node, i, _pipes);
+				parent_process_fd(node, i, _pipes, g);
 				is_builtin_exec(node->cmd, g, i);
 			}
 			if (!pid)

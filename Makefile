@@ -2,7 +2,8 @@ YELLOW			= \033[1;33m
 GREEN			= \033[1;32m
 
 SRCS			= srcs/minishell.c\
-				  srcs/get_next_line.c\
+				  srcs/get_next_line/get_next_line.c\
+				  srcs/get_next_line/get_next_line_utils.c\
 				  srcs/parsing/list_utils.c\
 				  srcs/parsing/parser.c\
 				  srcs/parsing/parser_utils.c\
@@ -17,6 +18,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/exec/pipex.c\
 				  srcs/exec/pipex_utils.c\
 				  srcs/exec/here_doc.c\
+				  srcs/exec/here_doc_expand.c\
 				  srcs/exec/ft_list_cleaner.c\
 				  srcs/exec/ft_errors_manager.c\
 				  srcs/exec/cmd_path_builder.c\

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/14 15:47:23 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:30:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_useless_here_doc(char *limiter)
+int	ft_check_expand_need(char *limiter)
+{
+	int	i;
+
+	i = -1;
+	while (limiter[++i])
+	{
+		if (limiter[i] == '\'' || limiter[i] == '\"')
+			return (0);
+	}
+	return (1);
+}
+
+void	ft_useless_here_doc(char *limiter, t_global *g)
 {
 	char	*line;
 	int		pid;
@@ -22,7 +35,7 @@ void	ft_useless_here_doc(char *limiter)
 	pid = fork();
 	if (pid == 0)
 	{
-		while (get_next_line(0, &line))
+		while (get_next_line(0, &line, limiter, g))
 		{
 			if (!ft_strncmp(line, limiter, ft_strlen(limiter)))
 				exit(0);
@@ -32,22 +45,26 @@ void	ft_useless_here_doc(char *limiter)
 		waitpid(pid, NULL, 0);
 }
 
-void	do_the_here_doc_thing(char *line, char *limiter, int _pipe_here[2])
+void	do_here_doc_thing(char *line, char *limit, int _pipe[2], t_global *g)
 {
-	while (get_next_line(0, &line))
+	int	i;
+
+	i = 0;
+	while (get_next_line(0, &line, limit, g))
 	{
-		if (!ft_strncmp(line, limiter, ft_strlen(limiter)))
+		if (!ft_strncmp(line, limit, ft_strlen(limit)))
 		{
-			dup2(_pipe_here[1], STDOUT_FILENO);
-			close(_pipe_here[1]);
+			dup2(_pipe[1], STDOUT_FILENO);
+			close(_pipe[1]);
 			exit (0);
 		}
-		ft_putstr_fd(line, _pipe_here[1]);
-		ft_putstr_fd("\n", _pipe_here[1]);
+		ft_putstr_fd(line, _pipe[1]);
+		ft_putstr_fd("\n", _pipe[1]);
+		i++;
 	}
 }
 
-void	ft_here_doc(char *limiter)
+void	ft_here_doc(char *limiter, t_global *g)
 {
 	char	*line;
 	int		_pipe_here[2];
@@ -58,9 +75,7 @@ void	ft_here_doc(char *limiter)
 		write(2, "CA MARCHE PAS FRERE\n", 20);
 	pid = fork();
 	if (pid == 0)
-	{
-		do_the_here_doc_thing(line, limiter, _pipe_here);
-	}
+		do_here_doc_thing(line, limiter, _pipe_here, g);
 	else
 	{
 		waitpid(pid, NULL, 0);

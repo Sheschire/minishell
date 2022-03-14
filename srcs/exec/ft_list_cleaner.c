@@ -6,34 +6,22 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/09 10:11:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:36:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	handling_flux_append(t_node *node, char *hook)
+void	handling_flux_append(t_node *node, char *hook, t_global *g)
 {
 	node->filein = NULL;
 	node->here_doc = 1;
 	if (node->limiter)
-		ft_useless_here_doc(node->limiter);
+		ft_useless_here_doc(node->limiter, g);
 	node->limiter = hook;
 }
 
-/*t_node	*ft_find_next_redirin(t_node *tmp)
-{
-	int	i;
-
-	i = 0;
-	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
-	{
-		if (tmp->n->token_type == L_FLUX_APPEND)
-			i++
-	}
-}*/
-
-int	count_create_redirin(t_node *node)
+int	count_create_redirin(t_node *node, t_global *g)
 {
 	t_node	*tmp;
 	char	*hook;
@@ -57,13 +45,13 @@ int	count_create_redirin(t_node *node)
 					return (0);
 				}
 				if (node->limiter)
-					ft_useless_here_doc(node->limiter);
+					ft_useless_here_doc(node->limiter, g);
 				node->limiter = NULL;
 				node->filein = hook;
 				close(ret);
 			}
 			else if (tmp->token_type == L_FLUX_APPEND)
-				handling_flux_append(node, hook);
+				handling_flux_append(node, hook, g);
 		}
 		tmp = tmp->n;
 	}	
@@ -108,7 +96,7 @@ void	count_create_redirout(t_node *node)
 // depending on the flux type.
 */
 
-void	ft_list_cleaner(t_node *node)
+void	ft_list_cleaner(t_node *node, t_global *g)
 {
 	t_node	*tmp;
 
@@ -117,7 +105,7 @@ void	ft_list_cleaner(t_node *node)
 	{
 		if (tmp->token_type == CMD)
 		{
-			if (count_create_redirin(tmp))
+			if (count_create_redirin(tmp, g))
 				count_create_redirout(tmp);
 		}
 		if (tmp->token_type == CMD && tmp->n->token_type == TOKEN_PIPE)

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/09 10:02:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:01:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 # include <stdio.h>
 # include <limits.h>
 # include <readline/readline.h>
@@ -29,7 +32,6 @@
 # include <signal.h>
 # include <string.h>
 # include "../libft/libft.h"
-# include "../includes/get_next_line.h"
 
 # define TOKEN_LITERAL  1
 # define TOKEN_PIPE  2
@@ -54,6 +56,10 @@
 
 # define TRUE  1
 # define FALSE (!TRUE)
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 typedef struct s_signal
 {
@@ -115,6 +121,7 @@ void	dequote(t_node *tmp, t_global *g);
 int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);
+int		ft_check_expand_need(char *limiter);
 char	**ft_arraydup(char **tab);
 
 // LIST UTILS
@@ -133,10 +140,18 @@ void	free_array(char **array);
 void	free_exec(t_global *g);
 void	free_minishell(t_global *g);
 
+// GNL
+int		get_next_line(int fd, char **line, char *limit, t_global *g);
+int		ft_return(char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memmove(void *dst, const void *src, size_t len);
+size_t	ft_strlen(const char *str);
+
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
-void	ft_here_doc(char *limiter);
-void	ft_useless_here_doc(char *limiter);
+void	ft_here_doc(char *limiter, t_global *g);
+void	ft_useless_here_doc(char *limiter, t_global *g);
+void	heredoc_expand(char *s, t_global *g);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
@@ -149,15 +164,17 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
 void	wait_children(t_global *g);
 int		ft_are_digits(char *str);
 int		count_cmd(t_node *node);
-void	ft_list_cleaner(t_node *node);
+void	ft_list_cleaner(t_node *node, t_global *g);
 int		check_pid(int pid, int i, t_global *g, t_node *node);
 void	ft_close_pipe(t_global *g, int i);
 char	*testpath_builder(t_global *g, char *cmd, int i);
 void	dup_cp_std(t_global *g);
 void	wait_pids(t_global *g, t_node *node);
+int		replace_expand(char *dup, char *to_replace, int j);
+char	*parse_env(char *var, char **env);
 
-// FD MANAGEMENTmake
-void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
+// FD MANAGEMENT
+void	dup_entry_node(t_node *node, int i, int _pipes[512][2], t_global *g);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 

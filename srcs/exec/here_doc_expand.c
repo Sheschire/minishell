@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/09 11:45:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:01:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	heredoc_recreate_string(char *to_find, char *to_replace, char *s)
+char	*heredoc_recreate_string(char *to_find, char *to_replace, char *s)
 {
 	char	*dup;
 	int		i;
@@ -36,8 +36,7 @@ void	heredoc_recreate_string(char *to_find, char *to_replace, char *s)
 		j++;
 	}
 	dup[j] = '\0';
-	free(s);
-	s = dup;
+	return (free(s), dup);
 }
 
 void	heredoc_expand_2(char *s, t_global *g, int i, int j)
@@ -48,7 +47,7 @@ void	heredoc_expand_2(char *s, t_global *g, int i, int j)
 	tmp = ft_substr(s, j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
 	if (var)
-		heredoc_recreate_string(tmp, var, s);
+		s = heredoc_recreate_string(tmp, var, s);
 	free(tmp);
 	free(var);
 }
