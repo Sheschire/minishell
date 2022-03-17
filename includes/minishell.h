@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/14 18:01:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:17:00 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ size_t	ft_strlen(const char *str);
 void	pipex(t_global *g, t_node *node);
 void	ft_here_doc(char *limiter, t_global *g);
 void	ft_useless_here_doc(char *limiter, t_global *g);
-void	heredoc_expand(char *s, t_global *g);
+char	*heredoc_expand(char *s, t_global *g);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);

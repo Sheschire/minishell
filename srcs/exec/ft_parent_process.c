@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/14 16:28:57 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/17 11:55:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
 	close(_pipes[i][0]);
 }
 
+void	prepare_for_built(t_node *node, int i, int _pipes [512][2], t_global *g)
+{
+	parent_process_fd(node, i, _pipes, g);
+	is_builtin_exec(node->cmd, g, i);
+}
+
 void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
 	int	pid;
@@ -54,10 +60,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 				i = check_pid(pid, i, g, node);
 			}
 			else
-			{
-				parent_process_fd(node, i, _pipes, g);
-				is_builtin_exec(node->cmd, g, i);
-			}
+				prepare_for_built(node, i, _pipes, g);
 			if (!pid)
 				i++;
 		}

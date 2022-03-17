@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/14 18:01:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:39:15 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@ char	*heredoc_recreate_string(char *to_find, char *to_replace, char *s)
 		if (s[i] == '$' && !replaced_one)
 		{
 			j = replace_expand(dup, to_replace, j);
-			i += ft_strlen(to_find) + 1;
+			i += ft_strlen(to_find);
 			replaced_one = 1;
 		}
 		dup[j] = s[i];
 		j++;
 	}
 	dup[j] = '\0';
-	return (free(s), dup);
+	free(s);
+	return (dup);
 }
 
-void	heredoc_expand_2(char *s, t_global *g, int i, int j)
+char	*heredoc_expand_2(char *s, t_global *g, int i, int j)
 {
 	char	*tmp;
 	char	*var;
@@ -50,29 +51,33 @@ void	heredoc_expand_2(char *s, t_global *g, int i, int j)
 		s = heredoc_recreate_string(tmp, var, s);
 	free(tmp);
 	free(var);
+	return (s);
 }
 
-void	heredoc_expand(char *s, t_global *g)
+char	*heredoc_expand(char *s, t_global *g)
 {
 	int		i;
 	int		j;
 
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
 	{
 		if (s[i] == '\'' && find_pair(s, i, s[i]))
-			while (s[++i] && s[i] != '\'')
+			while (s[i] && s[i] != '\'')
 				i++;
 		if (s[i] == '$')
 		{
 			if (!s[i + 1] || is_in_set(s[i + 1], "\'\""))
-				return ;
+				return (s);
 			i++;
 			j = i;
 			while (s[i] && !is_in_set(s[i], " \'\"$"))
 				i++;
-			heredoc_expand_2(s, g, i, j);
-			i = -1;
+			s = heredoc_expand_2(s, g, i, j);
+			return (s);
+			i = 0;
 		}
-	}	
+		i++;
+	}
+	return (s);
 }

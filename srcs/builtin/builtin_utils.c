@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/08 18:36:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/17 11:44:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,19 @@ int	is_builtin(char **builtcmd)
 
 	if (!builtcmd)
 		return (0);
-	size = ft_strlen(builtcmd[0]);
-	if (!ft_strncmp(builtcmd[0], "cd", size))
+	if (!ft_strncmp(builtcmd[0], "cd", 3))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "pwd", size))
+	else if (!ft_strncmp(builtcmd[0], "pwd", 4))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "exit", size))
+	else if (!ft_strncmp(builtcmd[0], "exit", 5))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "env", size))
+	else if (!ft_strncmp(builtcmd[0], "env", 4))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "export", size))
+	else if (!ft_strncmp(builtcmd[0], "export", 7))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "echo", size))
+	else if (!ft_strncmp(builtcmd[0], "echo", 5))
 		return (1);
-	else if (!ft_strncmp(builtcmd[0], "unset", size))
+	else if (!ft_strncmp(builtcmd[0], "unset", 6))
 		return (1);
 	else
 		return (0);

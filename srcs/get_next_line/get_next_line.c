@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:40:06 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/14 18:01:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:35:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ char	*ft_get_line(char *tmp, t_global *g, char *limit)
 	}
 	line[i] = '\0';
 	if (ft_check_expand_need(limit))
-		heredoc_expand(line, g);
+	{
+		line = heredoc_expand(line, g);
+	}
 	return (line);
 }
 
