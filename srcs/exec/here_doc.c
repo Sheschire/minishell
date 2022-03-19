@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/14 17:30:04 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:05:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_check_expand_need(char *limiter)
+int	ft_check_expand_need(char *limiter, char *line, t_global *g)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
+	tmp = NULL;
 	i = -1;
 	while (limiter[++i])
 	{
 		if (limiter[i] == '\'' || limiter[i] == '\"')
 			return (0);
+	}
+	tmp = heredoc_expand(line, g);
+	if (tmp != NULL)
+	{
+		free(line);
+		line = tmp;
 	}
 	return (1);
 }
@@ -56,10 +64,13 @@ void	do_here_doc_thing(char *line, char *limit, int _pipe[2], t_global *g)
 		{
 			dup2(_pipe[1], STDOUT_FILENO);
 			close(_pipe[1]);
-			exit (0);
+			free(line);
+			free_minishell(g);
+			exit(0);
 		}
 		ft_putstr_fd(line, _pipe[1]);
 		ft_putstr_fd("\n", _pipe[1]);
+		free(line);
 		i++;
 	}
 }
@@ -72,7 +83,7 @@ void	ft_here_doc(char *limiter, t_global *g)
 	int		fd;
 
 	if (pipe(_pipe_here) == -1)
-		write(2, "CA MARCHE PAS FRERE\n", 20);
+		ft_error_pipe(g);
 	pid = fork();
 	if (pid == 0)
 		do_here_doc_thing(line, limiter, _pipe_here, g);

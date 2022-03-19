@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/17 11:42:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:41:26 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 	pathname = NULL;
 	if (is_builtin(builtcmd))
 	{
+		printf("PROUT\n");
 		is_builtin_exec(builtcmd, g, INT_MAX);
-		return ;
+		free_builtins(g);
 	}
 	if (access(builtcmd[0], F_OK) == 0)
 		pathname = builtcmd[0];

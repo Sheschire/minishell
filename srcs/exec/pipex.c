@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/14 17:34:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:28:06 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 	else
 	{
-		if (!is_builtin(node->cmd))
+		if (!is_builtin(node->cmd) || node->is_child == 1)
 			child_process(g, node, i, g->_pipes);
 		else
 		{

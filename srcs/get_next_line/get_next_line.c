@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:40:06 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/17 10:35:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:23:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,26 @@ char	*ft_get_tmp(char *tmp)
 	i = 0;
 	j = 0;
 	if (!tmp)
-		return (0);
+		return (NULL);
 	while (tmp[i] && tmp[i] != '\n')
 		i++;
 	if (!tmp[i])
-	{
-		free(tmp);
-		return (0);
-	}
+		return (free(tmp), NULL);
 	rtn = malloc(sizeof(char) * ((ft_strlen(tmp) - i) + 1));
 	if (!(rtn))
-		return (0);
+		return (free(tmp), NULL);
 	i++;
 	while (tmp[i])
 		rtn[j++] = tmp[i++];
 	rtn[j] = '\0';
-	free(tmp);
-	return (rtn);
+	return (free(tmp), rtn);
 }
 
 char	*ft_get_line(char *tmp, t_global *g, char *limit)
 {
 	int		i;
 	char	*line;
+	char	*cpy;
 
 	i = 0;
 	if (!tmp)
@@ -60,10 +57,7 @@ char	*ft_get_line(char *tmp, t_global *g, char *limit)
 		i++;
 	}
 	line[i] = '\0';
-	if (ft_check_expand_need(limit))
-	{
-		line = heredoc_expand(line, g);
-	}
+	ft_check_expand_need(limit, line, g);
 	return (line);
 }
 
@@ -82,10 +76,7 @@ int	get_next_line(int fd, char **line, char *limit, t_global *g)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == -1)
-		{
-			free(buf);
-			return (-1);
-		}
+			return (free(buf), -1);
 		buf[ret] = '\0';
 		tmp = ft_strjoin(tmp, buf);
 	}
@@ -94,5 +85,7 @@ int	get_next_line(int fd, char **line, char *limit, t_global *g)
 	tmp = ft_get_tmp(tmp);
 	if (ret == 0)
 		return (0);
+	if (!ft_strncmp(*line, limit, ft_strlen(limit)))
+		free(tmp);
 	return (1);
 }

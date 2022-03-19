@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/17 10:39:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 11:53:07 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*heredoc_expand(char *s, t_global *g)
 		if (s[i] == '$')
 		{
 			if (!s[i + 1] || is_in_set(s[i + 1], "\'\""))
-				return (s);
+				return (NULL);
 			i++;
 			j = i;
 			while (s[i] && !is_in_set(s[i], " \'\"$"))
@@ -79,5 +79,5 @@ char	*heredoc_expand(char *s, t_global *g)
 		}
 		i++;
 	}
-	return (s);
+	return (NULL);
 }

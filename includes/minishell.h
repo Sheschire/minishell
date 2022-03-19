@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/17 10:17:00 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:33:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	dequote(t_node *tmp, t_global *g);
 int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);
-int		ft_check_expand_need(char *limiter);
+int		ft_check_expand_need(char *limiter, char *line, t_global *g);
 char	**ft_arraydup(char **tab);
 
 // LIST UTILS
@@ -139,6 +139,7 @@ void	free_list(t_node **list);
 void	free_array(char **array);
 void	free_exec(t_global *g);
 void	free_minishell(t_global *g);
+void	free_builtins(t_global *g);
 
 // GNL
 int		get_next_line(int fd, char **line, char *limit, t_global *g);

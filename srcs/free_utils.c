@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/08 11:14:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/19 12:33:47 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ void	free_exec(t_global *g)
 	i = -1;
 	while (g_sig.pids[++i])
 		g_sig.pids[i] = 0;
+}
+
+void	free_builtins(t_global *g)
+{
+	free_exec(g);
+	free_array(g->env);
+	free_array(g->path);
+	if (g->list)
+		free_list(&g->list);
+	exit(0);
 }
 
 void	free_minishell(t_global *g)
