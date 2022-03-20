@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:09:34 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:26:05 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,31 @@
 
 t_signal	g_sig;
 
+void	arg_error(int ac, char **av)
+{
+	if (ac >= 2)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(av[1], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit(127);
+	}
+}
+
+void	start_parsing(char *line, t_global *g)
+{
+	add_history((const char *)line);
+	input_parser(line, g);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*line;
 	t_global	g;
 
-	(void)ac;
-	(void)av;
-	if (ac >= 2)
-	{
-		printf("NO SUCH FILE OR DIRECTORY\n"); // REPLACE WITH RETURN ERROR
-		exit (0);
-	}
 	init_global(&g, env);
+	arg_error(ac, av);
 	line = NULL;
-	g.cp_stdin = dup(STDIN_FILENO);
-	g.cp_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
 		handle_signals();
@@ -41,14 +50,9 @@ int	main(int ac, char **av, char **env)
 		{
 			if (*line)
 			{
-				add_history((const char *)line);
-				input_parser(line, &g);
+				start_parsing(line, &g);
 				if (!g.syntax_err)
-				{
 					pipex(&g, g.list);
-					free_exec();
-					free_list(&g.list);
-				}
 				g.syntax_err = 0;
 			}
 		}

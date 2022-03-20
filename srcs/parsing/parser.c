@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:37:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ void	lexer_parser(char *line, t_node **list)
 	}
 }
 
+void	tmp_loop(t_node *tmp, int *cmd_up)
+{
+	if (tmp->token_type == TOKEN_FLUX)
+		find_flux_direction(tmp);
+	if (tmp->token_type == TOKEN_PIPE)
+	{
+		if (tmp->n)
+			tmp->n->token_type = TOKEN_COMMAND;
+		*cmd_up = 0;
+	}
+}
+
 void	syntax_parser(t_node **list, t_global *g)
 {
 	t_node	*tmp;
@@ -58,14 +70,7 @@ void	syntax_parser(t_node **list, t_global *g)
 		}
 		while (tmp)
 		{
-			if (tmp->token_type == TOKEN_FLUX)
-				find_flux_direction(tmp);
-			if (tmp->token_type == TOKEN_PIPE)
-			{
-				if (tmp->n)
-					tmp->n->token_type = TOKEN_COMMAND;
-				command_up = 0;
-			}
+			tmp_loop(tmp, &command_up);
 			tmp = tmp->n;
 		}
 	}

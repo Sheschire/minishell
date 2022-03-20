@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:52:11 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/24 11:03:02 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:16:06 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	ft_nbrlen(int n)
 	return (len);
 }
 
-static char		*ft_convert(char *str, int n, size_t len)
+static char	*ft_convert(char *str, int n, size_t len)
 {
 	unsigned int	nbr;
 
@@ -55,7 +55,7 @@ static char		*ft_convert(char *str, int n, size_t len)
 	return (str);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*str;
 	size_t	len;

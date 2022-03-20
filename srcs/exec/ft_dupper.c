@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:48 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:21:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	dup_entry_node(t_node *node, int i, int _pipes[512][2], t_global *g)
 	file = 0;
 	if (node->filein)
 	{
-		close(_pipes[i - 1][0]);
+		if (i != 0)
+			close(_pipes[i - 1][0]);
 		file = open(node->filein, O_RDONLY, 0777);
 		dup2(file, STDIN_FILENO);
 		close(file);

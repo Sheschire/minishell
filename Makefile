@@ -20,6 +20,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/exec/here_doc.c\
 				  srcs/exec/here_doc_expand.c\
 				  srcs/exec/ft_list_cleaner.c\
+				  srcs/exec/ft_cleaner_utils.c\
 				  srcs/exec/ft_errors_manager.c\
 				  srcs/exec/cmd_path_builder.c\
 				  srcs/builtin/ft_cd.c\
@@ -40,7 +41,7 @@ OBJS			= $(SRCS:.c=.o)
 CC				= clang
 RM				= rm -f
 INCLUDE			= -I ./includes/
-CFLAGS			= -Wall -Wextra -Werror -I./includes -g3 -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -I./includes -g3
 
 NAME			= minishell
 

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:11:04 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:45:32 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,6 @@ void	ft_exit_signal(t_global *g)
 	exit(0);
 }
 
-int	too_many_args_exit(char **builtcmd)
-{
-	int	i;
-
-	i = 0;
-	while (builtcmd[i])
-		i++;
-	return (i);
-}
-
 int	ft_exit(char **builtcmd, t_global *g)
 {
 	int	exit_value;
@@ -93,7 +83,7 @@ int	ft_exit(char **builtcmd, t_global *g)
 	g_sig.exit_status = 0;
 	if (g->cmd_nbr > 1)
 		return (ft_exit_not_alone(g));
-	else if (too_many_args_exit(builtcmd) > 2)
+	else if (tab_len(builtcmd) > 2)
 	{
 		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
 		return (1);
@@ -108,12 +98,6 @@ int	ft_exit(char **builtcmd, t_global *g)
 		exit(exit_value);
 	}
 	else
-	{
-		ft_putstr_fd("exit\n exit: ", 2);
-		ft_putstr_fd(builtcmd[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
-		free_minishell(g);
-		exit(255);
-	}
+		ft_exit_num_arg(builtcmd, g);
 	return (0);
 }

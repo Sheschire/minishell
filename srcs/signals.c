@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:03:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:28:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ void	action(int signum, siginfo_t *info, void *context)
 {
 	int	kill_ret;
 
-	/* 
-	//	WHY KEEP THEM IF THEY ARE NOT USEFUL ?
-	*/
 	(void)context;
 	(void)info;
 	if (signum == SIGINT)
@@ -54,7 +51,7 @@ void	action(int signum, siginfo_t *info, void *context)
 	}
 }
 
-void    handle_signals(void)
+void	handle_signals(void)
 {
 	struct sigaction	sa;
 

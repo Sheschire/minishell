@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 15:59:10 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/20 12:04:57 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:16:33 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	const unsigned char *str1;
-	const unsigned char *str2;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
 	if (s1 == s2 || n == 0)
 		return (0);

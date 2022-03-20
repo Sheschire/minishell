@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 12:10:16 by tlemesle          #+#    #+#             */
-/*   Updated: 2020/11/25 14:48:27 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:20:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	ft_wordlen(char const *s, char c)
 	return (len);
 }
 
-static int		ft_wordcount(char const *s, char c)
+static int	ft_wordcount(char const *s, char c)
 {
 	int		nb_word;
 	int		i;
@@ -41,7 +41,7 @@ static int		ft_wordcount(char const *s, char c)
 	return (nb_word);
 }
 
-static char		**ft_free(char **tab)
+static char	**ft_free(char **tab)
 {
 	int		i;
 
@@ -52,7 +52,7 @@ static char		**ft_free(char **tab)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		nb_word;
@@ -71,10 +71,10 @@ char			**ft_split(char const *s, char c)
 		while (*s == c && *s)
 			s++;
 		wordlen = ft_wordlen(s, c);
-		if (!(tab[j] = (char*)malloc(sizeof(char) * wordlen + 1)))
+		tab[j] = (char *)malloc(sizeof(char) * wordlen + 1);
+		if (!tab[j])
 			return (ft_free(tab));
-		ft_strlcpy(tab[j], s, wordlen + 1);
-		j++;
+		ft_strlcpy(tab[j++], s, wordlen + 1);
 		s += wordlen;
 	}
 	tab[j] = NULL;

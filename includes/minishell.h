@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:01:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:11:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,9 @@ void	dup_cp_std(t_global *g);
 void	wait_pids(t_global *g, t_node *node);
 int		replace_expand(char *dup, char *to_replace, int j);
 char	*parse_env(char *var, char **env);
+void	handling_flux_append(t_node *node, char *hook, t_global *g);
+int		no_such_file(char *hook, t_node *node);
+void	end_of_filein_check(t_node *node, int ret, char *hook);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2], t_global *g);
@@ -203,6 +206,8 @@ int		env_lenght(char **env);
 void	ft_declare_env(t_global *g);
 void	dup_without_quotes(char *dup, char *s);
 int		dup_size(char *s);
+void	ft_exit_num_arg(char **cmd, t_global *g);
+int		tab_len(char **tab);
 
 //SIGNALS
 void	handle_signals(void);

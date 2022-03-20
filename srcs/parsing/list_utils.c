@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:15 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:35:48 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_list(t_node **list)
+/*void	print_list(t_node **list)
 {
 	t_node	*tmp;
 	int		i;
@@ -64,7 +64,7 @@ void	print_list(t_node **list)
 		pos++;
 		tmp = tmp->n;
 	}
-}
+}*/
 
 void	newnode_cmd_add_back(char **cmd, t_node **list)
 {

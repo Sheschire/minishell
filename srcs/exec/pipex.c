@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:24:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 }
 
+void	end_pipex(t_global *g)
+{
+	ft_close_pipe(g, INT_MAX);
+	dup_cp_std(g);
+	free_exec();
+	free_list(&g->list);
+}
+
 void	pipex(t_global *g, t_node *node)
 {
 	int	i;
@@ -87,6 +95,5 @@ void	pipex(t_global *g, t_node *node)
 	}
 	g->child_exist = 0;
 	exec_in_parent(g, node, i, g->_pipes);
-	ft_close_pipe(g, INT_MAX);
-	dup_cp_std(g);
+	end_pipex(g);
 }

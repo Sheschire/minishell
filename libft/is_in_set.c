@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   is_in_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 14:27:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2021/12/01 14:29:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:15:34 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int is_in_set(char c, char *s)
+int	is_in_set(char c, char *s)
 {
 	int	i;
 

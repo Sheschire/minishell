@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 17:48:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 
 void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
 {
+	if (node->_error)
+	{
+		free_minishell(g);
+		exit(1);
+	}
 	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
 	else
