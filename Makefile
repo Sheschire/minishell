@@ -40,7 +40,7 @@ OBJS			= $(SRCS:.c=.o)
 CC				= clang
 RM				= rm -f
 INCLUDE			= -I ./includes/
-CFLAGS			= -Wall -Wextra -Werror -I./includes -g3 -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -I./includes -g3
 
 NAME			= minishell
 

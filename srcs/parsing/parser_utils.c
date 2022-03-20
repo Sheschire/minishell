@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:40:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int	find_quote_pair(char *line, char c, int i)
 		return (save);
 }
 
+void	print_syntax_error(char *token_err, t_global *g, t_node **list)
+{
+	ft_putstr_fd("bash: syntax error near unexpected token '", 2);
+	ft_putstr_fd(token_err, 2);
+	ft_putstr_fd("'\n", 2);
+	g->syntax_err = 1;
+	free_list(list);
+}
+
 void	check_syntax_error(t_node **list, t_global *g)
 {
 	t_node	*tmp;
@@ -56,11 +65,7 @@ void	check_syntax_error(t_node **list, t_global *g)
 		tmp = tmp->n;
 	}
 	if (ft_strcmp(token_err, ""))
-	{
-		printf("bash: syntax error near unexpected token '%s'\n", token_err);
-		g->syntax_err = 1;
-		free_list(list);
-	}
+		print_syntax_error(token_err, g, list);
 	free(token_err);
 }
 

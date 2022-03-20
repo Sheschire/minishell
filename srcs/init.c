@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:09:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:48:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ char	**ft_get_all_env(char **envp)
 
 void	init_global(t_global *g, char **envp)
 {
-	// if (!*env)
-	// 	return (0); // TO DO : generate env manually and continue program
 	g->path = get_path();
 	g->env = ft_get_all_env(envp);
 	g->list = NULL;
@@ -60,6 +58,8 @@ void	init_global(t_global *g, char **envp)
 	g->child_exist = 0;
 	g_sig.exit_status = 0;
 	g->syntax_err = 0;
+	g->cp_stdin = dup(STDIN_FILENO);
+	g->cp_stdout = dup(STDOUT_FILENO);
 }
 
 void	init_cmd_nodes(t_node **list)

@@ -6,11 +6,19 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:54:12 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	end_pipex(t_global *g)
+{
+	ft_close_pipe(g, INT_MAX);
+	dup_cp_std(g);
+	free_exec();
+	free_list(&g->list);
+}
 
 void	wait_pids(t_global *g, t_node *node)
 {
@@ -19,6 +27,8 @@ void	wait_pids(t_global *g, t_node *node)
 	int	tmp_status;
 
 	i = -1;
+	status = 0;
+	tmp_status = 0;
 	while (++i < g->cmd_nbr - 1)
 		waitpid(g_sig.pids[i], 0, WUNTRACED);
 	if (!node->is_child && !is_builtin(node->cmd))
@@ -87,6 +97,5 @@ void	pipex(t_global *g, t_node *node)
 	}
 	g->child_exist = 0;
 	exec_in_parent(g, node, i, g->_pipes);
-	ft_close_pipe(g, INT_MAX);
-	dup_cp_std(g);
+	end_pipex(g);
 }

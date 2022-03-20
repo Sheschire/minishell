@@ -1,0 +1,6 @@
+includes
+libft
+Makefile
+srcs
+tmp
+valgrind_readline_leaks_ignore.txt
