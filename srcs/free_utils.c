@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/19 12:33:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:09:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	free_array(char **array)
 {
@@ -54,7 +54,7 @@ void	free_list(t_node **list)
 	*list = NULL;
 }
 
-void	free_exec(t_global *g)
+void	free_exec(void)
 {
 	int	i;
 
@@ -65,7 +65,7 @@ void	free_exec(t_global *g)
 
 void	free_builtins(t_global *g)
 {
-	free_exec(g);
+	free_exec();
 	free_array(g->env);
 	free_array(g->path);
 	if (g->list)
@@ -75,7 +75,7 @@ void	free_builtins(t_global *g)
 
 void	free_minishell(t_global *g)
 {
-	free_exec(g);
+	free_exec();
 	free_array(g->env);
 	free_array(g->path);
 	ft_close_pipe(g, INT_MAX);

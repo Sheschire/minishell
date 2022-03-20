@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/19 12:41:26 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:10:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_strcat(char *src, char *dest)
 {
@@ -53,7 +53,6 @@ void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
 {
 	char	*pathname;
 	int		i;
-	int		pid;
 
 	i = -1;
 	pathname = NULL;

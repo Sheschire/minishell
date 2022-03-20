@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:37:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_set_exit_value(char *arg)
 {
@@ -37,7 +37,7 @@ int	ft_set_exit_value(char *arg)
 	}
 }
 
-void	ft_exit_no_arg(t_global *g, char **builtcmd)
+void	ft_exit_no_arg(t_global *g)
 {
 	ft_putstr_fd("exit\n", 1);
 	free_minishell(g);
@@ -99,7 +99,7 @@ int	ft_exit(char **builtcmd, t_global *g)
 		return (1);
 	}
 	else if (!builtcmd[1])
-		ft_exit_no_arg(g, builtcmd);
+		ft_exit_no_arg(g);
 	else if (ft_are_digits(builtcmd[1]) && !builtcmd[2])
 	{
 		ft_putstr_fd("exit\n", 1);

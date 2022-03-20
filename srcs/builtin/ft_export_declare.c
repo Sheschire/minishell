@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:04:14 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/05 21:27:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:02 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	env_lenght(char **env)
 {
@@ -22,7 +22,7 @@ int	env_lenght(char **env)
 	return (i);
 }
 
-char	**create_sort_env(char **sort_env, char **env, size_t env_size)
+char	**create_sort_env(char **sort_env, char **env)
 {
 	char	*str;
 	int		i;
@@ -60,7 +60,7 @@ void	ft_declare_env(t_global *g)
 	sort_env = (char **)ft_calloc(env_size + 1, sizeof(char *));
 	if (!sort_env)
 		return ;
-	sort_env = create_sort_env(sort_env, g->env, env_size);
+	sort_env = create_sort_env(sort_env, g->env);
 	i = 0;
 	while (sort_env[i])
 	{

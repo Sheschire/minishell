@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 17:13:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/14 17:29:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:10:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 size_t	ft_strlen(const char *str)
 {

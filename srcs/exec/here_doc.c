@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/19 12:05:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:10:37 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Need to free the child better, need to put the result in a file.
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_check_expand_need(char *limiter, char *line, t_global *g)
 {
@@ -80,8 +80,8 @@ void	ft_here_doc(char *limiter, t_global *g)
 	char	*line;
 	int		_pipe_here[2];
 	int		pid;
-	int		fd;
 
+	line = NULL;
 	if (pipe(_pipe_here) == -1)
 		ft_error_pipe(g);
 	pid = fork();

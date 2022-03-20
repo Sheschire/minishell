@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 16:06:35 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/19 12:36:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:06 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 #include "../../libft/libft.h"
 
 int	ft_env(t_global *g)

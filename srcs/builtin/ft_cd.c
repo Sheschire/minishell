@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:10:16 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	cd_home_not_set(void)
 {
@@ -28,7 +28,7 @@ int	cd_cant_find(char **cmd)
 	return (1);
 }
 
-int	ft_check_args_cd(char **builtcmd, t_global *g)
+int	ft_check_args_cd(char **builtcmd)
 {
 	char	*var;
 
@@ -47,7 +47,7 @@ int	ft_cd(char **cmd, t_global *g)
 	char	*var;
 
 	g_sig.exit_status = 0;
-	if (ft_check_args_cd(cmd, g))
+	if (ft_check_args_cd(cmd))
 		return (1);
 	if (!cmd[1] || !ft_strallcmp(cmd[1], "--", 0)
 		|| !ft_strallcmp(cmd[1], "~", 0))

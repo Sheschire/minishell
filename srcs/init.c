@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/08 11:23:28 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:09:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-char	**get_path(char **env)
+char	**get_path(void)
 {
 	char	**path;
 	char	*path_string;
@@ -52,7 +52,7 @@ void	init_global(t_global *g, char **envp)
 {
 	// if (!*env)
 	// 	return (0); // TO DO : generate env manually and continue program
-	g->path = get_path(envp);
+	g->path = get_path();
 	g->env = ft_get_all_env(envp);
 	g->list = NULL;
 	g->cmd_nbr = 0;

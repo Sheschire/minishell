@@ -6,16 +6,14 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/17 11:44:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:12 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	is_builtin(char **builtcmd)
 {
-	int	size;
-
 	if (!builtcmd)
 		return (0);
 	if (!ft_strncmp(builtcmd[0], "cd", 3))

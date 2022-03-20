@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/19 12:33:10 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:01:05 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ extern t_signal	g_sig;
 
 // MAIN
 void	init_global(t_global *g, char **env);
-char	**get_path(char **env);
+char	**get_path(void);
 void	init_cmd_nodes(t_node **list);
 
 // PARSER
@@ -137,7 +137,7 @@ int		found_token_flux(t_node **list);
 // FREE UTILS
 void	free_list(t_node **list);
 void	free_array(char **array);
-void	free_exec(t_global *g);
+void	free_exec(void);
 void	free_minishell(t_global *g);
 void	free_builtins(t_global *g);
 

@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:40:06 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/19 12:23:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:10:26 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 char	*ft_get_tmp(char *tmp)
 {
@@ -40,7 +40,6 @@ char	*ft_get_line(char *tmp, t_global *g, char *limit)
 {
 	int		i;
 	char	*line;
-	char	*cpy;
 
 	i = 0;
 	if (!tmp)

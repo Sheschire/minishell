@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/08 18:10:45 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:03:07 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int	kill_pids(void)
 {
@@ -26,12 +26,15 @@ void	action(int signum, siginfo_t *info, void *context)
 {
 	int	kill_ret;
 
+	/* 
+	//	WHY KEEP THEM IF THEY ARE NOT USEFUL ?
+	*/
 	(void)context;
+	(void)info;
 	if (signum == SIGINT)
 	{
 		kill_ret = kill_pids();
 		write(1, "\n", 1);
-		//TO DO : INSERT FREE FUNCTION
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		if (!kill_ret)

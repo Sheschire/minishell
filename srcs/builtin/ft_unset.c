@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:57 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/08 18:09:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:10:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_remove_from_env(t_global *g, int index)
 {

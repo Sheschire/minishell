@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/07 16:09:52 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:09:34 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdio.h>
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env)
 				if (!g.syntax_err)
 				{
 					pipex(&g, g.list);
-					free_exec(&g);
+					free_exec();
 					free_list(&g.list);
 				}
 				g.syntax_err = 0;

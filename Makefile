@@ -39,21 +39,22 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= clang
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -lreadline -I./includes -g3
+INCLUDE			= -I ./includes/
+CFLAGS			= -Wall -Wextra -Werror -I./includes -g3 -fsanitize=address
 
 NAME			= minishell
 
 all:			$(NAME)
 
-%.o: %.c
-				@$(CC) -I. -o $@ -c $? $(FLAGS)
+.c.o:
+				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
 
 $(NAME):		$(OBJS)
 				@echo "\n${GREEN} |   Compiling libft"
 				@make all -C libft/
 				@echo "${YELLOW}          [OK]"
 				@echo "\n${GREEN} |   Compiling Minishell"
-				@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ./libft/libft.a
+				@${CC} ${CFLAGS} -lreadline  ${INCLUDE} -o ${NAME} ${OBJS} ./libft/libft.a
 				@echo "${YELLOW}          [OK]\n"
 
 clean:

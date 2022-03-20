@@ -6,11 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:38:29 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/06 14:55:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_echo_n(char **builtcmd, int i)
 {

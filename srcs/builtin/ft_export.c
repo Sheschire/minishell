@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:03:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/07 15:15:51 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:11:00 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	ft_check_variable(t_global *g, char *cmd)
+int	ft_check_variable(char *cmd)
 {
 	int	i;
 
@@ -111,7 +111,7 @@ int	ft_export(char **cmd, t_global *g)
 	}
 	while (cmd[++i])
 	{
-		if (!ft_check_variable(g, cmd[i]))
+		if (!ft_check_variable(cmd[i]))
 		{
 			ft_putstr_fd("minishell: export: '", 2);
 			ft_putstr_fd(cmd[i], 2);
