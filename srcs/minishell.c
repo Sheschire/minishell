@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 12:55:17 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:15:18 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 		{
 			if (*line)
 			{
-				if (!g.syntax_err && start_parsing(line, &g))
+				if (start_parsing(line, &g) && !g.syntax_err)
 					pipex(&g, g.list);
 				g.syntax_err = 0;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:17:05 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int	find_quote_pair(char *line, char c, int i)
 		return (save);
 }
 
+int	check_redir(t_node *tmp)
+{
+	if (tmp->token_type == 3)
+		if (ft_strcmp(tmp->s, ">>") && ft_strcmp(tmp->s, ">") && \
+		ft_strcmp(tmp->s, "<<") && ft_strcmp(tmp->s, "<"))
+			return (0);
+	return (1);
+}
+
 void	check_syntax_error(t_node **list, t_global *g)
 {
 	t_node	*tmp;
@@ -48,7 +57,7 @@ void	check_syntax_error(t_node **list, t_global *g)
 	{
 		if ((is_redir(tmp) && (!tmp->n || is_redir(tmp->n) || \
 		tmp->n->token_type == TOKEN_PIPE)) || \
-		(!tmp->n && tmp->token_type == TOKEN_PIPE))
+		(!tmp->n && tmp->token_type == TOKEN_PIPE) || !check_redir(tmp))
 		{
 			free(token_err);
 			token_err = ft_strdup(tmp->s);
