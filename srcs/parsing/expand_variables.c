@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:38:02 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,14 @@ int	replace_expand(char *dup, char *to_replace, int j)
 	return (j);
 }
 
-void	recreate_string(char *to_find, char *to_replace, t_node *node)
+void	recreate_string(char *to_find, char *to_replace, t_node *node, int size)
 {
 	char	*dup;
 	int		i;
 	int		j;
 	int		replaced_one;
 
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(node->s) + \
-	ft_strlen(to_replace) - (ft_strlen(to_find) + 1) + 1));
+	dup = (char *)malloc(sizeof(char) * (size + 1));
 	i = -1;
 	j = 0;
 	replaced_one = 0;
@@ -66,11 +65,13 @@ void	recreate_string(char *to_find, char *to_replace, t_node *node)
 		if (node->s[i] == '$' && !replaced_one)
 		{
 			j = replace_expand(dup, to_replace, j);
-			i += ft_strlen(to_find) + 1;
+			i += ft_strlen(to_find);
+			if (node->s[i + 1] == '\0')
+				break ;
+			i++;
 			replaced_one = 1;
 		}
-		dup[j] = node->s[i];
-		j++;
+		dup[j++] = node->s[i];
 	}
 	dup[j] = '\0';
 	free(node->s);
@@ -81,11 +82,13 @@ void	expand_variables_2(t_node *node, t_global *g, int i, int j)
 {
 	char	*tmp;
 	char	*var;
+	int		size;
 
 	tmp = ft_substr(node->s, j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
+	size = ft_strlen(node->s) + ft_strlen(var) - ft_strlen(tmp);
 	if (var)
-		recreate_string(tmp, var, node);
+		recreate_string(tmp, var, node, size);
 	free(tmp);
 	free(var);
 }
@@ -99,7 +102,7 @@ void	expand_variables(t_node *node, t_global *g)
 	while (node->s[++i])
 	{
 		if (node->s[i] == '\'' && find_pair(node->s, i, node->s[i]))
-			while (node->s[++i] && node->s[i] != '\'')
+			while (node->s[i + 1] && node->s[i + 1] != '\'')
 				i++;
 		if (node->s[i] == '$')
 		{

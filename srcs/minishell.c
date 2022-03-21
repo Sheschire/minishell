@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 17:26:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:55:17 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	arg_error(int ac, char **av)
 	}
 }
 
-void	start_parsing(char *line, t_global *g)
+int	start_parsing(char *line, t_global *g)
 {
 	add_history((const char *)line);
-	input_parser(line, g);
+	return (input_parser(line, g));
 }
 
 int	main(int ac, char **av, char **env)
@@ -50,8 +50,7 @@ int	main(int ac, char **av, char **env)
 		{
 			if (*line)
 			{
-				start_parsing(line, &g);
-				if (!g.syntax_err)
+				if (!g.syntax_err && start_parsing(line, &g))
 					pipex(&g, g.list);
 				g.syntax_err = 0;
 			}

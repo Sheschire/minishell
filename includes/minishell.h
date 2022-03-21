@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 18:11:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:51:26 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**get_path(void);
 void	init_cmd_nodes(t_node **list);
 
 // PARSER
-void	input_parser(char *line, t_global *g);
+int		input_parser(char *line, t_global *g);
 void	analyse_literal_token(t_node *tmp, int command_up);
 void	find_flux_direction(t_node *tmp);
 char	*create_option_node(char *line, t_node **list);

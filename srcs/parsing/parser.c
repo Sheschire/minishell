@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 17:37:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/21 12:51:40 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lexer_parser(char *line, t_node **list)
+int	lexer_parser(char *line, t_node **list)
 {
 	int		current_token_type;
 	int		i;
 
+	current_token_type = 0;
 	while (*line)
 	{
 		i = 0;
@@ -38,6 +39,7 @@ void	lexer_parser(char *line, t_node **list)
 		if (*line && find_token_type(*line) == 0)
 			line++;
 	}
+	return (current_token_type);
 }
 
 void	tmp_loop(t_node *tmp, int *cmd_up)
@@ -76,12 +78,14 @@ void	syntax_parser(t_node **list, t_global *g)
 	}
 }
 
-void	input_parser(char *line, t_global *g)
+int	input_parser(char *line, t_global *g)
 {
-	lexer_parser(line, &g->list);
+	if (!lexer_parser(line, &g->list))
+		return (0);
 	syntax_parser(&g->list, g);
 	if (found_token_flux(&g->list))
 		reorganize_commandline(&g->list);
 	quote_expand_parser(&g->list, g);
 	group_nodes_into_commands(&g->list);
+	return (1);
 }
