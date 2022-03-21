@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 12:51:40 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/21 13:00:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,31 @@
 
 int	lexer_parser(char *line, t_node **list)
 {
-	int		current_token_type;
+	int		curr_token_type;
 	int		i;
 
-	current_token_type = 0;
+	curr_token_type = 0;
 	while (*line)
 	{
 		i = 0;
 		if (find_token_type(*line))
 		{
-			current_token_type = find_token_type(*line);
-			while (find_token_type(line[i]) == current_token_type)
+			curr_token_type = find_token_type(*line);
+			while (find_token_type(line[i]) == curr_token_type)
 			{
 				if (line[i] == '\'' || line[i] == '\"')
 					i = find_quote_pair(line, line[i], i + 1);
-				if (find_token_type(line[i]) == current_token_type)
+				if (find_token_type(line[i]) == curr_token_type)
 					i++;
 			}
 			if (*line && find_token_type(*line))
-				newnode_add_back(ft_substr(line, 0, i), \
-				current_token_type, list);
+				newnode_add_back(ft_substr(line, 0, i), curr_token_type, list);
 			line += i;
 		}
 		if (*line && find_token_type(*line) == 0)
 			line++;
 	}
-	return (current_token_type);
+	return (curr_token_type);
 }
 
 void	tmp_loop(t_node *tmp, int *cmd_up)
