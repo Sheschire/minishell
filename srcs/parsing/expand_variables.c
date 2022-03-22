@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 12:38:02 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 12:32:26 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,80 +40,107 @@ int	replace_expand(char *dup, char *to_replace, int j)
 {
 	int	i;
 
-	i = -1;
-	while (to_replace[++i])
-	{
-		dup[j] = to_replace[i];
-		j++;
-	}
+	i = 0;
+	while (to_replace[i])
+		dup[j++] = to_replace[i++];
 	return (j);
 }
 
-void	recreate_string(char *to_find, char *to_replace, t_node *node, int size)
+void	recreate_string_with_empty(t_node *node, char *tmp, int j)
+{
+	char	*sub1;
+	char	*sub2;
+	char	*join;
+
+	sub1 = ft_substr(node->s, 0, j - 1);
+	if ((j + ft_strlen(tmp)) == ft_strlen(node->s))
+		sub2 = ft_strdup("");
+	else
+		sub2 = ft_substr(node->s, j + ft_strlen(tmp), ft_strlen(node->s) - ft_strlen(tmp));
+	join = ft_strjoin(sub1, sub2);
+	free(node->s);
+	node->s = ft_strdup(join);
+	if (!ft_strcmp(node->s, ""))
+		printf("\n");
+	free(join);
+	free(sub2);
+}
+
+char	*recreate_string(char *to_find, char *to_replace, t_node *node, int start)
 {
 	char	*dup;
 	int		i;
 	int		j;
-	int		replaced_one;
+	int		size;
 
+	size = ft_strlen(node->s) + ft_strlen(to_replace) - ft_strlen(to_find);
 	dup = (char *)malloc(sizeof(char) * (size + 1));
-	i = -1;
+	i = 0;
 	j = 0;
-	replaced_one = 0;
-	while (node->s[++i])
+	while (node->s[i])
 	{
-		if (node->s[i] == '$' && !replaced_one)
-		{
-			j = replace_expand(dup, to_replace, j);
-			i += ft_strlen(to_find);
-			if (node->s[i + 1] == '\0')
-				break ;
-			i++;
-			replaced_one = 1;
-		}
-		dup[j++] = node->s[i];
+		while (i < start)
+			dup[j++] = node->s[i++];
+		j = replace_expand(dup, to_replace, j);
+		i += ft_strlen(to_find) + 1;
+		if (node->s[i])
+			while (node->s[i])
+				dup[j++] = node->s[i++];
 	}
 	dup[j] = '\0';
-	free(node->s);
-	node->s = dup;
+	return (dup);
 }
 
-void	expand_variables_2(t_node *node, t_global *g, int i, int j)
+void	expand_variables_3(t_node *node, t_global *g, int i, int j)
 {
 	char	*tmp;
 	char	*var;
-	int		size;
+	char	*dup;
 
 	tmp = ft_substr(node->s, j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
-	size = ft_strlen(node->s) + ft_strlen(var) - ft_strlen(tmp);
-	if (var)
-		recreate_string(tmp, var, node, size);
+	if (ft_strcmp(var, ""))
+	{
+		dup = recreate_string(tmp, var, node, j - 1); 
+		free(node->s);
+		node->s = dup;
+	}
+	else
+		recreate_string_with_empty(node, tmp, j);
 	free(tmp);
 	free(var);
+}
+
+int	expand_variables_2(t_node *node, t_global *g, int i)
+{
+	int	j;
+	
+	if (!node->s[i] || is_in_set(node->s[i], "\'\""))
+		return (0);
+	j = i;
+	while (node->s[i] && !is_in_set(node->s[i], " \'\"$"))
+		i++;
+	expand_variables_3(node, g, i, j);
+	return (1);
 }
 
 void	expand_variables(t_node *node, t_global *g)
 {
 	int		i;
-	int		j;
 
-	i = -1;
-	while (node->s[++i])
+	i = 0;
+	while (node->s[i])
 	{
-		if (node->s[i] == '\'' && find_pair(node->s, i, node->s[i]))
-			while (node->s[i + 1] && node->s[i + 1] != '\'')
-				i++;
+		if (node->s[i] && node->s[i] == '\'' && find_pair(node->s, i, node->s[i]))
+			while (node->s[++i])
+				if (node->s[i] == '\'')
+					break ;
 		if (node->s[i] == '$')
 		{
-			if (!node->s[i + 1] || is_in_set(node->s[i + 1], "\'\""))
-				return ;
-			i++;
-			j = i;
-			while (node->s[i] && !is_in_set(node->s[i], " \'\"$"))
-				i++;
-			expand_variables_2(node, g, i, j);
-			i = -1;
+			if (expand_variables_2(node, g, i + 1))
+				i = 0;
 		}
+		else
+			i++;
 	}
 }
