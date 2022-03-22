@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 13:14:45 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:42:32 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char	*recreate_string(char *to_find, char *to_replace, t_node *node, int start);
 void	recreate_string_with_empty(t_node *node, char *tmp, int j);
 int		ft_check_expand_need(char *limiter, char *line, t_global *g);
 char	**ft_arraydup(char **tab);
+void	print_syntax_error(char *token_err);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 13:17:05 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:40:37 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	check_syntax_error(t_node **list, t_global *g)
 	}
 	if (ft_strcmp(token_err, ""))
 	{
-		printf("bash: syntax error near unexpected token '%s'\n", token_err);
+		print_syntax_error(token_err);
+		g_sig.exit_status = 2;
 		g->syntax_err = 1;
 		free_list(list);
 	}
