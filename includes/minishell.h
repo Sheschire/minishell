@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 12:51:26 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:14:45 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ void	dequote(t_node *tmp, t_global *g);
 int		find_pair(char *s, int i, char c);
 void	quote_expand_parser(t_node **list, t_global *g);
 void	expand_variables(t_node *node, t_global *g);
+char	*recreate_string(char *to_find, char *to_replace, t_node *node, int start);
+void	recreate_string_with_empty(t_node *node, char *tmp, int j);
 int		ft_check_expand_need(char *limiter, char *line, t_global *g);
 char	**ft_arraydup(char **tab);
 
