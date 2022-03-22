@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:36:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 13:15:24 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:46:44 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	input_parser(char *line, t_global *g)
 	syntax_parser(&g->list, g);
 	if (found_token_flux(&g->list))
 		reorganize_commandline(&g->list);
-	quote_expand_parser(&g->list, g);
 	group_nodes_into_commands(&g->list);
+	quote_expand_parser(&g->list, g);
+//	print_list(&g->list);
 	return (1);
 }

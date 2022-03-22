@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 13:16:00 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:45:09 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,57 +36,57 @@ char	*parse_env(char *var, char **env)
 	return ("");
 }
 
-void	expand_variables_3(t_node *node, t_global *g, int i, int j)
+void	expand_variables_3(t_global *g, int i, int j, int cmdi)
 {
 	char	*tmp;
 	char	*var;
 	char	*dup;
 
-	tmp = ft_substr(node->s, j, i - j);
+	tmp = ft_substr(g->list->cmd[cmdi], j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
 	if (ft_strcmp(var, ""))
 	{
-		dup = recreate_string(tmp, var, node, j - 1);
-		free(node->s);
-		node->s = dup;
+		dup = recreate_string(tmp, var, g->list->cmd[cmdi], j - 1);
+		free(g->list->cmd[cmdi]);
+		g->list->cmd[cmdi] = dup;
 	}
 	else
-		recreate_string_with_empty(node, tmp, j);
+		recreate_string_with_empty(g, tmp, j, cmdi);
 	free(tmp);
 	free(var);
 }
 
-int	expand_variables_2(t_node *node, t_global *g, int i)
+int	expand_variables_2(t_node *list, t_global *g, int i, int cmdi)
 {
 	int	j;
 
-	if (!node->s[i] || is_in_set(node->s[i], "\'\""))
+	if (!list->cmd[cmdi][i] || is_in_set(list->cmd[cmdi][i], "\'\""))
 		return (0);
 	j = i;
-	while (node->s[i] && !is_in_set(node->s[i], " \'\"$"))
+	while (list->cmd[cmdi][i] && !is_in_set(list->cmd[cmdi][i], " \'\"$"))
 		i++;
-	expand_variables_3(node, g, i, j);
+	expand_variables_3(g, i, j, cmdi);
 	return (1);
 }
 
-void	expand_variables(t_node *node, t_global *g)
+void	expand_variables(t_node *list, t_global *g, int cmdi)
 {
-	int		i;
+	int		j;
 
-	i = 0;
-	while (node->s[i])
+	j = 0;
+	while (list->cmd[cmdi][j])
 	{
-		if (node->s[i] && node->s[i] == '\'' && \
-		find_pair(node->s, i, node->s[i]))
-			while (node->s[++i])
-				if (node->s[i] == '\'')
+		if (list->cmd[cmdi][j] && list->cmd[cmdi][j] == '\'' && \
+		find_pair(list->cmd[cmdi], cmdi, list->cmd[cmdi][j]))
+			while (list->cmd[cmdi][++j])
+				if (list->cmd[cmdi][j] == '\'')
 					break ;
-		if (node->s[i] == '$')
+		if (list->cmd[cmdi][j] == '$')
 		{
-			if (expand_variables_2(node, g, i + 1))
-				i = 0;
+			if (expand_variables_2(list, g, j + 1, cmdi))
+				j = 0;
 		}
 		else
-			i++;
+			j++;
 	}
 }

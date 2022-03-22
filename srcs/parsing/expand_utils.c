@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:13:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 13:16:55 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:58:33 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,45 @@ int	replace_expand(char *dup, char *to_replace, int j)
 	return (j);
 }
 
-void	recreate_string_with_empty(t_node *node, char *tmp, int j)
+void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi)
 {
 	char	*sub1;
 	char	*sub2;
 	char	*join;
 
-	sub1 = ft_substr(node->s, 0, j - 1);
-	if ((j + ft_strlen(tmp)) == ft_strlen(node->s))
+	sub1 = ft_substr(g->list->cmd[cmdi], 0, j - 1);
+	if ((j + ft_strlen(tmp)) == ft_strlen(g->list->cmd[cmdi]))
 		sub2 = ft_strdup("");
 	else
-		sub2 = ft_substr(node->s, j + ft_strlen(tmp), \
-		ft_strlen(node->s) - ft_strlen(tmp));
+		sub2 = ft_substr(g->list->cmd[cmdi], j + ft_strlen(tmp), \
+		ft_strlen(g->list->cmd[cmdi]) - ft_strlen(tmp));
 	join = ft_strjoin(sub1, sub2);
-	free(node->s);
-	node->s = ft_strdup(join);
-	if (!ft_strcmp(node->s, ""))
-		printf("\n");
+	free(g->list->cmd[cmdi]);
+	g->list->cmd[cmdi] = ft_strdup(join);
 	free(join);
 	free(sub2);
 }
 
-char	*recreate_string(char *tmp, char *var, t_node *node, int start)
+char	*recreate_string(char *tmp, char *var, char *s, int start)
 {
 	char	*dup;
 	int		i;
 	int		j;
 	int		size;
 
-	size = ft_strlen(node->s) + ft_strlen(var) - ft_strlen(tmp);
+	size = ft_strlen(s) + ft_strlen(var) - ft_strlen(tmp);
 	dup = (char *)malloc(sizeof(char) * (size + 1));
 	i = 0;
 	j = 0;
-	while (node->s[i])
+	while (s[i])
 	{
 		while (i < start)
-			dup[j++] = node->s[i++];
+			dup[j++] = s[i++];
 		j = replace_expand(dup, var, j);
 		i += ft_strlen(tmp) + 1;
-		if (node->s[i])
-			while (node->s[i])
-				dup[j++] = node->s[i++];
+		if (s[i])
+			while (s[i])
+				dup[j++] = s[i++];
 	}
 	dup[j] = '\0';
 	return (dup);

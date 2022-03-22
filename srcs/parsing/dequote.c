@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/21 14:27:11 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:29:56 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,76 @@ void	dup_without_quotes(char *dup, char *s)
 	dup[j] = '\0';
 }
 
-void	dequote(t_node *tmp, t_global *g)
+void	dequote(t_node *list, t_global *g, int i)
 {
 	char	*dup;
 
-	dup = (char *)malloc(sizeof(char) * (dup_size(tmp->s) + 1));
+	dup = (char *)malloc(sizeof(char) * (dup_size(list->cmd[i]) + 1));
 	if (!dup)
 		ft_exit_signal(g);
-	dup_without_quotes(dup, tmp->s);
-	free(tmp->s);
-	tmp->s = dup;
+	dup_without_quotes(dup, list->cmd[i]);
+	free(list->cmd[i]);
+	list->cmd[i] = dup;
+}
+
+void	recreate_cmd(t_node *list)
+{
+	int	i;
+	int	nb_empty;
+	char	**cmd_cpy;
+	int	j;
+
+	i = 0;
+	j = 0;
+	nb_empty = 0;
+	i = 0;
+	while (list->cmd[i])
+	{
+		if (!ft_strcmp(list->cmd[i], ""))
+			nb_empty++;
+		i++;
+	}
+	if (nb_empty)
+	{
+		cmd_cpy = (char **)calloc(i - nb_empty + 1, sizeof(char *));
+		i = -1;
+		while (list->cmd[++i])
+		{
+			if (ft_strcmp(list->cmd[i], ""))
+				cmd_cpy[j++] = ft_strdup(list->cmd[i]);
+		}
+		free_array(list->cmd);
+		list->cmd = cmd_cpy;
+	}
 }
 
 void	quote_expand_parser(t_node **list, t_global *g)
 {
+	int		i;
 	t_node	*tmp;
 
-	tmp = *list;
-	while (tmp)
+	tmp = (*list);
+	while (*list)
 	{
-		if (!ft_strcmp(tmp->s, "$?"))
+		if ((*list)->token_type == CMD)
 		{
-			free(tmp->s);
-			tmp->s = ft_itoa(g_sig.exit_status);
+			i = 0;
+			while ((*list)->cmd[i])
+			{
+				if (!ft_strcmp((*list)->cmd[i], "$?"))
+				{
+					free((*list)->cmd[i]);
+					(*list)->cmd[i] = ft_itoa(g_sig.exit_status);
+				}
+				if (ft_strchr((*list)->cmd[i], '$'))
+					expand_variables(*list, g, i);
+				if (ft_strchr((*list)->cmd[i], '\'') || ft_strchr((*list)->cmd[i], '\"'))
+					dequote(*list, g, i);
+				i++;
+			}
+			recreate_cmd(*list);
 		}
-		if (ft_strchr(tmp->s, '$'))
-			expand_variables(tmp, g);
-		if (ft_strchr(tmp->s, '\'') || ft_strchr(tmp->s, '\"'))
-			dequote(tmp, g);
-		tmp = tmp->n;
+		(*list) = (*list)->n;
 	}
+	(*list) = tmp;
 }
