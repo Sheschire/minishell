@@ -6,11 +6,39 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 16:45:09 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/23 10:23:03 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	recreate_cmd(t_node *list, int j)
+{
+	int		i;
+	int		nb_empty;
+	char	**cmd_cpy;
+
+	i = 0;
+	nb_empty = 0;
+	while (list->cmd[i])
+	{
+		if (!ft_strcmp(list->cmd[i], ""))
+			nb_empty++;
+		i++;
+	}
+	if (nb_empty)
+	{
+		cmd_cpy = (char **)calloc(i - nb_empty + 1, sizeof(char *));
+		i = -1;
+		while (list->cmd[++i])
+		{
+			if (ft_strcmp(list->cmd[i], ""))
+				cmd_cpy[j++] = ft_strdup(list->cmd[i]);
+		}
+		free_array(list->cmd);
+		list->cmd = cmd_cpy;
+	}
+}
 
 char	*parse_env(char *var, char **env)
 {

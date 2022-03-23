@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:16:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/23 10:22:39 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	find_pair(char *s, int i, char c)
+{
+	while (s[++i])
+		if (s[i] == c)
+			return (1);
+	return (0);
+}
 
 void	find_flux_direction(t_node *tmp)
 {

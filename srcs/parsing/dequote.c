@@ -6,19 +6,11 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 17:29:56 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/23 10:22:07 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	find_pair(char *s, int i, char c)
-{
-	while (s[++i])
-		if (s[i] == c)
-			return (1);
-	return (0);
-}
 
 int	dup_size(char *s)
 {
@@ -86,64 +78,34 @@ void	dequote(t_node *list, t_global *g, int i)
 	list->cmd[i] = dup;
 }
 
-void	recreate_cmd(t_node *list)
+void	reformat(t_node *l, t_global *g, int i)
 {
-	int	i;
-	int	nb_empty;
-	char	**cmd_cpy;
-	int	j;
-
-	i = 0;
-	j = 0;
-	nb_empty = 0;
-	i = 0;
-	while (list->cmd[i])
+	if (!ft_strcmp(l->cmd[i], "$?"))
 	{
-		if (!ft_strcmp(list->cmd[i], ""))
-			nb_empty++;
-		i++;
+		free(l->cmd[i]);
+		l->cmd[i] = ft_itoa(g_sig.exit_status);
 	}
-	if (nb_empty)
-	{
-		cmd_cpy = (char **)calloc(i - nb_empty + 1, sizeof(char *));
-		i = -1;
-		while (list->cmd[++i])
-		{
-			if (ft_strcmp(list->cmd[i], ""))
-				cmd_cpy[j++] = ft_strdup(list->cmd[i]);
-		}
-		free_array(list->cmd);
-		list->cmd = cmd_cpy;
-	}
+	if (ft_strchr(l->cmd[i], '$'))
+		expand_variables(l, g, i);
+	if (ft_strchr(l->cmd[i], '\'') || ft_strchr(l->cmd[i], '\"'))
+		dequote(l, g, i);
 }
 
-void	quote_expand_parser(t_node **list, t_global *g)
+void	quote_expand_parser(t_node **l, t_global *g, int i)
 {
-	int		i;
 	t_node	*tmp;
 
-	tmp = (*list);
-	while (*list)
+	tmp = (*l);
+	while (*l)
 	{
-		if ((*list)->token_type == CMD)
+		if ((*l)->token_type == CMD)
 		{
-			i = 0;
-			while ((*list)->cmd[i])
-			{
-				if (!ft_strcmp((*list)->cmd[i], "$?"))
-				{
-					free((*list)->cmd[i]);
-					(*list)->cmd[i] = ft_itoa(g_sig.exit_status);
-				}
-				if (ft_strchr((*list)->cmd[i], '$'))
-					expand_variables(*list, g, i);
-				if (ft_strchr((*list)->cmd[i], '\'') || ft_strchr((*list)->cmd[i], '\"'))
-					dequote(*list, g, i);
-				i++;
-			}
-			recreate_cmd(*list);
+			i = -1;
+			while ((*l)->cmd[++i])
+				reformat(*l, g, i);
+			recreate_cmd(*l, 0);
 		}
-		(*list) = (*list)->n;
+		(*l) = (*l)->n;
 	}
-	(*list) = tmp;
+	(*l) = tmp;
 }
