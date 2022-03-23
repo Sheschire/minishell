@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 10:23:03 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/23 11:30:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	recreate_cmd(t_node *list, int j)
 	}
 	if (nb_empty)
 	{
-		cmd_cpy = (char **)calloc(i - nb_empty + 1, sizeof(char *));
+		cmd_cpy = (char **)ft_calloc(i - nb_empty + 1, sizeof(char *));
 		i = -1;
 		while (list->cmd[++i])
 		{

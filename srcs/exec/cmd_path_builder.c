@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/22 11:21:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/23 11:29:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*testpath_builder(t_global *g, char *cmd, int i)
 			free(cmd);
 		_error(2, g->path);
 	}
-	pathname = (char *)calloc(sizeof(char),
+	pathname = (char *)ft_calloc(sizeof(char),
 			(ft_strlen(g->path[i]) + ft_strlen(cmd) + 2));
 	ft_strcat(g->path[i], pathname);
 	ft_strcat("/", pathname);

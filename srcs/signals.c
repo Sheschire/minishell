@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 11:08:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/23 11:32:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	handle_signals(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = action;
 	if (sigaction(SIGINT, &sa, NULL) < 0)
-		printf("BUG\n");
+		ft_putstr_fd("Signal error\n", 2);
 	if (sigaction(SIGQUIT, &sa, NULL) < 0)
-		printf("BUG\n");
+		ft_putstr_fd("Signal error\n", 2);
 }
