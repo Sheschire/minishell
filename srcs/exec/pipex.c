@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 17:24:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:36:45 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,20 @@ void	wait_pids(t_global *g, t_node *node)
 {
 	int	i;
 	int	status;
-	int	tmp_status;
 
 	i = -1;
-	while (++i < g->cmd_nbr - 1)
-		waitpid(g_sig.pids[i], 0, WUNTRACED);
+	while (++i < g->cmd_nbr)
+		waitpid(g_sig.pids[i], &status, WUNTRACED);
 	if (!node->is_child && !is_builtin(node->cmd))
 	{
-		tmp_status = waitpid(g_sig.pids[i], &status, WUNTRACED);
+		waitpid(g_sig.pids[i], &status, WUNTRACED);
 		if (WIFSIGNALED(status))
 		{
-			WTERMSIG(status);
-			tmp_status = waitpid(g_sig.pids[i], &status, WUNTRACED);
-			g_sig.exit_status = (status + 128);
+			g_sig.exit_status = WTERMSIG(status) + 128;
 			return ;
 		}
 		if (!WIFEXITED(status) && !WIFSIGNALED(status))
-			tmp_status = waitpid(g_sig.pids[i], &status, WUNTRACED);
+			waitpid(g_sig.pids[i], &status, WUNTRACED);
 		g_sig.exit_status = (status / 256);
 	}
 }

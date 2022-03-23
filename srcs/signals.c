@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 18:28:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:08:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ void	action(int signum, siginfo_t *info, void *context)
 	{
 		kill_ret = kill_pids();
 		if (kill_ret)
-		{
-			ft_putstr_fd("Quitter (core dumped)", 2);
-			write(1, "\n", 1);
-		}
+			ft_putstr_fd("Quit (bcore dumped)\n", 2);
 		else
 			ft_putstr_fd("\b\b  \b\b", 1);
 	}

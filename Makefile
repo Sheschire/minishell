@@ -7,6 +7,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/list_utils.c\
 				  srcs/parsing/parser.c\
 				  srcs/parsing/parser_utils.c\
+				  srcs/parsing/print_syntax_err.c\
 				  srcs/parsing/redir_utils.c\
 				  srcs/parsing/expand_variables.c\
 				  srcs/parsing/expand_utils.c\
