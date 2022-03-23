@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 18:13:18 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:40:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	count_create_redirout(t_node *node)
 	return ;
 }
 
-void	ft_list_cleaner(t_node *node, t_global *g)
+int	ft_list_cleaner(t_node *node, t_global *g)
 {
 	t_node	*tmp;
 	char	*hook;
@@ -79,6 +79,7 @@ void	ft_list_cleaner(t_node *node, t_global *g)
 	hook = NULL;
 	ret = 0;
 	tmp = node;
+	signal(SIGQUIT, SIG_IGN);
 	while (tmp->n)
 	{
 		if (tmp->token_type == CMD)
@@ -90,5 +91,6 @@ void	ft_list_cleaner(t_node *node, t_global *g)
 			tmp->after = TOKEN_PIPE;
 		tmp = tmp->n;
 	}
-	return ;
+	signal(SIGQUIT, SIG_DFL);
+	return (1);
 }

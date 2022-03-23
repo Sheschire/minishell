@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 11:13:43 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:36:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ void	arg_error(int ac, char **av)
 int	start_parsing(char *line, t_global *g)
 {
 	add_history((const char *)line);
-	return (input_parser(line, g));
+	if (!input_parser(line, g))
+		return (0);
+	if (!(ft_list_cleaner(g->list, g)))
+		return (0);
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
