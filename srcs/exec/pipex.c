@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/23 13:34:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/24 03:12:11 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	end_pipex(t_global *g)
 	dup_cp_std(g);
 	free_exec();
 	free_list(&g->list);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	pipex(t_global *g, t_node *node)
@@ -76,6 +77,7 @@ void	pipex(t_global *g, t_node *node)
 	i = 0;
 	g->cmd_nbr = count_cmd(node);
 	pid = 0;
+	signal(SIGQUIT, ft_sigquit_off);
 	while (i < g->cmd_nbr - 1)
 	{
 		if (node->token_type == CMD && node->_error == 0)

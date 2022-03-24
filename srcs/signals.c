@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 11:32:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/24 03:10:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int	kill_pids(void)
 	return (i);
 }
 
+void	ft_sigquit_off(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit (bcore dumped)\n", 2);
+	g_sig.exit_status = 131;
+}
+
 void	action(int signum, siginfo_t *info, void *context)
 {
 	int	kill_ret;
@@ -34,6 +41,7 @@ void	action(int signum, siginfo_t *info, void *context)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
+		g_sig.exit_status = 130;
 		if (!kill_ret)
 			rl_redisplay();
 		return ;
@@ -42,9 +50,12 @@ void	action(int signum, siginfo_t *info, void *context)
 	{
 		kill_ret = kill_pids();
 		if (kill_ret)
+		{
 			ft_putstr_fd("Quit (bcore dumped)\n", 2);
+			g_sig.exit_status = 131;
+		}
 		else
-			ft_putstr_fd("\b\b  \b\b", 1);
+			ft_putstr_fd("\b\b  \b\b", 2);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/23 11:29:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/24 03:11:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 	if (pathname == NULL)
 		_error_cmd(builtcmd, pathname, g, node);
 	builtcmd[0] = pathname;
+	signal(SIGQUIT, SIG_DFL);
 	execve(pathname, builtcmd, g->env);
 }

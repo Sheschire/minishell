@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 13:33:45 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/24 03:10:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ char	*parse_env(char *var, char **env);
 void	handling_flux_append(t_node *node, char *hook, t_global *g);
 int		no_such_file(char *hook, t_node *node);
 void	end_of_filein_check(t_node *node, int ret, char *hook);
+void	ft_sigquit_off(int sig);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2], t_global *g);
