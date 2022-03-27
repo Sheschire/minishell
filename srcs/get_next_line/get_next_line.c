@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:40:06 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:26 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:21:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	get_next_line(int fd, char **line, char *limit, t_global *g)
 	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (-1);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	write(1, " > ", 3);
+	write(1, ">>", 3);
 	while (ret != 0 && !ft_return(tmp))
 	{
 		ret = read(fd, buf, BUFFER_SIZE);

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 10:43:52 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:55:16 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,81 +35,62 @@ int	ft_check_expand_need(char *limiter, char *line, t_global *g)
 	return (1);
 }
 
-void	ft_useless_here_doc(char *limiter, t_global *g)
+void	ft_useless_here_doc(char *limiter)
 {
 	char	*line;
-	int		pid;
-	int		status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		while (get_next_line(0, &line, limiter, g))
-		{
-			if (!ft_strncmp(line, limiter, ft_strlen(limiter)))
-				exit(0);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, WUNTRACED);
-		if (WIFSIGNALED(status))
-			g_sig.exit_status = WTERMSIG(status) + 128;
-		else
-			g_sig.exit_status = (status / 256);
-	}
-}
-
-void	do_here_doc_thing(char *line, char *limit, int _pipe[2], t_global *g)
-{
-	int	i;
-
-	i = 0;
-	while (get_next_line(0, &line, limit, g))
-	{
-		if (!ft_strncmp(line, limit, ft_strlen(limit)))
-		{
-			dup2(_pipe[1], STDOUT_FILENO);
-			close(_pipe[1]);
-			free(line);
-			free_minishell(g);
-			exit(0);
-		}
-		ft_putstr_fd(line, _pipe[1]);
-		ft_putstr_fd("\n", _pipe[1]);
-		free(line);
-		i++;
-	}
-}
-
-void	ft_here_doc(char *limiter, t_global *g)
-{
-	char	*line;
-	int		_pipe_here[2];
-	int		pid;
-
+	
 	line = NULL;
-	if (pipe(_pipe_here) == -1)
-		ft_error_pipe(g);
-	pid = fork();
-	if (pid == 0)
-		do_here_doc_thing(line, limiter, _pipe_here, g);
-	else
-	{
-		waitpid(pid, NULL, 0);
-		dup2(_pipe_here[0], STDIN_FILENO);
-		close(_pipe_here[0]);
-		close(_pipe_here[1]);
-	}
-}
-
-void	ft_here_doc(t_node *node, t_global *g)
-{
-	char	*line;
-
-	line = NULL;
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		line = readline(">>");
+		if (!line)
+			break;
+		if (!ft_strcmp(line, limiter))
+			break ;
+	}
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	ft_here_doc(int	file, t_node *node)
+{
+	file = open("./.here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
+	write(file, node->here_str, ft_strlen(node->here_str));
+	close(file);
+	file = open("./.here_doc", O_RDONLY, 0777);
+	dup2(file, STDIN_FILENO);
+	close(file);
+}
+
+void	waitpid_here_doc(int pid, t_node *node)
+{
+	int	status;
+	
+	waitpid(pid, &status, WUNTRACED);
+	if (WIFSIGNALED(status))
+	{
+		write(1, "\n", 1);
+		g_sig.exit_status = WTERMSIG(status) + 128;
+		node->signal_here_doc = g_sig.exit_status;
+		return ;
+	}
+	else
+		g_sig.exit_status = (status / 256);
+}
+
+void	ft_here_doc_before(t_node *node, t_global *g)
+{
+	char	*line;
+	int		pid;
+
+	line = NULL;
+	pid = 0;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	pid = fork();
+	while (1 && pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
 		line = readline(">>");
 		if (!line)
 			break;
@@ -121,4 +102,7 @@ void	ft_here_doc(t_node *node, t_global *g)
 		node->here_str = ft_strjoin(node->here_str, line);
 		node->here_str = ft_strjoin(node->here_str, "\n");
 	}
+	if (pid > 0)
+		waitpid_here_doc(pid, node);
+	signal(SIGQUIT, SIG_DFL);
 }

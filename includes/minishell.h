@@ -6,13 +6,14 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/27 10:06:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:44:53 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _GNU_SOURCE
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -79,6 +80,7 @@ typedef struct s_node
 	char			*limiter;
 	int				here_doc;
 	char			*here_str;
+	int				signal_here_doc;
 	int				_error;
 	char			*no_file;
 	int				is_child;
@@ -156,9 +158,9 @@ size_t	ft_strlen(const char *str);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
-void	ft_here_doc(char *limiter, t_global *g);
-void	ft_useless_here_doc(char *limiter, t_global *g);
-void	ft_test_here(t_node *node, t_global *g);
+void	ft_here_doc(int	file, t_node *node);
+void	ft_useless_here_doc(char *limiter);
+void	ft_here_doc_before(t_node *node, t_global *g);
 char	*heredoc_expand(char *s, t_global *g);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
@@ -187,7 +189,7 @@ void	end_of_filein_check(t_node *node, int ret, char *hook);
 void	ft_sigquit_off(int sig);
 
 // FD MANAGEMENT
-void	dup_entry_node(t_node *node, int i, int _pipes[512][2], t_global *g);
+void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
 void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
 

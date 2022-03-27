@@ -6,18 +6,19 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 09:35:16 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:11:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
+void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 {
 	int	file;
 
+	file = 0;
 	if (i != 0)
-		dup_entry_node(node, i, _pipes, g);
+		dup_entry_node(node, i, _pipes);
 	else
 	{
 		if (node->filein)
@@ -27,7 +28,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
 			close(file);
 		}
 		else if (node->here_doc == 1)
-			ft_here_doc(node->limiter, g);
+			ft_here_doc(file, node);
 	}
 	dup_exit_node_parent(node, i, _pipes);
 	if (node->after != R_FLUX_CREATE && node->after != R_FLUX_APPEND)
@@ -37,7 +38,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2], t_global *g)
 
 void	prepare_for_built(t_node *node, int i, int _pipes [512][2], t_global *g)
 {
-	parent_process_fd(node, i, _pipes, g);
+	parent_process_fd(node, i, _pipes);
 	is_builtin_exec(node->cmd, g, i);
 }
 
