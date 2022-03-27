@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 10:26:10 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:58:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	init_cmd_nodes(t_node **list)
 	while (tmp)
 	{
 		tmp->cmd = NULL;
+		tmp->here_str = NULL;
 		tmp = tmp->n;
 	}
 }

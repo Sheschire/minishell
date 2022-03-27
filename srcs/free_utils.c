@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 12:09:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:51:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_list(t_node **list)
 		to_free->s = NULL;
 		if (to_free->cmd)
 			free_array(to_free->cmd);
+		if (to_free->here_str)
+			free(to_free->here_str);
 		if (to_free)
 			free(to_free);
 		to_free = save;

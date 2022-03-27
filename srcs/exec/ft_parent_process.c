@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:41 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:35:16 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 	pid = 0;
 	while (i < g->cmd_nbr)
 	{
-		if (node->token_type == CMD)
+		if (node->token_type == CMD && !node->_error)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);

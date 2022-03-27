@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/23 13:39:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:43:52 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_useless_here_doc(char *limiter, t_global *g)
 {
 	char	*line;
 	int		pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -50,7 +51,13 @@ void	ft_useless_here_doc(char *limiter, t_global *g)
 		}
 	}
 	else
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &status, WUNTRACED);
+		if (WIFSIGNALED(status))
+			g_sig.exit_status = WTERMSIG(status) + 128;
+		else
+			g_sig.exit_status = (status / 256);
+	}
 }
 
 void	do_here_doc_thing(char *line, char *limit, int _pipe[2], t_global *g)
@@ -93,5 +100,25 @@ void	ft_here_doc(char *limiter, t_global *g)
 		dup2(_pipe_here[0], STDIN_FILENO);
 		close(_pipe_here[0]);
 		close(_pipe_here[1]);
+	}
+}
+
+void	ft_here_doc(t_node *node, t_global *g)
+{
+	char	*line;
+
+	line = NULL;
+	while (1)
+	{
+		line = readline(">>");
+		if (!line)
+			break;
+		if (!ft_strcmp(line, node->limiter))
+		{
+			ft_check_expand_need(node->limiter, node->here_str, g);
+			break ;
+		}
+		node->here_str = ft_strjoin(node->here_str, line);
+		node->here_str = ft_strjoin(node->here_str, "\n");
 	}
 }

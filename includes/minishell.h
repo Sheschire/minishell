@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/24 03:10:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:06:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ typedef struct s_node
 	char			*fileout;
 	char			*limiter;
 	int				here_doc;
+	char			*here_str;
 	int				_error;
+	char			*no_file;
 	int				is_child;
 	struct s_node	*n;
 }					t_node;
@@ -156,6 +158,7 @@ size_t	ft_strlen(const char *str);
 void	pipex(t_global *g, t_node *node);
 void	ft_here_doc(char *limiter, t_global *g);
 void	ft_useless_here_doc(char *limiter, t_global *g);
+void	ft_test_here(t_node *node, t_global *g);
 char	*heredoc_expand(char *s, t_global *g);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
@@ -177,8 +180,9 @@ void	dup_cp_std(t_global *g);
 void	wait_pids(t_global *g, t_node *node);
 int		replace_expand(char *dup, char *to_replace, int j);
 char	*parse_env(char *var, char **env);
-void	handling_flux_append(t_node *node, char *hook, t_global *g);
-int		no_such_file(char *hook, t_node *node);
+void	handling_flux_append(t_node *node, t_node *tmp, char *hook, t_global *g);
+void	no_such_file(char *hook, t_node *node);
+int		print_no_such_file(t_node *node);
 void	end_of_filein_check(t_node *node, int ret, char *hook);
 void	ft_sigquit_off(int sig);
 

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/24 03:12:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:34:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	pipex(t_global *g, t_node *node)
 	signal(SIGQUIT, ft_sigquit_off);
 	while (i < g->cmd_nbr - 1)
 	{
-		if (node->token_type == CMD && node->_error == 0)
+		if (node->token_type == CMD && !node->_error)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);

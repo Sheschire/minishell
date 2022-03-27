@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:26:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	count_cmd(t_node *node)
 		return (1);
 	while (tmp->n)
 	{
-		if (tmp->token_type == CMD)
+		if (tmp->token_type == CMD && !tmp->_error)
 			i++;
 		if (tmp->n)
 			tmp = tmp->n;
 	}
-	if (tmp->token_type == CMD)
+	if (tmp->token_type == CMD && !tmp->_error)
 		i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/23 13:40:09 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:05:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int	count_create_redirin(t_node *node, t_global *g, char *hook, int ret)
 				node->here_doc = 0;
 				ret = open(tmp->n->s, O_RDONLY);
 				if (ret == -1)
-					return (no_such_file(hook, node));
+					no_such_file(hook, node);
 				if (node->limiter)
 					ft_useless_here_doc(node->limiter, g);
 				end_of_filein_check(node, ret, hook);
 			}
 			else if (tmp->token_type == L_FLUX_APPEND)
-				handling_flux_append(node, hook, g);
+				handling_flux_append(node, tmp, hook, g);
 		}
 		tmp = tmp->n;
 	}	
-	return (1);
+	return (print_no_such_file(node));
 }
 
 void	count_create_redirout(t_node *node)
@@ -80,16 +80,17 @@ int	ft_list_cleaner(t_node *node, t_global *g)
 	ret = 0;
 	tmp = node;
 	signal(SIGQUIT, SIG_IGN);
-	while (tmp->n)
+	while (tmp->n || tmp->token_type == CMD)
 	{
 		if (tmp->token_type == CMD)
 		{
-			if (count_create_redirin(tmp, g, hook, ret))
+			if (!count_create_redirin(tmp, g, hook, ret))
 				count_create_redirout(tmp);
 		}
-		if (tmp->token_type == CMD && tmp->n->token_type == TOKEN_PIPE)
-			tmp->after = TOKEN_PIPE;
-		tmp = tmp->n;
+		if (tmp->n)
+			tmp = tmp->n;
+		else
+			break ;
 	}
 	signal(SIGQUIT, SIG_DFL);
 	return (1);

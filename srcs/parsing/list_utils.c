@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 10:08:34 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/27 09:59:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_node	*newnode(char *s, int token_type)
 	new->s = s;
 	new->token_type = token_type;
 	new->cmd = NULL;
+	new->here_str = NULL;
 	new->filein = NULL;
 	new->fileout = NULL;
 	new->limiter = NULL;
