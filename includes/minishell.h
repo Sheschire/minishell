@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 11:48:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:49:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_signal
 {
 	int			exit_status;
 	int			pids[512];
-	t_global	*g;
 }				t_signal;
 
 extern t_signal	g_sig;
