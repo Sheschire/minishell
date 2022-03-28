@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/28 16:44:59 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:39:11 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,18 @@ void	here_loop(char *line, t_node *node, t_global *g)
 		{
 			if (!ft_strcmp(line, node->limiter))
 			{
-				ft_check_expand_need(node->limiter, node->here_str, g);
+				if (node->here_str)
+					ft_check_expand_need(node->limiter, node->here_str, g);
 				break ;
 			}
 			node->here_str = ft_strjoin(node->here_str, line);
 			node->here_str = ft_strjoin(node->here_str, "\n");
 		}
 		else
+		{
+			write(1, "\n", 1);
 			break ;
+		}
 	}
 }
 
@@ -95,7 +99,5 @@ void	ft_here_doc_before(t_node *node, t_global *g)
 	here_loop(line, node, g);
 	if (g_sig.exit_status == 130)
 		node->signal_here_doc = 130;
-	if (!node->here_str)
-		write(1, "\n", 1);
 	signal(SIGQUIT, SIG_DFL);
 }
