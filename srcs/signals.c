@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 16:41:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:44:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ void	ft_sigquit_off(int sig)
 	(void)sig;
 	ft_putstr_fd("Quit (bcore dumped)\n", 2);
 	g_sig.exit_status = 131;
-}
-
-void	here_doc_action(int signum, siginfo_t *info, void *context)
-{
-	(void)context;
-	(void)info;
-	if (signum == SIGINT)
-	{
-		g_sig.exit_status = 130;
-		ft_putendl_fd("", 0);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_done = 1;
-	}
 }
 
 void	action(int signum, siginfo_t *info, void *context)

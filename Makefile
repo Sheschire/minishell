@@ -16,6 +16,7 @@ SRCS			= srcs/minishell.c\
 				  srcs/free_utils.c\
 				  srcs/init.c\
 				  srcs/signals.c\
+				  srcs/signals_here_doc.c\
 				  srcs/parsing/group_nodes_into_commands.c\
 				  srcs/exec/pipex.c\
 				  srcs/exec/pipex_utils.c\

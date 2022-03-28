@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/27 14:00:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:51:05 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ int	start_parsing(char *line, t_global *g)
 	add_history((const char *)line);
 	if (!input_parser(line, g))
 		return (0);
-	if (!ft_list_cleaner(g->list, g))
+	if (!g->syntax_err)
 	{
-		free_list(&g->list);
-		return (0);
+		if (!ft_list_cleaner(g->list, g))
+		{
+			free_list(&g->list);
+			return (0);
+		}
 	}
 	return (1);
 }

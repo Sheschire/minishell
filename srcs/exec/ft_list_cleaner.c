@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/28 13:44:23 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:47:23 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	count_create_redirin(t_node *node, t_global *g, char *hook, int ret)
 				end_of_filein_check(node, ret, hook);
 			}
 			else if (tmp->token_type == L_FLUX_APPEND)
-				handling_flux_append(node, tmp, hook, g);
+				handling_append(node, tmp, hook, g);
 		}
 		tmp = tmp->n;
 	}	

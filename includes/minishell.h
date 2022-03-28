@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 14:49:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:55 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,15 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlen(const char *str);
 
-// EXECUTION
-void	pipex(t_global *g, t_node *node);
-void	ft_here_doc(int	file, t_node *node);
+// HERE_DOC
+void	ft_here_doc(int file, t_node *node);
 void	ft_useless_here_doc(char *limiter);
 void	ft_here_doc_before(t_node *node, t_global *g);
 char	*heredoc_expand(char *s, t_global *g);
+void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g);
+
+// EXECUTION
+void	pipex(t_global *g, t_node *node);
 void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
@@ -182,7 +185,6 @@ void	dup_cp_std(t_global *g);
 void	wait_pids(t_global *g, t_node *node);
 int		replace_expand(char *dup, char *to_replace, int j);
 char	*parse_env(char *var, char **env);
-void	handling_flux_append(t_node *node, t_node *tmp, char *hook, t_global *g);
 void	no_such_file(char *hook, t_node *node);
 int		print_no_such_file(t_node *node);
 void	end_of_filein_check(t_node *node, int ret, char *hook);
@@ -223,6 +225,8 @@ int		tab_len(char **tab);
 //SIGNALS
 void	handle_signals(void);
 void	here_doc_action(int signum, siginfo_t *info, void *context);
+int		event_heredoc(void);
+void	here_doc_signals(void);
 
 void	print_list(t_node **list);
 char	**split_charset(char const *s, char *set);

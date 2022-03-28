@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/28 16:42:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:44:59 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,6 @@ void	ft_here_doc(int file, t_node *node)
 	file = open("/tmp/.here_doc", O_RDONLY, 0777);
 	dup2(file, STDIN_FILENO);
 	close(file);
-}
-
-void	here_doc_signals(void)
-{
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = here_doc_action;
-	if (sigaction(SIGINT, &sa, NULL) < 0)
-		ft_putstr_fd("Signal error\n", 2);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-int	event_heredoc(void)
-{
-	return (0);
 }
 
 void	here_loop(char *line, t_node *node, t_global *g)

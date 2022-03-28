@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:09:39 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 13:56:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:49:29 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handling_flux_append(t_node *node, t_node *tmp, char *hook, t_global *g)
+void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g)
 {
 	node->filein = NULL;
 	node->here_doc = 1;
