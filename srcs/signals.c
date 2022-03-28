@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 10:53:35 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/24 03:10:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:56:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,28 @@ void	ft_sigquit_off(int sig)
 	g_sig.exit_status = 131;
 }
 
+void	here_doc_action(int signum, siginfo_t *info, void *context)
+{
+	int	kill_ret;
+
+	(void)context;
+	(void)info;
+	if (signum == 2)
+	{
+		kill_ret = kill_pids();
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		g_sig.exit_status = 130;
+		if (!kill_ret)
+			rl_redisplay();
+		free_minishell(g_sig.g);
+		exit(2);
+	}
+	else if (signum == SIGQUIT)
+		return ;
+}
+
 void	action(int signum, siginfo_t *info, void *context)
 {
 	int	kill_ret;
@@ -44,7 +66,6 @@ void	action(int signum, siginfo_t *info, void *context)
 		g_sig.exit_status = 130;
 		if (!kill_ret)
 			rl_redisplay();
-		return ;
 	}
 	else if (signum == SIGQUIT)
 	{

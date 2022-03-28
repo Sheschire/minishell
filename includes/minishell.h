@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/27 13:44:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 11:48:43 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,6 @@
 #  define BUFFER_SIZE 1
 # endif
 
-typedef struct s_signal
-{
-	int	exit_status;
-	int	pids[512];
-}				t_signal;
-
 typedef struct s_node
 {
 	char			*s;
@@ -101,6 +95,13 @@ typedef struct s_global
 	int				cp_stdout;
 	int				syntax_err;
 }					t_global;
+
+typedef struct s_signal
+{
+	int			exit_status;
+	int			pids[512];
+	t_global	*g;
+}				t_signal;
 
 extern t_signal	g_sig;
 
@@ -222,6 +223,7 @@ int		tab_len(char **tab);
 
 //SIGNALS
 void	handle_signals(void);
+void	here_doc_action(int signum, siginfo_t *info, void *context);
 
 void	print_list(t_node **list);
 char	**split_charset(char const *s, char *set);

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 13:55:16 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:08:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_here_doc(int	file, t_node *node)
 void	waitpid_here_doc(int pid, t_node *node)
 {
 	int	status;
-	
+
 	waitpid(pid, &status, WUNTRACED);
 	if (WIFSIGNALED(status))
 	{
@@ -75,7 +75,21 @@ void	waitpid_here_doc(int pid, t_node *node)
 		return ;
 	}
 	else
-		g_sig.exit_status = (status / 256);
+		g_sig.exit_status = (status / 256 + 128);
+}
+
+void	here_doc_signals(t_global *g)
+{
+	struct sigaction	sa;
+
+	g_sig.g = g;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = here_doc_action;
+	if (sigaction(SIGINT, &sa, NULL) < 0)
+		ft_putstr_fd("Signal error\n", 2);
+	if (sigaction(SIGQUIT, &sa, NULL) < 0)
+		ft_putstr_fd("Signal error\n", 2);
 }
 
 void	ft_here_doc_before(t_node *node, t_global *g)
@@ -88,12 +102,16 @@ void	ft_here_doc_before(t_node *node, t_global *g)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
+	if (pid == 0)
+		here_doc_signals(g);
 	while (1 && pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
 		line = readline(">>");
 		if (!line)
-			break;
+		{
+			free_minishell(g);
+			exit(0);
+		}
 		if (!ft_strcmp(line, node->limiter))
 		{
 			ft_check_expand_need(node->limiter, node->here_str, g);
