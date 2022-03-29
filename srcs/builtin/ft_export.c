@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:03:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:11:00 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:54:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_export_variable(char *var, t_global *g)
 					return ;
 				}
 				ft_put_in_env(var, g, i);
+				free_array(var_split);
 				return ;
 			}
 		}
