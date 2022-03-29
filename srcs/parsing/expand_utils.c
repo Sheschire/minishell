@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:13:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/29 11:17:09 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:38:20 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi)
 		sub2 = ft_strdup("");
 	else
 		sub2 = ft_substr(g->list->cmd[cmdi], j + ft_strlen(tmp), \
-		ft_strlen(g->list->cmd[cmdi]) - ft_strlen(tmp));
+		ft_strlen(g->list->cmd[cmdi]) - (j + ft_strlen(tmp)));
 	join = ft_strjoin(sub1, sub2);
 	free(g->list->cmd[cmdi]);
 	g->list->cmd[cmdi] = ft_strdup(join);

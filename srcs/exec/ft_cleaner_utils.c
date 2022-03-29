@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cleaner_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:09:39 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/28 16:49:29 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 14:38:51 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g)
 	}
 }
 
-int		print_no_such_file(t_node *node)
+int	print_no_such_file(t_node *node)
 {
 	if (node->signal_here_doc)
 	{
