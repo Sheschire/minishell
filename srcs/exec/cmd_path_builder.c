@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/24 03:11:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:26:39 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
 
 	i = -1;
 	pathname = NULL;
-	if (access(builtcmd[0], F_OK) == 0)
+	if (access(builtcmd[0], X_OK) == 0)
 		pathname = builtcmd[0];
 	while (g->path && g->path[++i] && pathname == NULL)
 	{
 		pathname = testpath_builder(g, builtcmd[0], i);
-		if (access(pathname, F_OK) == 0)
+		if (access(pathname, X_OK) == 0)
 			break ;
 		free(pathname);
 		pathname = NULL;
@@ -95,12 +95,12 @@ void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
 		is_builtin_exec(builtcmd, g, INT_MAX);
 		free_builtins(g);
 	}
-	if (access(builtcmd[0], F_OK) == 0)
+	if (access(builtcmd[0], X_OK) == 0)
 		pathname = builtcmd[0];
 	while (g->path && g->path[++i] && pathname == NULL)
 	{
 		pathname = testpath_builder(g, builtcmd[0], i);
-		if (access(pathname, F_OK) == 0)
+		if (access(pathname, X_OK) == 0)
 			break ;
 		free(pathname);
 		pathname = NULL;

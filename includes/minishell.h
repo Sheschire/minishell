@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/29 14:58:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:32:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define _GNU_SOURCE
+# include <dirent.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
