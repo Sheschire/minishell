@@ -6,52 +6,50 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 17:37:53 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:54:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*heredoc_recreate_string(char *to_find, char *to_replace, char *s)
+char	*recreate_string_heredoc(char *tmp, int j, char *s)
 {
-	char	*dup;
-	int		i;
-	int		j;
-	int		replaced_one;
+	char	*sub1;
+	char	*sub2;
+	char	*join;
 
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(s) + \
-	ft_strlen(to_replace) - (ft_strlen(to_find) + 1) + 1));
-	i = -1;
-	j = 0;
-	replaced_one = 0;
-	while (s[++i])
-	{
-		if (s[i] == '$' && !replaced_one)
-		{
-			j = replace_expand(dup, to_replace, j);
-			i += ft_strlen(to_find);
-			replaced_one = 1;
-		}
-		dup[j] = s[i];
-		j++;
-	}
-	dup[j] = '\0';
+	sub1 = ft_substr(s, 0, j - 1);
+	if ((j + ft_strlen(tmp) + 1) == ft_strlen(s))
+		sub2 = ft_strdup("\n");
+	else
+		sub2 = ft_substr(s, j + ft_strlen(tmp), \
+		ft_strlen(s) - ft_strlen(tmp));
+	join = ft_strjoin(sub1, sub2);
 	free(s);
-	return (dup);
+	s = ft_strdup(join);
+	free(join);
+	free(sub2);
+	return (s);
 }
 
 char	*heredoc_expand_2(char *s, t_global *g, int i, int j)
 {
 	char	*tmp;
 	char	*var;
+	char	*dup;
 
 	tmp = ft_substr(s, j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
-	if (var)
-		s = heredoc_recreate_string(tmp, var, s);
+	if (ft_strcmp(var, ""))
+	{
+		dup = recreate_string(tmp, var, s, j - 1);
+		free(s);
+	}
+	else
+		dup = recreate_string_heredoc(tmp, j, s);
 	free(tmp);
 	free(var);
-	return (s);
+	return (dup);
 }
 
 char	*heredoc_expand(char *s, t_global *g)
@@ -71,13 +69,12 @@ char	*heredoc_expand(char *s, t_global *g)
 				return (NULL);
 			i++;
 			j = i;
-			while (s[i] && !is_in_set(s[i], " \'\"$"))
+			while (s[i] && !is_in_set(s[i], " \'\"$\n"))
 				i++;
 			s = heredoc_expand_2(s, g, i, j);
-			return (s);
 			i = 0;
 		}
 		i++;
 	}
-	return (NULL);
+	return (s);
 }

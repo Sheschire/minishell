@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/28 17:39:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:20:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 
 #include "minishell.h"
 
-int	ft_check_expand_need(char *limiter, char *line, t_global *g)
+int	ft_check_expand_need(t_node *node, t_global *g)
 {
 	int		i;
 	char	*tmp;
 
 	tmp = NULL;
 	i = -1;
-	while (limiter[++i])
+	while (node->limiter[++i])
 	{
-		if (limiter[i] == '\'' || limiter[i] == '\"')
+		if (node->limiter[i] == '\'' || node->limiter[i] == '\"')
 			return (0);
 	}
-	tmp = heredoc_expand(line, g);
+	tmp = heredoc_expand(node->here_str, g);
 	if (tmp != NULL)
-	{
-		free(line);
-		line = tmp;
-	}
+		node->here_str = tmp;
 	return (1);
 }
 
@@ -72,7 +69,7 @@ void	here_loop(char *line, t_node *node, t_global *g)
 			if (!ft_strcmp(line, node->limiter))
 			{
 				if (node->here_str)
-					ft_check_expand_need(node->limiter, node->here_str, g);
+					ft_check_expand_need(node, g);
 				break ;
 			}
 			node->here_str = ft_strjoin(node->here_str, line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:13:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/22 14:58:33 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:17:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*recreate_string(char *tmp, char *var, char *s, int start)
 	int		size;
 
 	size = ft_strlen(s) + ft_strlen(var) - ft_strlen(tmp);
-	dup = (char *)malloc(sizeof(char) * (size + 1));
+	dup = (char *)ft_calloc(sizeof(char), (size + 1));
 	i = 0;
 	j = 0;
 	while (s[i])

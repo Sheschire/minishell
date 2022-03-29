@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 16:48:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:24:04 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	expand_variables(t_node *list, t_global *g, int i);
 char	*recreate_string(char *tmp, char *var, char *s, int start);
 void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi);
 void	recreate_cmd(t_node *list, int j);
-int		ft_check_expand_need(char *limiter, char *line, t_global *g);
+int		ft_check_expand_need(t_node *node, t_global *g);
 char	**ft_arraydup(char **tab);
 void	print_syntax_error(char *token_err);
 
@@ -148,13 +148,6 @@ void	free_array(char **array);
 void	free_exec(void);
 void	free_minishell(t_global *g);
 void	free_builtins(t_global *g);
-
-// GNL
-int		get_next_line(int fd, char **line, char *limit, t_global *g);
-int		ft_return(char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-size_t	ft_strlen(const char *str);
 
 // HERE_DOC
 void	ft_here_doc(int file, t_node *node);

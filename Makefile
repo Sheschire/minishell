@@ -2,8 +2,6 @@ YELLOW			= \033[1;33m
 GREEN			= \033[1;32m
 
 SRCS			= srcs/minishell.c\
-				  srcs/get_next_line/get_next_line.c\
-				  srcs/get_next_line/get_next_line_utils.c\
 				  srcs/parsing/list_utils.c\
 				  srcs/parsing/parser.c\
 				  srcs/parsing/parser_utils.c\
