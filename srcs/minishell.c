@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/28 16:51:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:05:06 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	arg_error(int ac, char **av)
 int	start_parsing(char *line, t_global *g)
 {
 	add_history((const char *)line);
+	free_array(g->path);
+	g->path = ft_split(parse_env("PATH", g->env), ':');
 	if (!input_parser(line, g))
 		return (0);
 	if (!g->syntax_err)
