@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/23 11:30:44 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:27:32 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	recreate_cmd(t_node *list, int j)
 		while (list->cmd[++i])
 		{
 			if (ft_strcmp(list->cmd[i], ""))
-				cmd_cpy[j++] = ft_strdup(list->cmd[i]);
+					cmd_cpy[j++] = ft_strdup(list->cmd[i]);
 		}
 		free_array(list->cmd);
 		list->cmd = cmd_cpy;
@@ -105,7 +105,7 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 	while (list->cmd[cmdi][j])
 	{
 		if (list->cmd[cmdi][j] && list->cmd[cmdi][j] == '\'' && \
-		find_pair(list->cmd[cmdi], cmdi, list->cmd[cmdi][j]))
+		find_pair(list->cmd[cmdi], j, list->cmd[cmdi][j]))
 			while (list->cmd[cmdi][++j])
 				if (list->cmd[cmdi][j] == '\'')
 					break ;
