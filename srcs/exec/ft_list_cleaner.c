@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/29 13:29:21 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:03:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_create_redirin(t_node *node, t_global *g, char *hook, int ret)
 				if (ret == -1)
 					no_such_file(hook, node);
 				if (node->limiter)
-					ft_useless_here_doc(node->limiter);
+					ft_useless_here_doc(node->limiter, node);
 				end_of_filein_check(node, ret, hook);
 			}
 			else if (tmp->token_type == L_FLUX_APPEND)

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/29 11:20:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:56:36 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,30 @@ int	ft_check_expand_need(t_node *node, t_global *g)
 	return (1);
 }
 
-void	ft_useless_here_doc(char *limiter)
+void	ft_useless_here_doc(char *limiter, t_node *node)
 {
 	char	*line;
 
 	line = NULL;
+	g_sig.exit_status = 0;
+	here_doc_signals();
+	rl_event_hook = event_heredoc;
 	signal(SIGQUIT, SIG_IGN);
-	while (1)
+	while (1 && g_sig.exit_status != 130)
 	{
-		line = readline(">>");
+		line = readline(" > ");
 		if (!line)
 			break ;
 		if (!ft_strcmp(line, limiter))
 			break ;
+		if (line && g_sig.exit_status != 130)
+			free(line);
 	}
+	if (g_sig.exit_status == 130)
+		node->signal_here_doc = 130;
+	free(line);
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 }
 
 void	ft_here_doc(int file, t_node *node)
@@ -80,7 +89,10 @@ void	here_loop(char *line, t_node *node, t_global *g)
 			write(1, "\n", 1);
 			break ;
 		}
+		if (line && g_sig.exit_status != 130)
+			free(line);
 	}
+	free(line);
 }
 
 void	ft_here_doc_before(t_node *node, t_global *g)

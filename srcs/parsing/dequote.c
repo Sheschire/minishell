@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 10:37:24 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:20:32 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void	dequote(t_node *list, t_global *g, int i)
 
 void	reformat(t_node *l, t_global *g, int i)
 {
+	if (!ft_strcmp(l->cmd[i], "$?"))
+	{
+		free(l->cmd[i]);
+		l->cmd[i] = ft_itoa(g_sig.exit_status);
+	}
 	if (ft_strchr(l->cmd[i], '$'))
 		expand_variables(l, g, i);
 	if (ft_strchr(l->cmd[i], '\'') || ft_strchr(l->cmd[i], '\"'))

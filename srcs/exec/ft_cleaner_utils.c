@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cleaner_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:09:39 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/29 14:38:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/30 15:04:45 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g)
 {
 	node->filein = NULL;
 	node->here_doc = 1;
+	if (node->signal_here_doc)
+		return ;
 	if (node->limiter)
-		ft_useless_here_doc(node->limiter);
+		ft_useless_here_doc(node->limiter, node);
 	node->limiter = hook;
 	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 	{
+		if (node->signal_here_doc)
+			return ;
 		if (tmp->n->token_type == 8 || tmp->n->token_type == 10)
 			break ;
 		if (!tmp->n->n || tmp->n->n->token_type == TOKEN_PIPE)

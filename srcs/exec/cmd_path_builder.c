@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/29 19:26:39 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:23:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ void	ft_strcat(char *src, char *dest)
 	return ;
 }
 
-/**
-**	As its name says "testpath_builder" will
-**	create a path to try to access our command.
-**/
-
 char	*testpath_builder(t_global *g, char *cmd, int i)
 {
 	char	*pathname;
@@ -49,65 +44,55 @@ char	*testpath_builder(t_global *g, char *cmd, int i)
 	return (pathname);
 }
 
-void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node)
+void	create_cmd_parent(char **cmd, t_global *g, t_node *node)
 {
 	char	*pathname;
 	int		i;
 
 	i = -1;
 	pathname = NULL;
-	if (access(builtcmd[0], X_OK) == 0)
-		pathname = builtcmd[0];
+	if (access(cmd[0], X_OK) == 0)
+		pathname = cmd[0];
 	while (g->path && g->path[++i] && pathname == NULL)
 	{
-		pathname = testpath_builder(g, builtcmd[0], i);
+		pathname = testpath_builder(g, cmd[0], i);
 		if (access(pathname, X_OK) == 0)
 			break ;
 		free(pathname);
 		pathname = NULL;
 	}
-	if (pathname == NULL)
-		_error_cmd(builtcmd, pathname, g, node);
-	free(builtcmd[0]);
-	builtcmd[0] = pathname;
-	execve(pathname, builtcmd, g->env);
+	if (pathname == NULL || !ft_strcmp(cmd[0], "..") || !ft_strcmp(cmd[0], "."))
+		_error_cmd(cmd, pathname, g, node);
+	free(cmd[0]);
+	cmd[0] = pathname;
+	execve(pathname, cmd, g->env);
 }
 
-/**
-**	"find_cmd_path" will call "testpath_builder"
-**	and try to access() the test path given by it.
-**	In case of failure it will try another test path.
-**	In case of success it will execve() the cmd path
-**	and its flags if there are some.
-**	If there are no path to the cmd, it will launch _error_cmd()
-**	to free everything and exit the process.
-**/
-
-void	find_cmd_path(char **builtcmd, t_global *g, t_node *node)
+void	find_cmd_path(char **cmd, t_global *g, t_node *node)
 {
 	char	*pathname;
 	int		i;
 
 	i = -1;
 	pathname = NULL;
-	if (is_builtin(builtcmd))
+	if (is_builtin(cmd))
 	{
-		is_builtin_exec(builtcmd, g, INT_MAX);
+		is_builtin_exec(cmd, g, INT_MAX);
 		free_builtins(g);
 	}
-	if (access(builtcmd[0], X_OK) == 0)
-		pathname = builtcmd[0];
+	if (access(cmd[0], X_OK) == 0)
+		pathname = cmd[0];
 	while (g->path && g->path[++i] && pathname == NULL)
 	{
-		pathname = testpath_builder(g, builtcmd[0], i);
+		pathname = testpath_builder(g, cmd[0], i);
 		if (access(pathname, X_OK) == 0)
 			break ;
 		free(pathname);
 		pathname = NULL;
 	}
-	if (pathname == NULL)
-		_error_cmd(builtcmd, pathname, g, node);
-	builtcmd[0] = pathname;
+	if (pathname == NULL || !ft_strcmp(cmd[0], "..") || !ft_strcmp(cmd[0], "."))
+		_error_cmd(cmd, pathname, g, node);
+	cmd[0] = pathname;
 	signal(SIGQUIT, SIG_DFL);
-	execve(pathname, builtcmd, g->env);
+	execve(pathname, cmd, g->env);
 }

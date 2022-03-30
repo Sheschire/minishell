@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/29 17:32:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:51:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # define _GNU_SOURCE
-# include <dirent.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -151,16 +150,16 @@ void	free_builtins(t_global *g);
 
 // HERE_DOC
 void	ft_here_doc(int file, t_node *node);
-void	ft_useless_here_doc(char *limiter);
+void	ft_useless_here_doc(char *limiter, t_node *node);
 void	ft_here_doc_before(t_node *node, t_global *g);
 char	*heredoc_expand(char *s, t_global *g);
 void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
-void	find_cmd_path(char **builtcmd, t_global *g, t_node *node);
+void	find_cmd_path(char **cmd, t_global *g, t_node *node);
 void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
-void	create_cmd_parent(char **builtcmd, t_global *g, t_node *node);
+void	create_cmd_parent(char **cmd, t_global *g, t_node *node);
 
 // PROCESS
 void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2]);
@@ -220,8 +219,5 @@ void	handle_signals(void);
 void	here_doc_action(int signum, siginfo_t *info, void *context);
 int		event_heredoc(void);
 void	here_doc_signals(void);
-
-void	print_list(t_node **list);
-char	**split_charset(char const *s, char *set);
 
 #endif

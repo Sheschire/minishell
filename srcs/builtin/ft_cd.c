@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 10:54:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 12:04:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,31 @@ int	cd_home_not_set(void)
 	return (1);
 }
 
-int	cd_cant_find(char **cmd)
+int	check_dir(char **cmd)
 {
-	if (access(cmd[1], F_OK) == 0)
+	if (access(cmd[1], R_OK) == 0)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": Not a directory\n", 2);
 	}
 	else
 	{
-		ft_putstr_fd("minishell: cd: no such file or directory : ", 2);
+		ft_putstr_fd("cd: permission denied: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putchar_fd('\n', 2);
+		g_sig.exit_status = 1;
+	}
+	return (1);
+}
+
+int	cd_cant_find(char **cmd)
+{
+	if (access(cmd[1], F_OK) == 0)
+		return (check_dir(cmd));
+	else
+	{
+		ft_putstr_fd("cd: no such file or directory : ", 2);
 		ft_putstr_fd(cmd[1], 2);
 		ft_putchar_fd('\n', 2);
 	}

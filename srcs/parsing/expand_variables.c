@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 11:08:33 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:10:39 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	expand_variables_2(t_node *list, t_global *g, int i, int cmdi)
 {
 	int	j;
 
-	if (!list->cmd[cmdi][i] || is_in_set(list->cmd[cmdi][i], "\'\""))
+	if (!list->cmd[cmdi][i])
 		return (0);
 	j = i;
 	while (list->cmd[cmdi][i] && !is_in_set(list->cmd[cmdi][i], " \'\"$"))
@@ -123,6 +123,8 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 		{
 			if (expand_variables_2(list, g, j + 1, cmdi))
 				j = 0;
+			else
+				j++;
 		}
 		else
 			j++;

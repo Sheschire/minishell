@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/29 12:54:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:52:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*recreate_string_heredoc(char *tmp, int j, char *s)
 		sub2 = ft_strdup("\n");
 	else
 		sub2 = ft_substr(s, j + ft_strlen(tmp), \
-		ft_strlen(s) - ft_strlen(tmp));
+		ft_strlen(s) - (j + ft_strlen(tmp)));
 	join = ft_strjoin(sub1, sub2);
 	free(s);
 	s = ft_strdup(join);
@@ -65,7 +65,7 @@ char	*heredoc_expand(char *s, t_global *g)
 				i++;
 		if (s[i] == '$')
 		{
-			if (!s[i + 1] || is_in_set(s[i + 1], "\'\""))
+			if (!s[i + 1])
 				return (NULL);
 			i++;
 			j = i;

@@ -1,7 +1,7 @@
 YELLOW			= \033[1;33m
 GREEN			= \033[1;32m
 
-SRCS			= srcs/minishell.c\
+SRCS			= srcs/main/minishell.c\
 				  srcs/parsing/list_utils.c\
 				  srcs/parsing/parser.c\
 				  srcs/parsing/parser_utils.c\
@@ -11,10 +11,10 @@ SRCS			= srcs/minishell.c\
 				  srcs/parsing/expand_utils.c\
 				  srcs/parsing/reorganise_commandline.c\
 				  srcs/parsing/dequote.c\
-				  srcs/free_utils.c\
-				  srcs/init.c\
-				  srcs/signals.c\
-				  srcs/signals_here_doc.c\
+				  srcs/main/free_utils.c\
+				  srcs/main/init.c\
+				  srcs/main/signals.c\
+				  srcs/main/signals_here_doc.c\
 				  srcs/parsing/group_nodes_into_commands.c\
 				  srcs/exec/pipex.c\
 				  srcs/exec/pipex_utils.c\
