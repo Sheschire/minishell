@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/29 17:38:42 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:54:43 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ int	cd_home_not_set(void)
 
 int	cd_cant_find(char **cmd)
 {
-	ft_putstr_fd("minishell: cd: no such file or directory : ", 2);
-	ft_putstr_fd(cmd[1], 2);
-	ft_putchar_fd('\n', 2);
+	if (access(cmd[1], F_OK) == 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putstr_fd(": Not a directory\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: cd: no such file or directory : ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putchar_fd('\n', 2);
+	}
 	g_sig.exit_status = 1;
 	return (1);
 }
@@ -42,23 +51,6 @@ int	ft_check_args_cd(char **builtcmd)
 	return (0);
 }
 
-int	check_dir(char *var, char **cmd)
-{
-	DIR	*dir;
-
-	dir = opendir(var);
-	if (!dir)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[1], 2);
-		ft_putstr_fd(": Not a directory\n", 2);
-		g_sig.exit_status = 1;
-		return (1);
-	}
-	closedir(dir);
-	return (chdir(var));
-}
-
 int	ft_cd(char **cmd, t_global *g)
 {
 	char	*var;
@@ -73,7 +65,7 @@ int	ft_cd(char **cmd, t_global *g)
 		if (!var)
 			return (cd_home_not_set());
 		else
-			return (check_dir(var, cmd));
+			return (chdir(var));
 	}
 	else if (chdir(cmd[1]) == 0)
 		return (0);
