@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 10:49:07 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:08:33 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,15 @@ void	expand_variables_3(t_global *g, int i, int j, int cmdi)
 	char	*dup;
 
 	if (g->list->cmd[cmdi][j] == '?')
+	{
 		tmp = ft_substr(g->list->cmd[cmdi], j, 1);
+		var = parse_env(tmp, g->env);
+	}
 	else
+	{
 		tmp = ft_substr(g->list->cmd[cmdi], j, i - j);
-	var = ft_strdup(parse_env(tmp, g->env));
+		var = ft_strdup(parse_env(tmp, g->env));
+	}
 	if (ft_strcmp(var, ""))
 	{
 		dup = recreate_string(tmp, var, g->list->cmd[cmdi], j - 1);
