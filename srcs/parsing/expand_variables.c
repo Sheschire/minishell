@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/29 13:27:32 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/30 10:49:07 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*parse_env(char *var, char **env)
 
 	i = -1;
 	var_value = NULL;
+	if (!ft_strcmp(var, "?"))
+		return (ft_itoa(g_sig.exit_status));
 	while (env[++i])
 	{
 		if (!ft_strncmp(env[i], var, ft_strlen(var)))
@@ -70,7 +72,10 @@ void	expand_variables_3(t_global *g, int i, int j, int cmdi)
 	char	*var;
 	char	*dup;
 
-	tmp = ft_substr(g->list->cmd[cmdi], j, i - j);
+	if (g->list->cmd[cmdi][j] == '?')
+		tmp = ft_substr(g->list->cmd[cmdi], j, 1);
+	else
+		tmp = ft_substr(g->list->cmd[cmdi], j, i - j);
 	var = ft_strdup(parse_env(tmp, g->env));
 	if (ft_strcmp(var, ""))
 	{

@@ -42,7 +42,7 @@ OBJS			= $(SRCS:.c=.o)
 CC				= clang
 RM				= rm -f
 INCLUDE			= -I ./includes/
-CFLAGS			= -Wall -Wextra -Werror -I./includes -g3
+CFLAGS			= -Wall -Wextra -Werror -I./includes
 
 NAME			= minishell
 
