@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 14:51:30 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:52:13 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_global
 	int				cp_stdin;
 	int				cp_stdout;
 	int				syntax_err;
+	char			*expand_limiters;
 }					t_global;
 
 typedef struct s_signal
@@ -122,14 +123,17 @@ void	group_nodes_into_commands(t_node **list);
 int		find_quote_pair(char *line, char c, int i);
 void	dequote(t_node *list, t_global *g, int i);
 int		find_pair(char *s, int i, char c);
+char	**ft_arraydup(char **tab);
+void	print_syntax_error(char *token_err);
+
+// EXPAND
 void	quote_expand_parser(t_node **list, t_global *g, int i);
 void	expand_variables(t_node *list, t_global *g, int i);
 char	*recreate_string(char *tmp, char *var, char *s, int start);
 void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi);
+void	extend_limiters_list(t_global *g);
 void	recreate_cmd(t_node *list, int j);
 int		ft_check_expand_need(t_node *node, t_global *g);
-char	**ft_arraydup(char **tab);
-void	print_syntax_error(char *token_err);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);

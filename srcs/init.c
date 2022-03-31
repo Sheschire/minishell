@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/27 09:58:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:42:01 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	init_global(t_global *g, char **envp)
 	g->syntax_err = 0;
 	g->cp_stdin = dup(STDIN_FILENO);
 	g->cp_stdout = dup(STDOUT_FILENO);
+	g->expand_limiters = NULL;
 }
 
 void	init_cmd_nodes(t_node **list)

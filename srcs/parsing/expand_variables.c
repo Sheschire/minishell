@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 14:10:39 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:50:59 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*parse_env(char *var, char **env)
 	return ("");
 }
 
-void	expand_variables_3(t_global *g, int i, int j, int cmdi)
+void	expand(t_global *g, int i, int j, int cmdi)
 {
 	char	*tmp;
 	char	*var;
@@ -94,16 +94,17 @@ void	expand_variables_3(t_global *g, int i, int j, int cmdi)
 	free(var);
 }
 
-int	expand_variables_2(t_node *list, t_global *g, int i, int cmdi)
+int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 {
 	int	j;
 
 	if (!list->cmd[cmdi][i])
 		return (0);
 	j = i;
-	while (list->cmd[cmdi][i] && !is_in_set(list->cmd[cmdi][i], " \'\"$"))
+	while (list->cmd[cmdi][i] && \
+	!is_in_set(list->cmd[cmdi][i], g->expand_limiters))
 		i++;
-	expand_variables_3(g, i, j, cmdi);
+	expand(g, i, j, cmdi);
 	return (1);
 }
 
@@ -112,8 +113,12 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 	int		j;
 
 	j = 0;
+	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?");
 	while (list->cmd[cmdi][j])
 	{
+		if (list->cmd[cmdi][j] == '\"' && \
+		find_pair(list->cmd[cmdi], j, list->cmd[cmdi][j]))
+			extend_limiters_list(g);
 		if (list->cmd[cmdi][j] && list->cmd[cmdi][j] == '\'' && \
 		find_pair(list->cmd[cmdi], j, list->cmd[cmdi][j]))
 			while (list->cmd[cmdi][++j])
@@ -121,7 +126,7 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 					break ;
 		if (list->cmd[cmdi][j] == '$')
 		{
-			if (expand_variables_2(list, g, j + 1, cmdi))
+			if (run_to_limiters(list, g, j + 1, cmdi))
 				j = 0;
 			else
 				j++;
@@ -129,4 +134,5 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 		else
 			j++;
 	}
+	free(g->expand_limiters);
 }
