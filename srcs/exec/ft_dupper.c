@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 13:10:12 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:46:47 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,19 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2])
 	int	file;
 
 	file = 0;
-	if (!is_builtin(node->cmd))
+	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
-		if (node->after == R_FLUX_CREATE && node->fileout)
-		{
-			file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			dup2(file, STDOUT_FILENO);
-			close(file);
-			close(_pipes[i][0]);
-		}
-		else if (node->after == R_FLUX_APPEND && node->fileout)
-		{
-			file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
-			dup2(file, STDOUT_FILENO);
-			close(file);
-			close(_pipes[i][0]);
-		}
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		dup2(file, STDOUT_FILENO);
+		close(file);
+		close(_pipes[i][0]);
+	}
+	else if (node->after == R_FLUX_APPEND && node->fileout)
+	{
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		dup2(file, STDOUT_FILENO);
+		close(file);
+		close(_pipes[i][0]);
 	}
 }
 
