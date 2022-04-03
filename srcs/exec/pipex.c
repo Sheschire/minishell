@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 12:48:23 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:18:55 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	wait_pids(t_global *g, t_node *node)
 		return ;
 	while (++i < g->cmd_nbr && g_sig.pids[i])
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
-	if (g_sig.pids[i] && !node->is_child
-		&& !is_builtin(node->cmd) && !node->_error)
+	if (status && !is_builtin(node->cmd) && !node->_error)
 	{
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
 		if (WIFSIGNALED(status))
@@ -56,7 +55,7 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 			child_process(g, node, i, g->_pipes);
 		else
 		{
-			is_builtin_exec(node->cmd, g, i);
+			is_builtin_exec(node->cmd, g, i, node);
 			exit(g_sig.exit_status);
 		}
 		return (-1);

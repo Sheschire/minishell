@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/31 12:52:13 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:05:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void	_error(int i, char **to_free);
 // BUILTINS
 int		ft_cd(char **builtcmd, t_global *g);
 int		ft_env(t_global *g);
-int		ft_exit(char **builtcmd, t_global *g);
+int		ft_exit(char **builtcmd, t_global *g, t_node *node);
 int		ft_pwd(void);
 int		ft_export(char **cmd, t_global *g);
 int		ft_echo(char **builtcmd);
@@ -209,7 +209,7 @@ int		ft_unset(char **cmd, t_global *g);
 // BUILTINS UTILS
 void	ft_exit_signal(t_global *g);
 int		is_builtin(char **builtcmd);
-int		is_builtin_exec(char **builtcmd, t_global *g, int i);
+int		is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node);
 char	*get_in_env(char *str, t_global *g);
 int		env_lenght(char **env);
 void	ft_declare_env(t_global *g);

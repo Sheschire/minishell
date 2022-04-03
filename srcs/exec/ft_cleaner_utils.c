@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:09:39 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 15:04:45 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:14:54 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	print_no_such_file(t_node *node)
 void	no_such_file(char *hook, t_node *node)
 {
 	node->_error = 1;
+	g_sig.exit_status = 1;
 	node->no_file = ft_strdup(hook);
 }
 

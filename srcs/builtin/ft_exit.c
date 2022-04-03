@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 14:04:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:12:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,23 @@ void	ft_exit_no_arg(t_global *g)
 	exit(0);
 }
 
-int	ft_exit_not_alone(t_global *g, char **builtcmd)
+int	ft_exit_not_alone(t_global *g, char **builtcmd, t_node *node)
 {
-	int		i;
-	t_node	*tmp;
-
-	i = 0;
-	tmp = g->list;
-	while (tmp)
+	if (node->is_child == 1)
 	{
-		if (tmp->cmd)
-		{
-			if (!ft_strcmp(tmp->cmd[0], "exit") && tmp->is_child)
-			{
-				if (tmp->is_child == 1)
-				{
-					free_minishell(g);
-					exit(0);
-					return (0);
-				}
-				else
-					return (ft_set_exit_value(builtcmd[1]));
-			}
-		}
+		free_exec();
+		free_array(g->env);
+		free_array(g->path);
+		if (g->list)
+			free_list(&g->list);
+		exit(0);
+		return (0);
 	}
-	return (0);
+	else
+	{
+		g_sig.exit_status = ft_set_exit_value(builtcmd[1]);
+		return (g_sig.exit_status);
+	}
 }
 
 void	ft_exit_signal(t_global *g)
@@ -79,13 +71,13 @@ void	ft_exit_signal(t_global *g)
 	exit(0);
 }
 
-int	ft_exit(char **builtcmd, t_global *g)
+int	ft_exit(char **builtcmd, t_global *g, t_node *node)
 {
 	int	exit_value;
 
 	g_sig.exit_status = 0;
 	if (g->cmd_nbr > 1)
-		return (ft_exit_not_alone(g, builtcmd));
+		return (ft_exit_not_alone(g, builtcmd, node));
 	else if (tab_len(builtcmd) > 2)
 	{
 		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
