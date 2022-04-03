@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/27 13:10:39 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:48:32 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 	int	file;
 
 	file = 0;
+	if (g->cmd_nbr > 1)
+		node->is_child = 1;
 	if (node->filein)
 	{
 		file = open(node->filein, O_RDONLY, 0777);
