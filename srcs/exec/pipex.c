@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/02 16:02:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/03 12:48:23 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	wait_pids(t_global *g, t_node *node)
 	i = -1;
 	if (g->cmd_nbr == 1 && is_builtin(node->cmd))
 		return ;
-	while (++i < g->cmd_nbr)
+	while (++i < g->cmd_nbr && g_sig.pids[i])
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
-	if (!node->is_child && !is_builtin(node->cmd) && !node->_error)
+	if (g_sig.pids[i] && !node->is_child
+		&& !is_builtin(node->cmd) && !node->_error)
 	{
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
 		if (WIFSIGNALED(status))
