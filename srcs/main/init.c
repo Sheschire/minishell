@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/27 09:58:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:06:02 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,28 @@ char	**ft_get_all_env(char **envp)
 	return (new_env);
 }
 
+void	ft_set_shlvl(t_global *g, char **env)
+{
+	char	*var;
+	char	*shlvl;
+	char	*var_env;
+	int		value;
+
+	var = parse_env("SHLVL", env);
+	value = ft_atoi(var) + 1;
+	var = ft_itoa(value);
+	shlvl = ft_strdup("SHLVL=");
+	var_env = ft_strjoin(shlvl, var);
+	ft_export_variable(var_env, g);
+	free(var);
+	free(var_env);
+}
+
 void	init_global(t_global *g, char **envp)
 {
 	g->path = get_path();
 	g->env = ft_get_all_env(envp);
+	ft_set_shlvl(g, g->env);
 	g->list = NULL;
 	g->cmd_nbr = 0;
 	g->status = 0;

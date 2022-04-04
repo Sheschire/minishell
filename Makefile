@@ -9,6 +9,7 @@ SRCS			= srcs/main/minishell.c\
 				  srcs/parsing/redir_utils.c\
 				  srcs/parsing/expand_variables.c\
 				  srcs/parsing/expand_utils.c\
+				  srcs/parsing/expand_utils2.c\
 				  srcs/parsing/reorganise_commandline.c\
 				  srcs/parsing/dequote.c\
 				  srcs/main/free_utils.c\

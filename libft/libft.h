@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:19:34 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/20 18:23:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:50:52 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void (*del)(void *));
 int					is_in_set(char c, char *s);
 char				*strdup_set(char *s, char *charset);
 int					ft_strallcmp(char *s1, char *s2, int flag);
+char				*ft_strjoin_charset(int size, char **strs, char *sep);
 #endif

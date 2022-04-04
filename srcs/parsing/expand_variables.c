@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 15:41:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:00:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	expand(t_global *g, int i, int j, int cmdi)
 		tmp = ft_substr(g->list->cmd[cmdi], j, i - j);
 		var = ft_strdup(parse_env(tmp, g->env));
 	}
+	if (g->double_quotes == 0)
+		var = split_var(var, g);
 	if (ft_strcmp(var, ""))
 	{
 		dup = recreate_string(tmp, var, g->list->cmd[cmdi], j - 1);
@@ -90,8 +92,7 @@ void	expand(t_global *g, int i, int j, int cmdi)
 	}
 	else
 		recreate_string_with_empty(g, tmp, j, cmdi);
-	free(tmp);
-	free(var);
+	return (recreate_cmd_varsplit(g), free(tmp), free(var));
 }
 
 int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
@@ -114,6 +115,7 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 
 	j = 0;
 	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?");
+	g->double_quotes = 0;
 	while (list->cmd[cmdi][j])
 	{
 		if (list->cmd[cmdi][j] == '\"' && \

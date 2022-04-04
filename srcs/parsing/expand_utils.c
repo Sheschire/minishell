@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:13:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 13:43:30 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:54:28 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	extend_limiters_list(t_global *g, int heredoc)
 		g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?()<>&|`;");
 	else
 		g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?()<>&|`;\n");
+	g->double_quotes = 1;
 }

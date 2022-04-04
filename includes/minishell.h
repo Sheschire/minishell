@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 15:57:12 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:05:08 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_global
 	int				cp_stdout;
 	int				syntax_err;
 	char			*expand_limiters;
+	int				double_quotes;
 }					t_global;
 
 typedef struct s_signal
@@ -135,6 +136,8 @@ void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi);
 void	extend_limiters_list(t_global *g, int heredoc);
 void	recreate_cmd(t_node *list, int j);
 int		ft_check_expand_need(t_node *node, t_global *g);
+char	*split_var(char *var, t_global *g);
+void	recreate_cmd_varsplit(t_global *g);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
@@ -205,6 +208,7 @@ int		ft_env(t_global *g);
 int		ft_exit(char **builtcmd, t_global *g, t_node *node);
 int		ft_pwd(void);
 int		ft_export(char **cmd, t_global *g);
+void	ft_export_variable(char *var, t_global *g);
 int		ft_echo(char **builtcmd);
 int		ft_unset(char **cmd, t_global *g);
 

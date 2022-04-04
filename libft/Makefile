@@ -36,7 +36,8 @@ SRC        =   ft_atoi.c \
 				ft_toupper.c \
 				is_in_set.c \
 				strdup_set.c\
-				ft_strallcmp.c
+				ft_strallcmp.c\
+				ft_strjoin_charset.c
 
 SRC_BONUS		=	ft_lstadd_back.c \
 				ft_lstadd_front.c \
