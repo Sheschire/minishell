@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/04 15:33:15 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:56:33 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_expand_need(t_node *node, t_global *g)
 			return (0);
 	}
 	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?\n");
-	tmp = heredoc_expand(node->here_str, g);
+	tmp = heredoc_expand(node->here_str, g, 0);
 	if (tmp != NULL)
 		node->here_str = tmp;
 	return (1);

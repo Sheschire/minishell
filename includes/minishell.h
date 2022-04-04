@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 13:31:21 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:57:12 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	free_builtins(t_global *g);
 void	ft_here_doc(int file, t_node *node);
 void	ft_useless_here_doc(char *limiter, t_node *node);
 void	ft_here_doc_before(t_node *node, t_global *g);
-char	*heredoc_expand(char *s, t_global *g);
+char	*heredoc_expand(char *s, t_global *g, int i);
 void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g);
 
 // EXECUTION
