@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 15:56:41 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:58:24 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,6 @@ char	*heredoc_expand_2(char *s, t_global *g, int i, int j)
 	free(var);
 	return (dup);
 }
-
-// char	*run_to_limiters_heredoc(char *s, t_global *g, int i)
-// {
-// 	int		j;
-
-// 	j = 0;
-// 	if (!s[i])
-// 		return (NULL);
-// 	j = i;
-// 	while (s[i] && !is_in_set(s[i], g->expand_limiters))
-// 		i++;
-// 	s = heredoc_expand_2(s, g, i, j);
-// 	return (s);
-// }
 
 char	*heredoc_expand(char *s, t_global *g, int i)
 {
