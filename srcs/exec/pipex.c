@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 16:18:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:32:23 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	wait_pids(t_global *g, t_node *node)
 		return ;
 	while (++i < g->cmd_nbr && g_sig.pids[i])
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
-	if (status && !is_builtin(node->cmd) && !node->_error)
+	if (!is_builtin(node->cmd) && !node->_error)
 	{
 		waitpid(g_sig.pids[i], &status, WUNTRACED);
 		if (WIFSIGNALED(status))

@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 15:18:47 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:42:07 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,23 @@ char	*heredoc_expand_2(char *s, t_global *g, int i, int j)
 	return (dup);
 }
 
+char	*run_to_limiters_heredoc(char *s, t_global *g, int i)
+{
+	int	j;
+
+	j = 0;
+	if (!s[i])
+		return (NULL);
+	j = i;
+	while (s[i] && !is_in_set(s[i], g->expand_limiters))
+		i++;
+	s = heredoc_expand_2(s, g, i, j);
+	return (s);
+}
+
 char	*heredoc_expand(char *s, t_global *g)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (s[i])
@@ -74,16 +87,9 @@ char	*heredoc_expand(char *s, t_global *g)
 			while (s[++i])
 				if (s[i] == '\'')
 					break ;
-		if (s[i++] == '$')
-		{
-			if (!s[i])
-				return (NULL);
-			j = i;
-			while (s[i] && !is_in_set(s[i], g->expand_limiters))
-				i++;
-			s = heredoc_expand_2(s, g, i, j);
-			i = -1;
-		}
+		if (s[i] == '$')
+			if ((s = run_to_limiters_heredoc(s, g, i + 1)) != NULL)
+				i = -1;
 		i++;
 	}
 	free(g->expand_limiters);

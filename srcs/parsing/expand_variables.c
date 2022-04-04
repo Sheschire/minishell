@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 13:31:30 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:41:23 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,14 +125,9 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 				if (list->cmd[cmdi][j] == '\'')
 					break ;
 		if (list->cmd[cmdi][j] == '$')
-		{
 			if (run_to_limiters(list, g, j + 1, cmdi))
-				j = 0;
-			else
-				j++;
-		}
-		else
-			j++;
+				j = -1;
+		j++;
 	}
 	free(g->expand_limiters);
 }
