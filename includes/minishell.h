@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/03 16:05:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:24:22 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <errno.h>
 # include <signal.h>
 # include <string.h>
+# include <dirent.h>
 # include "../libft/libft.h"
 
 # define TOKEN_LITERAL  1
@@ -185,6 +186,7 @@ void	no_such_file(char *hook, t_node *node);
 int		print_no_such_file(t_node *node);
 void	end_of_filein_check(t_node *node, int ret, char *hook);
 void	ft_sigquit_off(int sig);
+void	ft_strcat(char *src, char *dest);
 
 // FD MANAGEMENT
 void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);

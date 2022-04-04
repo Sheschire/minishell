@@ -6,25 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 16:03:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:32:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_strcat(char *src, char *dest)
-{
-	while (*dest)
-		dest++;
-	while (*src)
-	{
-		*dest = *src;
-		src++;
-		dest++;
-	}
-	*dest = '\0';
-	return ;
-}
 
 char	*testpath_builder(t_global *g, char *cmd, int i)
 {
@@ -44,6 +30,49 @@ char	*testpath_builder(t_global *g, char *cmd, int i)
 	return (pathname);
 }
 
+int	check_dir_cmd(char **cmd)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd[0]);
+	if (dir)
+	{
+		closedir(dir);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		return (126);
+	}
+	else
+		return (0);
+}
+
+void	_error_cases(char *path, char **cmd, t_global *g, t_node *node)
+{
+	int	need_free;
+
+	need_free = 0;
+	if (path == NULL || !ft_strcmp(cmd[0], ".."))
+		_error_cmd(cmd, path, g, node);
+	else if (!ft_strcmp(cmd[0], "."))
+	{
+		ft_putstr_fd("minishell: .: filename argument required", 2);
+		ft_putstr_fd(".: usage: . filename [arguments]\n", 2);
+		need_free = 2;
+	}
+	else if (access(cmd[0], X_OK) == 0)
+		need_free = check_dir_cmd(cmd);
+	if (need_free)
+	{
+		if (path && node->is_child)
+			free(path);
+		free_array(g->env);
+		free_array(g->path);
+		free_list(&g->list);
+		exit(need_free);
+	}
+}
+
 void	create_cmd_parent(char **cmd, t_global *g, t_node *node)
 {
 	char	*pathname;
@@ -61,8 +90,7 @@ void	create_cmd_parent(char **cmd, t_global *g, t_node *node)
 		free(pathname);
 		pathname = NULL;
 	}
-	if (pathname == NULL || !ft_strcmp(cmd[0], "..") || !ft_strcmp(cmd[0], "."))
-		_error_cmd(cmd, pathname, g, node);
+	_error_cases(pathname, cmd, g, node);
 	free(cmd[0]);
 	cmd[0] = pathname;
 	execve(pathname, cmd, g->env);
@@ -90,8 +118,7 @@ void	find_cmd_path(char **cmd, t_global *g, t_node *node)
 		free(pathname);
 		pathname = NULL;
 	}
-	if (pathname == NULL || !ft_strcmp(cmd[0], "..") || !ft_strcmp(cmd[0], "."))
-		_error_cmd(cmd, pathname, g, node);
+	_error_cases(pathname, cmd, g, node);
 	cmd[0] = pathname;
 	signal(SIGQUIT, SIG_DFL);
 	execve(pathname, cmd, g->env);

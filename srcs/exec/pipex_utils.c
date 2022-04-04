@@ -6,12 +6,26 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 12:46:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:24:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "../../libft/libft.h"
+
+void	ft_strcat(char *src, char *dest)
+{
+	while (*dest)
+		dest++;
+	while (*src)
+	{
+		*dest = *src;
+		src++;
+		dest++;
+	}
+	*dest = '\0';
+	return ;
+}
 
 void	dup_cp_std(t_global *g)
 {
