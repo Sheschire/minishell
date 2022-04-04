@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 14:56:36 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 13:36:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_check_expand_need(t_node *node, t_global *g)
 		if (node->limiter[i] == '\'' || node->limiter[i] == '\"')
 			return (0);
 	}
+	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?\n");
 	tmp = heredoc_expand(node->here_str, g);
 	if (tmp != NULL)
 		node->here_str = tmp;

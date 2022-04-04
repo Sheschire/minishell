@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:13:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/31 12:54:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 13:43:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ char	*recreate_string(char *tmp, char *var, char *s, int start)
 	return (dup);
 }
 
-void	extend_limiters_list(t_global *g)
+void	extend_limiters_list(t_global *g, int heredoc)
 {
 	free(g->expand_limiters);
-	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?()<>&|`;");
+	if (heredoc == 0)
+		g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?()<>&|`;");
+	else
+		g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?()<>&|`;\n");
 }

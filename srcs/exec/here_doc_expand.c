@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 14:52:46 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:18:47 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,16 @@ char	*heredoc_expand_2(char *s, t_global *g, int i, int j)
 	char	*var;
 	char	*dup;
 
-	tmp = ft_substr(s, j, i - j);
-	var = ft_strdup(parse_env(tmp, g->env));
+	if (s[j] == '?')
+	{
+		tmp = ft_substr(s, j, 1);
+		var = parse_env(tmp, g->env);
+	}
+	else
+	{
+		tmp = ft_substr(s, j, i - j);
+		var = ft_strdup(parse_env(tmp, g->env));
+	}
 	if (ft_strcmp(var, ""))
 	{
 		dup = recreate_string(tmp, var, s, j - 1);
@@ -60,21 +68,24 @@ char	*heredoc_expand(char *s, t_global *g)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' && find_pair(s, i, s[i]))
-			while (s[i] && s[i] != '\'')
-				i++;
-		if (s[i] == '$')
+		if (s[i] == '\"' && find_pair(s, i, s[i]))
+			extend_limiters_list(g, 1);
+		if (s[i] && s[i] == '\'' && find_pair(s, i, s[i]))
+			while (s[++i])
+				if (s[i] == '\'')
+					break ;
+		if (s[i++] == '$')
 		{
-			if (!s[i + 1])
+			if (!s[i])
 				return (NULL);
-			i++;
 			j = i;
-			while (s[i] && !is_in_set(s[i], " \'\"$\n"))
+			while (s[i] && !is_in_set(s[i], g->expand_limiters))
 				i++;
 			s = heredoc_expand_2(s, g, i, j);
-			i = 0;
+			i = -1;
 		}
 		i++;
 	}
+	free(g->expand_limiters);
 	return (s);
 }

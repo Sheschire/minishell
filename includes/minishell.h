@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 12:24:22 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/04 13:31:21 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	quote_expand_parser(t_node **list, t_global *g, int i);
 void	expand_variables(t_node *list, t_global *g, int i);
 char	*recreate_string(char *tmp, char *var, char *s, int start);
 void	recreate_string_with_empty(t_global *g, char *tmp, int j, int cmdi);
-void	extend_limiters_list(t_global *g);
+void	extend_limiters_list(t_global *g, int heredoc);
 void	recreate_cmd(t_node *list, int j);
 int		ft_check_expand_need(t_node *node, t_global *g);
 

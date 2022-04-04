@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/31 12:50:59 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/04 13:31:30 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 	{
 		if (list->cmd[cmdi][j] == '\"' && \
 		find_pair(list->cmd[cmdi], j, list->cmd[cmdi][j]))
-			extend_limiters_list(g);
+			extend_limiters_list(g, 0);
 		if (list->cmd[cmdi][j] && list->cmd[cmdi][j] == '\'' && \
 		find_pair(list->cmd[cmdi], j, list->cmd[cmdi][j]))
 			while (list->cmd[cmdi][++j])
