@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 16:23:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:30:14 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
 				prepare_for_built(node, i, _pipes, g);
 			if (!pid)
 				i++;
+			break ;
 		}
 		if (node->n)
 			node = node->n;
 	}
-	wait_pids(g, node);
 }

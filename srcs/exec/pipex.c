@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/04 15:32:23 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:30:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	check_pid(int pid, int i, t_global *g, t_node *node)
 	}
 }
 
-void	end_pipex(t_global *g)
+void	end_pipex(t_global *g, t_node *node)
 {
+	wait_pids(g, node);
 	ft_close_pipe(g, INT_MAX);
 	dup_cp_std(g);
 	free_exec();
@@ -95,5 +96,5 @@ void	pipex(t_global *g, t_node *node)
 	}
 	g->child_exist = 0;
 	exec_in_parent(g, node, i, g->_pipes);
-	end_pipex(g);
+	end_pipex(g, node);
 }
