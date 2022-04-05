@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/05 14:27:00 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:05:07 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	expand(t_global *g, int i, int j, int cmdi)
 
 int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 {
-	int	j;
+	int		j;
 
 	if (!list->cmd[cmdi][i])
 		return (0);
@@ -114,7 +114,7 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 	int		j;
 
 	j = 0;
-	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?");
+	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?/");
 	g->double_quotes = 0;
 	while (list->cmd[cmdi][j])
 	{
