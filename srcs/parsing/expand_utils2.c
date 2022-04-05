@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:53:48 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 18:06:48 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:24:35 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ void	recreate_cmd_varsplit(t_global *g)
 {
 	char	*str;
 	int		size;
+	int		i;
 
 	size = 0;
+	i = -1;
 	if (g->double_quotes == 0)
 	{
 		while (g->list->cmd[size])
 			size++;
+		while (++i < size)
+			if (!ft_strcmp(g->list->cmd[i], ""))
+				return ;
 		str = ft_strjoin_charset(size, g->list->cmd, " ");
 		free_array(g->list->cmd);
 		g->list->cmd = ft_split(str, ' ');
