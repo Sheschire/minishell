@@ -6,18 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 12:04:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:09:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	cd_home_not_set(void)
-{
-	ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-	g_sig.exit_status = 1;
-	return (1);
-}
 
 int	check_dir(char **cmd)
 {
@@ -65,24 +58,51 @@ int	ft_check_args_cd(char **builtcmd)
 	return (0);
 }
 
+int	change_pwd_env(char *var, t_global *g)
+{
+	char	*var_export;
+	char	*copy_pwd;
+	char	*oldpwd;
+
+	printf("COUCOU\n");
+	oldpwd = ft_strdup("OLDPWD=");
+	copy_pwd = ft_strdup(parse_env("PWD", g->env));
+	oldpwd = ft_strjoin(oldpwd, copy_pwd);
+	ft_export_variable(oldpwd, g);
+	free(oldpwd);
+	var_export = ft_strdup("PWD=");
+	var_export = ft_strjoin(var_export, var);
+	ft_export_variable(var_export, g);
+	free(var_export);
+	return (0);
+}
+
 int	ft_cd(char **cmd, t_global *g)
 {
 	char	*var;
 
+	var = NULL;
 	g_sig.exit_status = 0;
 	if (ft_check_args_cd(cmd))
 		return (1);
-	if (!cmd[1] || !ft_strallcmp(cmd[1], "--", 0)
-		|| !ft_strallcmp(cmd[1], "~", 0))
+	if (!cmd[1] || !ft_strcmp(cmd[1], "--") || !ft_strcmp(cmd[1], "~"))
 	{
 		var = get_in_env("HOME", g);
 		if (!var)
-			return (cd_home_not_set());
+		{
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			g_sig.exit_status = 1;
+			return (1);
+		}
 		else
-			return (chdir(var));
+		{
+			if (chdir(var) == 0)
+				return (change_pwd_env(var, g));
+			return (-1);
+		}
 	}
 	else if (chdir(cmd[1]) == 0)
-		return (0);
+		return (change_pwd_env(cmd[1], g));
 	else
 		return (cd_cant_find(cmd));
 }
