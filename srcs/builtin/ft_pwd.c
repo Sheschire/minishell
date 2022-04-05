@@ -6,14 +6,14 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:10:57 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:35:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "../../libft/libft.h"
 
-int	ft_pwd(void)
+int	ft_pwd(int flag)
 {
 	char	*cwd;
 	int		buffer_size;
@@ -32,7 +32,9 @@ int	ft_pwd(void)
 			return (1);
 		cwd = getcwd(cwd, buffer_size);
 	}
-	printf("%s\n", cwd);
+	ft_putstr_fd(cwd, 1);
+	if (!flag)
+		ft_putchar_fd('\n', 1);
 	free(cwd);
 	return (0);
 }

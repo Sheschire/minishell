@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 16:04:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:35:58 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node)
 	if (!ft_strallcmp(builtcmd[0], "cd", 0))
 		return (ft_cd(builtcmd, g));
 	else if (!ft_strallcmp(builtcmd[0], "pwd", 0))
-		return (ft_pwd());
+		return (ft_pwd(0));
 	else if (!ft_strallcmp(builtcmd[0], "exit", 0))
 		return (ft_exit(builtcmd, g, node));
 	else if (!ft_strallcmp(builtcmd[0], "env", 0))

@@ -6,36 +6,45 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:38:29 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 17:54:07 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:50:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_echo_flag(char *cmd)
+int	ft_check_echo_flag(char **cmd)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (cmd[i] != '-')
-		return (1);
-	else
-		i++;
-	while (cmd[i])
+	while (cmd[++i])
 	{
-		if (cmd[i] != 'n')
-			return (1);
-		i++;
+		j = 0;
+		if (cmd[i][j++] == '-' && cmd[i][j] && cmd[i][j] == 'n')
+		{
+			while (cmd[i][j] == 'n')
+				j++;
+			if (cmd[i][j] && cmd[i][j] != 'n')
+				return (1);
+		}
+		else
+			return (i);
 	}
-	return (0);
+	return (i);
 }
 
-int	ft_echo_n(char **builtcmd, int i)
+int	print_echo(char **cmd, int i)
 {
-	while (builtcmd[++i])
+	while (cmd[i])
 	{
-		ft_putstr_fd(builtcmd[i], 1);
-		ft_putchar_fd(' ', 1);
+		if (!ft_strcmp(cmd[i], "~"))
+			ft_pwd(1);
+		else
+			ft_putstr_fd(cmd[i], 1);
+		i++;
+		if (cmd[i])
+			ft_putchar_fd(' ', 1);
 	}
 	return (0);
 }
@@ -43,6 +52,7 @@ int	ft_echo_n(char **builtcmd, int i)
 int	ft_echo(char **cmd)
 {
 	int	i;
+	int	flag;
 
 	g_sig.exit_status = 0;
 	i = 1;
@@ -51,18 +61,13 @@ int	ft_echo(char **cmd)
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	if (!ft_check_echo_flag(cmd[1]))
-		return (ft_echo_n(cmd, i));
+	i = ft_check_echo_flag(cmd);
+	if (i > 1)
+		flag = 0;
 	else
-	{
-		i = 1;
-		while (cmd[i])
-		{
-			ft_putstr_fd(cmd[i], 1);
-			ft_putchar_fd(' ', 1);
-			i++;
-		}
+		flag = 1;
+	print_echo(cmd, i);
+	if (flag)
 		ft_putchar_fd('\n', 1);
-	}
 	return (0);
 }
