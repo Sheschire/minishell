@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/02 15:46:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:50:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2])
+void	dup_exit_node_parent(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
@@ -33,7 +33,7 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2])
 	}
 }
 
-void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
+void	dup_exit_node(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
@@ -60,7 +60,7 @@ void	dup_exit_node(t_node *node, int i, int _pipes[512][2])
 	}
 }
 
-void	dup_entry_node(t_node *node, int i, int _pipes[512][2])
+void	dup_entry_node(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 

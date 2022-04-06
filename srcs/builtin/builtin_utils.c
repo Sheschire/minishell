@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/05 17:35:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:45:36 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	is_builtin(char **builtcmd)
 
 int	is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node)
 {
+	g_sig.exit_status = 0;
 	if (i != INT_MAX && is_builtin(builtcmd))
 		ft_close_pipe(g, i);
 	if (!ft_strallcmp(builtcmd[0], "cd", 0))

@@ -26,6 +26,7 @@ SRCS			= srcs/main/minishell.c\
 				  srcs/exec/ft_errors_manager.c\
 				  srcs/exec/cmd_path_builder.c\
 				  srcs/builtin/ft_cd.c\
+				  srcs/builtin/ft_cd_utils.c\
 				  srcs/builtin/ft_env.c\
 				  srcs/builtin/ft_exit.c\
 				  srcs/builtin/ft_pwd.c\

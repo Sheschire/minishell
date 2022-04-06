@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 13:48:32 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:50:25 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
+void	child_begin(t_global *g, t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
@@ -31,7 +31,7 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[512][2])
 	find_cmd_path(node->cmd, g, node);
 }
 
-void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2])
+void	child_process(t_global *g, t_node *node, int i, int _pipes[1024][2])
 {
 	if (node->_error)
 	{

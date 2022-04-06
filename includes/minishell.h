@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/06 14:29:38 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:49:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_global
 {
 	char			**env;
 	char			**path;
-	int				_pipes[512][2];
+	int				_pipes[1024][2];
 	t_node			*list;
 	int				cmd_nbr;
 	int				status;
@@ -172,8 +172,8 @@ void	cmd_path_parent(char **builtcmd, t_global *g, t_node *node);
 void	create_cmd_parent(char **cmd, t_global *g, t_node *node);
 
 // PROCESS
-void	child_process(t_global *g, t_node *node, int i, int _pipes[512][2]);
-void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2]);
+void	child_process(t_global *g, t_node *node, int i, int _pipes[1024][2]);
+void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[1024][2]);
 
 // EXECUTION UTILS
 void	wait_children(t_global *g);
@@ -194,9 +194,9 @@ void	ft_sigquit_off(int sig);
 void	ft_strcat(char *src, char *dest);
 
 // FD MANAGEMENT
-void	dup_entry_node(t_node *node, int i, int _pipes[512][2]);
-void	dup_exit_node(t_node *node, int i, int _pipes[512][2]);
-void	dup_exit_node_parent(t_node *node, int i, int _pipes[512][2]);
+void	dup_entry_node(t_node *node, int i, int _pipes[1024][2]);
+void	dup_exit_node(t_node *node, int i, int _pipes[1024][2]);
+void	dup_exit_node_parent(t_node *node, int i, int _pipes[1024][2]);
 
 // EXECUTION ERROR HANDLING
 void	ft_error_pipe(t_global *g);
@@ -206,6 +206,8 @@ void	_error(int i, char **to_free);
 
 // BUILTINS
 int		ft_cd(char **builtcmd, t_global *g);
+int		oldpwd_cd(t_global *g);
+int		change_pwd_env(t_global *g);
 int		ft_env(t_global *g);
 int		ft_exit(char **builtcmd, t_global *g, t_node *node);
 int		ft_pwd(int flag);
