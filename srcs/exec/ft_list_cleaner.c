@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 16:28:55 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:34:47 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int	ft_list_cleaner(t_node *node, t_global *g)
 		{
 			if (tmp->cmd[0] == NULL)
 				return (0);
-			if (!check_redir_list(tmp, g, hook, ret))
-				return (0);
+			ret = check_redir_list(tmp, g, hook, ret);
 			if (tmp->signal_here_doc)
 				return (0);
 		}
@@ -96,5 +95,7 @@ int	ft_list_cleaner(t_node *node, t_global *g)
 		else
 			break ;
 	}
+	if (ret == 0)
+		return (0);
 	return (1);
 }
