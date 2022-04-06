@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 01:15:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:31:55 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,29 @@ int	change_pwd_env(t_global *g)
 	return (0);
 }
 
+int	oldpwd_cd(t_global *g)
+{
+	char *var;
+	
+	var = parse_env("OLDPWD", g->env);
+	if (!var)
+	{
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+		return ((g_sig.exit_status = 1), 1);
+	}
+	else
+	{
+		if (chdir(var) == 0)
+		{
+			change_pwd_env(g);
+			ft_pwd(0);
+			return ((g_sig.exit_status = 0), 0);
+		}
+		else
+			return ((g_sig.exit_status = 1), 1);
+	}
+}
+
 int	ft_cd(char **cmd, t_global *g)
 {
 	char	*var;
@@ -92,7 +115,7 @@ int	ft_cd(char **cmd, t_global *g)
 		|| !ft_strcmp(cmd[1], "-"))))
 	{
 		if (cmd[1] && !ft_strcmp(cmd[1], "-"))
-			return((printf("%s\n", parse_env("OLDPWD", g->env))), 0);
+			return (oldpwd_cd(g));
 		var = get_in_env("HOME", g);
 		if (!var)
 		{
