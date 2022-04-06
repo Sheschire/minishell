@@ -1,0 +1,7 @@
+includes
+libft
+Makefile
+minishell
+srcs
+tmp
+valgrind_readline_leaks_ignore.txt

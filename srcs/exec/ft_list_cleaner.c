@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 17:46:39 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:01:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ int	check_redir_list(t_node *tmp, t_global *g)
 }
 
 int	is_a_redir(t_node *node, int type, int ret)
-{	
-	if (node && node->token_type == CMD)
-		return (1);
+{
 	if (type == 7 || type == 8 || type == 9 || type == 10)
 	{
 		if (type == 7 || type == 9)
@@ -106,8 +104,10 @@ int	is_a_redir(t_node *node, int type, int ret)
 			else if (type == 10)
 				ft_useless_here_doc(node->n->s, node->n);
 		}
+		return (print_no_such_file(node));
 	}
-	return (print_no_such_file(node));
+	else
+		return (1);
 }
 
 int	ft_list_cleaner(t_node *node, t_global *g)
