@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 01:12:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:15:13 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_cd(char **cmd, t_global *g)
 		|| !ft_strcmp(cmd[1], "-"))))
 	{
 		if (cmd[1] && !ft_strcmp(cmd[1], "-"))
-			printf("%s\n", parse_env("OLDPWD", g->env));
+			return((printf("%s\n", parse_env("OLDPWD", g->env))), 0);
 		var = get_in_env("HOME", g);
 		if (!var)
 		{
