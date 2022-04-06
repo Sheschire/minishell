@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 15:03:13 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:28:55 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,56 +18,57 @@ int	count_create_redirin(t_node *node, t_global *g, char *hook, int ret)
 
 	node->here_doc = 0;
 	tmp = node;
-	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
+	if (tmp->token_type == 8 || tmp->token_type == 10)
 	{
-		if (tmp->token_type == 8 || tmp->token_type == 10)
+		hook = tmp->n->s;
+		if (tmp->token_type == L_FLUX_CREATE)
 		{
-			hook = tmp->n->s;
-			if (tmp->token_type == L_FLUX_CREATE)
-			{
-				node->here_doc = 0;
-				ret = open(tmp->n->s, O_RDONLY);
-				if (ret == -1)
-					no_such_file(hook, node);
-				if (node->limiter)
-					ft_useless_here_doc(node->limiter, node);
-				end_of_filein_check(node, ret, hook);
-			}
-			else if (tmp->token_type == L_FLUX_APPEND)
-				handling_append(node, tmp, hook, g);
+			node->here_doc = 0;
+			ret = open(tmp->n->s, O_RDONLY);
+			if (ret == -1)
+				no_such_file(hook, node);
+			if (node->limiter)
+				ft_useless_here_doc(node->limiter, node);
+			end_of_filein_check(node, ret, hook);
 		}
-		tmp = tmp->n;
-	}	
+		else if (tmp->token_type == L_FLUX_APPEND)
+			handling_append(node, tmp, hook, g);
+	}
 	return (print_no_such_file(node));
 }
 
-void	count_create_redirout(t_node *node)
+void	count_create_redirout(t_node *node, char *hook)
 {
-	t_node	*tmp;
-	char	*hook;
-
-	tmp = node;
-	node->fileout = NULL;
-	while (tmp->n && tmp->n->token_type != TOKEN_PIPE)
+	hook = node->n->s;
+	if (node->token_type == R_FLUX_CREATE)
 	{
-		if (tmp->token_type == 7 || tmp->token_type == 9)
-		{
-			hook = tmp->n->s;
-			if (tmp->token_type == R_FLUX_CREATE)
-			{
-				open(tmp->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0755);
-				node->after = R_FLUX_CREATE;
-			}
-			else
-			{
-				open(tmp->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
-				node->after = R_FLUX_APPEND;
-			}
-		}
-		tmp = tmp->n;
+		open(node->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		node->after = R_FLUX_CREATE;
+	}
+	else
+	{
+		open(node->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
+		node->after = R_FLUX_APPEND;
 	}
 	node->fileout = hook;
 	return ;
+}
+
+int	check_redir_list(t_node *tmp, t_global *g, char *hook, int ret)
+{
+	while (tmp && tmp->token_type != TOKEN_PIPE)
+	{
+		if (tmp->token_type == 8 || tmp->token_type == 10)
+			if (count_create_redirin(tmp, g, hook, ret))
+				return (0);
+		if (tmp->token_type == 7 || tmp->token_type == 9)
+			count_create_redirout(tmp, hook);
+		if (tmp->n && tmp->n->token_type != TOKEN_PIPE)
+			tmp = tmp->n;
+		else
+			return (1);
+	}
+	return (1);
 }
 
 int	ft_list_cleaner(t_node *node, t_global *g)
@@ -79,14 +80,14 @@ int	ft_list_cleaner(t_node *node, t_global *g)
 	hook = NULL;
 	ret = 0;
 	tmp = node;
-	while (tmp->n || tmp->token_type == CMD)
+	while (tmp)
 	{
 		if (tmp->token_type == CMD)
 		{
 			if (tmp->cmd[0] == NULL)
 				return (0);
-			if (!count_create_redirin(tmp, g, hook, ret))
-				count_create_redirout(tmp);
+			if (!check_redir_list(tmp, g, hook, ret))
+				return (0);
 			if (tmp->signal_here_doc)
 				return (0);
 		}
