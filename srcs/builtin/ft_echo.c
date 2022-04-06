@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:38:29 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/05 17:50:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:41:20 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check_echo_flag(char **cmd)
 			while (cmd[i][j] == 'n')
 				j++;
 			if (cmd[i][j] && cmd[i][j] != 'n')
-				return (1);
+				return (i);
 		}
 		else
 			return (i);

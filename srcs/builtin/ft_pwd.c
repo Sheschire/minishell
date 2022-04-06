@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 00:58:40 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:37:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_pwd(int flag)
 		cwd = getcwd(cwd, buffer_size);
 	}
 	if (errno == ENOENT || errno == EACCES)
-			return (error_cwd(cwd));
+		return (error_cwd(cwd));
 	ft_putstr_fd(cwd, 1);
 	if (!flag)
 		ft_putchar_fd('\n', 1);
