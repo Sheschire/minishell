@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 17:20:18 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:00:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	start_parsing(char *line, t_global *g)
 	g->path = ft_split(parse_env("PATH", g->env), ':');
 	if (!input_parser(line, g))
 		return (0);
+	g->cmd_nbr = count_cmd(g->list);
 	if (!g->syntax_err)
 	{
 		if (!ft_list_cleaner(g->list, g))
@@ -42,6 +43,11 @@ int	start_parsing(char *line, t_global *g)
 			free_list(&g->list);
 			return (0);
 		}
+	}
+	if (!g->cmd_nbr)
+	{
+		free_list(&g->list);
+		return (0);
 	}
 	return (1);
 }
