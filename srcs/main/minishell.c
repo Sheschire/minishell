@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/06 16:06:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:45:37 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	start_parsing(char *line, t_global *g)
 			free_list(&g->list);
 			return (0);
 		}
-		if (!g->cmd_nbr)
+		if (g->cmd_nbr < 1)
 		{
 			free_list(&g->list);
 			return (0);
