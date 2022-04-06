@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 18:06:02 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:30:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_cmd_nodes(t_node **list)
 	{
 		tmp->cmd = NULL;
 		tmp->here_str = NULL;
+		tmp->here_doc_quotes_removed = 0;
 		tmp = tmp->n;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:15:17 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/30 12:07:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:32:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_node	*newnode(char *s, int token_type)
 	new->fileout = NULL;
 	new->limiter = NULL;
 	new->n = NULL;
+	new->here_doc_quotes_removed = 0;
 	return (new);
 }
 

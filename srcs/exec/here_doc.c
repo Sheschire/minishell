@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/04 15:56:33 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:35:25 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,12 @@
 
 int	ft_check_expand_need(t_node *node, t_global *g)
 {
-	int		i;
 	char	*tmp;
 
 	tmp = NULL;
-	i = -1;
-	while (node->limiter[++i])
-	{
-		if (node->limiter[i] == '\'' || node->limiter[i] == '\"')
-			return (0);
-	}
-	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?\n");
+	if (node->here_doc_quotes_removed == 1)
+		return (0);
+	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]/?\n");
 	tmp = heredoc_expand(node->here_str, g, 0);
 	if (tmp != NULL)
 		node->here_str = tmp;
@@ -106,7 +101,11 @@ void	ft_here_doc_before(t_node *node, t_global *g)
 	g_sig.exit_status = 0;
 	here_doc_signals();
 	rl_event_hook = event_heredoc;
+	if (ft_strchr(node->limiter, '\'') || ft_strchr(node->limiter, '\"'))
+		dequote_heredoc(node, g);
 	here_loop(line, node, g);
+	if (node->limiter && node->here_doc_quotes_removed)
+		free(node->limiter);
 	if (g_sig.exit_status == 130)
 		node->signal_here_doc = 130;
 	signal(SIGQUIT, SIG_DFL);

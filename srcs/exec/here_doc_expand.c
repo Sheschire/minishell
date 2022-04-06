@@ -6,11 +6,23 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 15:58:24 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:34:26 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	dequote_heredoc(t_node *l, t_global *g)
+{
+	char	*dup;
+
+	dup = (char *)malloc(sizeof(char) * (dup_size(l->limiter) + 1));
+	if (!dup)
+		ft_exit_signal(g);
+	dup_without_quotes(dup, l->limiter);
+	l->limiter = dup;
+	l->here_doc_quotes_removed = 1;
+}
 
 char	*recreate_string_heredoc(char *tmp, int j, char *s)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/05 17:35:43 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:29:38 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_node
 	int				here_doc;
 	char			*here_str;
 	int				signal_here_doc;
+	int				here_doc_quotes_removed;
 	int				_error;
 	char			*no_file;
 	int				is_child;
@@ -162,6 +163,7 @@ void	ft_useless_here_doc(char *limiter, t_node *node);
 void	ft_here_doc_before(t_node *node, t_global *g);
 char	*heredoc_expand(char *s, t_global *g, int i);
 void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g);
+void	dequote_heredoc(t_node *l, t_global *g);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);
