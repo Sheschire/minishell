@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 16:34:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:44:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,37 @@ int	count_create_redirin(t_node *node, t_global *g, char *hook, int ret)
 
 void	count_create_redirout(t_node *node, char *hook)
 {
-	hook = node->n->s;
+	hook = node->n->n->s;
 	if (node->token_type == R_FLUX_CREATE)
 	{
-		open(node->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		open(hook, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 		node->after = R_FLUX_CREATE;
 	}
 	else
 	{
-		open(node->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
+		open(hook, O_WRONLY | O_CREAT | O_APPEND, 0755);
 		node->after = R_FLUX_APPEND;
 	}
 	node->fileout = hook;
 	return ;
 }
 
-int	check_redir_list(t_node *tmp, t_global *g, char *hook, int ret)
+int	check_redir_list(t_node *tmp, t_global *g)
 {
+	char	*hook;
+	int		ret;
+	t_node	*node;
+
+	hook = NULL;
+	ret = 0;
+	node = tmp;
 	while (tmp && tmp->token_type != TOKEN_PIPE)
 	{
 		if (tmp->token_type == 8 || tmp->token_type == 10)
-			if (count_create_redirin(tmp, g, hook, ret))
+			if (count_create_redirin(node, g, hook, ret))
 				return (0);
 		if (tmp->token_type == 7 || tmp->token_type == 9)
-			count_create_redirout(tmp, hook);
+			count_create_redirout(node, hook);
 		if (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 			tmp = tmp->n;
 		else
@@ -74,10 +81,8 @@ int	check_redir_list(t_node *tmp, t_global *g, char *hook, int ret)
 int	ft_list_cleaner(t_node *node, t_global *g)
 {
 	t_node	*tmp;
-	char	*hook;
 	int		ret;
 
-	hook = NULL;
 	ret = 0;
 	tmp = node;
 	while (tmp)
@@ -86,7 +91,7 @@ int	ft_list_cleaner(t_node *node, t_global *g)
 		{
 			if (tmp->cmd[0] == NULL)
 				return (0);
-			ret = check_redir_list(tmp, g, hook, ret);
+			ret = check_redir_list(tmp, g);
 			if (tmp->signal_here_doc)
 				return (0);
 		}
