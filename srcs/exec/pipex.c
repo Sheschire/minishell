@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:28:47 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:52:24 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	pipex(t_global *g, t_node *node)
 		}
 		node = node->n;
 	}
-	g->child_exist = 0;
 	exec_in_parent(g, node, i, g->_pipes);
 	end_pipex(g, node);
 }

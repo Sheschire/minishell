@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/07 11:25:24 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:53:38 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	free_minishell(t_global *g)
 	free_exec();
 	free_array(g->env);
 	free_array(g->path);
-	ft_close_pipe(g, INT_MAX);
 	if (g->list)
 		free_list(&g->list);
 }
