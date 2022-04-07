@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:36:55 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/06 17:45:37 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:39:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	start_parsing(char *line, t_global *g)
 	if (!g->syntax_err)
 	{
 		g->cmd_nbr = count_cmd(g->list);
-		if (!ft_list_cleaner(g->list, g))
+		if (!ft_list_cleaner(g->list, g, 0))
 		{
 			free_list(&g->list);
 			return (0);

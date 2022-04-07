@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_cleaner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 18:01:19 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:38:57 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,13 @@ int	is_a_redir(t_node *node, int type, int ret)
 		}
 		return (print_no_such_file(node));
 	}
-	else
-		return (1);
+	return (1);
 }
 
-int	ft_list_cleaner(t_node *node, t_global *g)
+int	ft_list_cleaner(t_node *node, t_global *g, int ret)
 {
 	t_node	*tmp;
-	int		ret;
 
-	ret = 0;
 	tmp = node;
 	while (tmp)
 	{

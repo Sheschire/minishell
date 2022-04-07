@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cleaner_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 18:09:39 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 17:40:52 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:34:32 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ int	print_no_such_file(t_node *node)
 		g_sig.exit_status = node->signal_here_doc;
 		return (1);
 	}
-	else if (node->_error)
+	else if (node->n->_error)
 	{
-		ft_putstr_fd("minishell: no such file or directory: ", 2);
-		ft_putstr_fd(node->no_file, 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(node->n->no_file, 2);
+		ft_putstr_fd(": No such file or directory", 2);
 		ft_putstr_fd("\n", 2);
-		free(node->no_file);
+		free(node->n->no_file);
 		return (1);
 	}
 	return (0);
