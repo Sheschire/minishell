@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parent_process.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:19:06 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:12:51 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	launch_cmd(t_node *node, t_global *g, int *i, int _pipes[1024][2])
 	int	pid;
 
 	pid = 0;
-	if (node->token_type == CMD && !node->_error)
+	if (node->token_type == CMD)
 	{
 		if (pipe(g->_pipes[*i]) == -1)
 			ft_error_pipe(g);

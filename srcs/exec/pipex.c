@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:52:24 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:12:59 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	pipex(t_global *g, t_node *node)
 	signal(SIGQUIT, ft_sigquit_off);
 	while (i < g->cmd_nbr - 1)
 	{
-		if (node->token_type == CMD && !node->_error)
+		if (node->token_type == CMD)
 		{
 			if (pipe(g->_pipes[i]) == -1)
 				ft_error_pipe(g);
