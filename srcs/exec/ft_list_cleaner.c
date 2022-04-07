@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_cleaner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 11:38:57 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:58:16 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	is_a_redir(t_node *node, int type, int ret)
 			else if (type == 10)
 				ft_useless_here_doc(node->n->s, node->n);
 		}
-		return (print_no_such_file(node));
+		return (print_no_such_file(node->n));
 	}
 	return (1);
 }
