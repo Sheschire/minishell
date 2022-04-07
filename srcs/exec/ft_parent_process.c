@@ -6,13 +6,13 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/05 16:30:14 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:19:06 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
+void	parent_process_fd(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
@@ -36,7 +36,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[512][2])
 	close(_pipes[i][0]);
 }
 
-void	prepare_for_built(t_node *node, int i, int _pipes [512][2], t_global *g)
+void	prepare_for_built(t_node *node, int i, int _pipes[1024][2], t_global *g)
 {
 	parent_process_fd(node, i, _pipes);
 	is_builtin_exec(node->cmd, g, i, node);
@@ -48,30 +48,39 @@ void	init_parent(t_node *node)
 	node->is_child = 0;
 }
 
-void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[512][2])
+int	launch_cmd(t_node *node, t_global *g, int *i, int _pipes[1024][2])
 {
 	int	pid;
 
 	pid = 0;
+	if (node->token_type == CMD && !node->_error)
+	{
+		if (pipe(g->_pipes[*i]) == -1)
+			ft_error_pipe(g);
+		init_parent(node);
+		if (!is_builtin(node->cmd))
+		{
+			pid = fork();
+			g_sig.pids[*i] = pid;
+			*i = check_pid(pid, *i, g, node);
+		}
+		else
+			prepare_for_built(node, *i, _pipes, g);
+		if (!pid)
+			*i += 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	exec_in_parent(t_global *g, t_node *node, int i, int _pipes[1024][2])
+{
 	while (i < g->cmd_nbr)
 	{
-		if (node->token_type == CMD && !node->_error)
-		{
-			if (pipe(g->_pipes[i]) == -1)
-				ft_error_pipe(g);
-			init_parent(node);
-			if (!is_builtin(node->cmd))
-			{
-				pid = fork();
-				g_sig.pids[i] = pid;
-				i = check_pid(pid, i, g, node);
-			}
-			else
-				prepare_for_built(node, i, _pipes, g);
-			if (!pid)
-				i++;
+		if (launch_cmd(node, g, &i, _pipes))
 			break ;
-		}
+		if (node->token_type == CMD && node->_error)
+			i++;
 		if (node->n)
 			node = node->n;
 	}

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 16:01:06 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:20:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	ft_close_pipe(t_global *g, int i)
 	}
 	while (i < g->cmd_nbr)
 	{
+		if (!g->_pipes[0])
+			return ;
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
 		if (g->_pipes[i][0])
