@@ -6,11 +6,17 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 17:37:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:54:34 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:28:47 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	dup_cp_std(t_global *g)
+{
+	dup2(g->cp_stdin, STDIN_FILENO);
+	dup2(g->cp_stdout, STDOUT_FILENO);
+}
 
 void	wait_pids(t_global *g, t_node *node)
 {

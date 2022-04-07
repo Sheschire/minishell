@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:20:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:28:34 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	ft_strcat(char *src, char *dest)
 	}
 	*dest = '\0';
 	return ;
-}
-
-void	dup_cp_std(t_global *g)
-{
-	dup2(g->cp_stdin, STDIN_FILENO);
-	dup2(g->cp_stdout, STDOUT_FILENO);
 }
 
 int	ft_are_digits(char *str)
@@ -73,8 +67,30 @@ int	count_cmd(t_node *node)
 	return (i);
 }
 
+int	error_nb(t_node *node)
+{
+	t_node	*tmp;
+	int		i;
+
+	tmp = node;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->token_type == CMD && node->_error)
+			i++;
+		if (tmp->n)
+			tmp = tmp->n;
+		else
+			break ;
+	}
+	return (i);
+}
+
 void	ft_close_pipe(t_global *g, int i)
 {
+	int		errors;
+
+	errors = error_nb(g->list);
 	if (i == INT_MAX)
 		i = 0;
 	else
@@ -83,10 +99,8 @@ void	ft_close_pipe(t_global *g, int i)
 		close(g->_pipes[i][1]);
 		return ;
 	}
-	while (i < g->cmd_nbr)
+	while (i < (g->cmd_nbr - errors))
 	{
-		if (!g->_pipes[0])
-			return ;
 		if (g->_pipes[i][1])
 			close(g->_pipes[i][1]);
 		if (g->_pipes[i][0])
