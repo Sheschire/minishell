@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:51:58 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:52:30 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	ft_are_digits(char *str)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '-' && str[i + 1] && str[i + 1] == '-' && !str[i + 2])
+		i += 2;
+	if ((str[i] == '-' && str[i + 1] && ft_isdigit(str[i + 1]))
+		|| (str[i] == '+' && str[i + 1] && ft_isdigit(str[i + 1])))
 		i++;
 	while (str[i])
 	{
