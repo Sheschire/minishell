@@ -29,6 +29,7 @@ SRCS			= srcs/main/minishell.c\
 				  srcs/builtin/ft_cd_utils.c\
 				  srcs/builtin/ft_env.c\
 				  srcs/builtin/ft_exit.c\
+				  srcs/builtin/ft_exit_utils.c\
 				  srcs/builtin/ft_pwd.c\
 				  srcs/builtin/ft_export.c\
 				  srcs/builtin/ft_export_declare.c\

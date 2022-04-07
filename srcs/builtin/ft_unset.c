@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:57 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/23 11:27:33 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:36:09 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	ft_remove_from_env(t_global *g, int index)
 	g->env = new_env;
 }
 
+void	ft_launch_unset(t_global *g, char **cmd, int i, int j)
+{
+	while (g->env[++i])
+	{
+		if (!ft_strallcmp(g->env[i], cmd[j], 1))
+			ft_remove_from_env(g, i);
+	}
+	if (!ft_strallcmp(cmd[j], "PATH", 1))
+	{
+		free_array(g->path);
+		g->path = (char **)ft_calloc(1, sizeof(char *));
+		g->path[0] = NULL;
+	}
+}
+
 int	ft_unset(char **cmd, t_global *g)
 {
 	int	i;
@@ -47,17 +62,15 @@ int	ft_unset(char **cmd, t_global *g)
 	while (cmd[++j])
 	{
 		i = -1;
-		while (g->env[++i])
+		if (!ft_check_variable(cmd[j]))
 		{
-			if (!ft_strallcmp(g->env[i], cmd[j], 1))
-				ft_remove_from_env(g, i);
+			ft_putstr_fd("minishell: unset: '", 2);
+			ft_putstr_fd(cmd[j], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			g_sig.exit_status = 1;
 		}
-		if (!ft_strallcmp(cmd[j], "PATH", 1))
-		{
-			free_array(g->path);
-			g->path = (char **)ft_calloc(1, sizeof(char *));
-			g->path[0] = NULL;
-		}
+		else
+			ft_launch_unset(g, cmd, i, j);
 	}
 	return (0);
 }

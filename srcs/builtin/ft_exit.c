@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/03 16:12:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:27:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ int	ft_exit(char **builtcmd, t_global *g, t_node *node)
 	if (g->cmd_nbr > 1)
 		return (ft_exit_not_alone(g, builtcmd, node));
 	else if (tab_len(builtcmd) > 2)
-	{
-		ft_putstr_fd("exit\nexit: too many arguments\n", 2);
-		return (1);
-	}
+		return ((ft_putstr_fd("exit\nexit: too many arguments\n", 2)), 1);
 	else if (!builtcmd[1])
 		ft_exit_no_arg(g);
 	else if (ft_are_digits(builtcmd[1]) && !builtcmd[2])
@@ -92,6 +89,8 @@ int	ft_exit(char **builtcmd, t_global *g, t_node *node)
 		free_minishell(g);
 		exit(exit_value);
 	}
+	else if (!ft_are_digits(builtcmd[1]))
+		ft_exit_not_digits(builtcmd, g);
 	else
 		ft_exit_num_arg(builtcmd, g);
 	return (0);
