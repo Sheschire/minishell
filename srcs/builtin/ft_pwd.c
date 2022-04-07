@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:37:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:52:10 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_pwd(int flag)
 	cwd = ft_calloc(1, buffer_size);
 	if (!cwd)
 		return (1);
+	if (getcwd(cwd, buffer_size) == NULL)
+		return (free(cwd), 1);
 	cwd = getcwd(cwd, buffer_size);
 	while (errno == ERANGE && buffer_size < 15360)
 	{
