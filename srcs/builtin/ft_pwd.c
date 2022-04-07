@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 11:52:10 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:03:12 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_pwd(int flag)
 	if (!cwd)
 		return (1);
 	if (getcwd(cwd, buffer_size) == NULL)
-		return (free(cwd), 1);
+		return ((ft_putstr_fd("Directory was removed\n", 2), free(cwd)), 1);
 	cwd = getcwd(cwd, buffer_size);
 	while (errno == ERANGE && buffer_size < 15360)
 	{

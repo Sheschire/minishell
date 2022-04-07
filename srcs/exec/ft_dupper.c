@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:50:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:05:18 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[1024][2])
 	file = 0;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		dup2(file, STDOUT_FILENO);
 		close(file);
 		close(_pipes[i][0]);
 	}
 	else if (node->after == R_FLUX_APPEND && node->fileout)
 	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		dup2(file, STDOUT_FILENO);
 		close(file);
 		close(_pipes[i][0]);
@@ -40,14 +40,14 @@ void	dup_exit_node(t_node *node, int i, int _pipes[1024][2])
 	file = 0;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		dup2(file, STDOUT_FILENO);
 		close(file);
 		close(_pipes[i][0]);
 	}
 	else if (node->after == R_FLUX_APPEND && node->fileout)
 	{
-		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		file = open(node->fileout, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		dup2(file, STDOUT_FILENO);
 		close(file);
 		close(_pipes[i][0]);
@@ -69,7 +69,7 @@ void	dup_entry_node(t_node *node, int i, int _pipes[1024][2])
 	{
 		if (i != 0)
 			close(_pipes[i - 1][0]);
-		file = open(node->filein, O_RDONLY, 0777);
+		file = open(node->filein, O_RDONLY, 0644);
 		dup2(file, STDIN_FILENO);
 		close(file);
 	}

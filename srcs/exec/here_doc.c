@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 17:35:18 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:05:56 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_useless_here_doc(char *limiter, t_node *node)
 
 void	ft_here_doc(int file, t_node *node)
 {
-	file = open("/tmp/.here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
+	file = open("/tmp/.here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 	write(file, node->here_str, ft_strlen(node->here_str));
 	close(file);
 	file = open("/tmp/.here_doc", O_RDONLY, 0777);

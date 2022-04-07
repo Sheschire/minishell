@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 12:07:54 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:16:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ int	count_create_redirin(t_node *node, t_node *tmp, t_global *g, char *hook)
 	return (print_no_such_file(node));
 }
 
-void	count_create_redirout(t_node *node)
+void	count_create_redirout(t_node *node, t_node *tmp)
 {
 	char	*hook;
 
-	hook = node->n->n->s;
-	if (node->n->token_type == R_FLUX_CREATE)
+	hook = tmp->n->s;
+	if (tmp->token_type == R_FLUX_CREATE)
 	{
-		open(hook, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		open(hook, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		node->after = R_FLUX_CREATE;
 	}
-	else
+	else if (tmp->token_type == R_FLUX_APPEND)
 	{
-		open(hook, O_WRONLY | O_CREAT | O_APPEND, 0755);
+		open(hook, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		node->after = R_FLUX_APPEND;
 	}
 	node->fileout = hook;
@@ -71,7 +71,7 @@ int	check_redir_list(t_node *tmp, t_global *g)
 			if (count_create_redirin(node, tmp, g, hook))
 				return (0);
 		if (tmp->token_type == 7 || tmp->token_type == 9)
-			count_create_redirout(node);
+			count_create_redirout(node, tmp);
 		if (tmp->n && tmp->n->token_type != TOKEN_PIPE)
 			tmp = tmp->n;
 		else
@@ -87,9 +87,9 @@ int	is_a_redir(t_node *node, int type, int ret)
 		if (type == 7 || type == 9)
 		{
 			if (type == 7)
-				ret = open(node->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+				ret = open(node->n->s, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else if (type == 9)
-				ret = open(node->n->s, O_WRONLY | O_CREAT | O_APPEND, 0755);
+				ret = open(node->n->s, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (ret != -1)
 				close(ret);
 		}
