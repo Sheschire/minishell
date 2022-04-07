@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:57 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 14:36:09 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:42:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,26 @@ void	ft_launch_unset(t_global *g, char **cmd, int i, int j)
 	}
 }
 
+int	ft_check_variable_unset(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd || !cmd[0] || cmd[0] == '='
+		|| ((cmd[0] < 'A' || cmd[0] > 'Z')
+			&& (cmd[0] < 'a' || cmd[0] > 'z') && cmd[0] != '_'))
+		return (0);
+	i++;
+	while (cmd[i])
+	{
+		if ((cmd[i] < 'A' || cmd[i] > 'Z')
+			&& (cmd[i] < 'a' || cmd[i] > 'z') && cmd[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_unset(char **cmd, t_global *g)
 {
 	int	i;
@@ -62,7 +82,7 @@ int	ft_unset(char **cmd, t_global *g)
 	while (cmd[++j])
 	{
 		i = -1;
-		if (!ft_check_variable(cmd[j]))
+		if (!ft_check_variable_unset(cmd[j]))
 		{
 			ft_putstr_fd("minishell: unset: '", 2);
 			ft_putstr_fd(cmd[j], 2);
