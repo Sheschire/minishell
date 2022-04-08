@@ -6,38 +6,34 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 12:35:21 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:19:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	recreate_cmd(t_node *list, int j)
+int	recreate_cmd(t_node *list, int cmdi)
 {
 	int		i;
-	int		nb_empty;
+	int		j;
 	char	**cmd_cpy;
 
 	i = 0;
-	nb_empty = 0;
-	while (list->cmd[i])
+	j = 0;
+	if (!ft_strcmp(list->cmd[cmdi], ""))
 	{
-		if (!ft_strcmp(list->cmd[i], ""))
-			nb_empty++;
-		i++;
-	}
-	if (nb_empty)
-	{
-		cmd_cpy = (char **)ft_calloc(i - nb_empty + 1, sizeof(char *));
+		while (list->cmd[i])
+			i++;
+		cmd_cpy = (char **)ft_calloc(i, sizeof(char *));
 		i = -1;
 		while (list->cmd[++i])
-		{
-			if (ft_strcmp(list->cmd[i], ""))
-					cmd_cpy[j++] = ft_strdup(list->cmd[i]);
-		}
+			if (i != cmdi)
+				cmd_cpy[j++] = ft_strdup(list->cmd[i]);
 		free_array(list->cmd);
 		list->cmd = cmd_cpy;
+		return (1);
 	}
+	return (0);
 }
 
 char	*parse_env(char *var, char **env)

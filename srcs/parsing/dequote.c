@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/06 15:35:39 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:18:25 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,16 @@ void	dequote(t_node *list, t_global *g, int i)
 	list->cmd[i] = dup;
 }
 
-void	reformat(t_node *l, t_global *g, int i)
+int	reformat(t_node *l, t_global *g, int i)
 {
 	if (ft_strchr(l->cmd[i], '$'))
+	{
 		expand_variables(l, g, i);
+		i -= recreate_cmd(l, i);
+	}
 	if (ft_strchr(l->cmd[i], '\'') || ft_strchr(l->cmd[i], '\"'))
 		dequote(l, g, i);
+	return (i);
 }
 
 void	quote_expand_parser(t_node **l, t_global *g, int i)
@@ -97,8 +101,7 @@ void	quote_expand_parser(t_node **l, t_global *g, int i)
 		{
 			i = -1;
 			while ((*l)->cmd[++i])
-				reformat(*l, g, i);
-			recreate_cmd(*l, 0);
+				i = reformat(*l, g, i);
 		}
 		(*l) = (*l)->n;
 	}
