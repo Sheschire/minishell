@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/05 17:05:07 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:35:21 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*parse_env(char *var, char **env)
 	return ("");
 }
 
-void	expand(t_global *g, int i, int j, int cmdi)
+char	*expand(t_global *g, int i, int j, int cmdi)
 {
 	char	*tmp;
 	char	*var;
@@ -92,12 +92,13 @@ void	expand(t_global *g, int i, int j, int cmdi)
 	}
 	else
 		recreate_string_with_empty(g, tmp, j, cmdi);
-	return (recreate_cmd_varsplit(g), free(tmp), free(var));
+	return (recreate_cmd_varsplit(g), free(tmp), var);
 }
 
 int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 {
 	int		j;
+	char	*var;
 
 	if (!list->cmd[cmdi][i])
 		return (0);
@@ -105,8 +106,10 @@ int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 	while (list->cmd[cmdi][i] && \
 	!is_in_set(list->cmd[cmdi][i], g->expand_limiters))
 		i++;
-	expand(g, i, j, cmdi);
-	return (1);
+	var = expand(g, i, j, cmdi);
+	j = (int)ft_strlen(var);
+	free(var);
+	return (j - 1);
 }
 
 void	expand_variables(t_node *list, t_global *g, int cmdi)
@@ -127,8 +130,12 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 				if (list->cmd[cmdi][j] == '\'')
 					break ;
 		if (list->cmd[cmdi][j] == '$')
-			if (run_to_limiters(list, g, j + 1, cmdi))
-				j = -1;
+		{
+			if (is_in_set(list->cmd[cmdi][j + 1], g->expand_limiters))
+				j++;
+			else
+				j += run_to_limiters(list, g, j + 1, cmdi);
+		}
 		j++;
 	}
 	free(g->expand_limiters);

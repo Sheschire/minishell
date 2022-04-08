@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 14:12:51 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:20:17 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	parent_process_fd(t_node *node, int i, int _pipes[1024][2])
 void	prepare_for_built(t_node *node, int i, int _pipes[1024][2], t_global *g)
 {
 	parent_process_fd(node, i, _pipes);
-	is_builtin_exec(node->cmd, g, i, node);
+	g_sig.exit_status = is_builtin_exec(node->cmd, g, i, node);
 }
 
 void	init_parent(t_node *node)
