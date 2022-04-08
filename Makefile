@@ -46,7 +46,6 @@ CC				= clang
 RM				= rm -f
 INCLUDE			= -I ./includes/
 CFLAGS			= -Wall -Wextra -Werror -I./includes
-
 NAME			= minishell
 
 all:			$(NAME)
