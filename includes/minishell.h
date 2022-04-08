@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 13:15:54 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 14:25:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node);
 char	*get_in_env(char *str, t_global *g);
 int		env_lenght(char **env);
+char	**ft_requote_env(char **env);
 void	ft_declare_env(t_global *g);
 void	dup_without_quotes(char *dup, char *s);
 int		dup_size(char *s);

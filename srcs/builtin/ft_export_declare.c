@@ -6,36 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:04:14 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/08 12:37:35 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/08 14:23:33 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	look_for_equal(char *var)
-{
-	int	i;
-	int	equal;
-
-	equal = 0;
-	i = -1;
-	while (var[++i])
-	{
-		if (var[i] == '=')
-			equal = 1;
-	}
-	return (equal);
-}
-
-int	env_lenght(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
 
 char	**create_sort_env(char **sort_env, char **env)
 {
@@ -62,7 +37,7 @@ char	**create_sort_env(char **sort_env, char **env)
 			}
 		}
 	}
-	return (sort_env);
+	return (ft_requote_env(sort_env));
 }
 
 void	ft_declare_env(t_global *g)
