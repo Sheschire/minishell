@@ -6,11 +6,26 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:04:14 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/20 12:11:02 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:37:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	look_for_equal(char *var)
+{
+	int	i;
+	int	equal;
+
+	equal = 0;
+	i = -1;
+	while (var[++i])
+	{
+		if (var[i] == '=')
+			equal = 1;
+	}
+	return (equal);
+}
 
 int	env_lenght(char **env)
 {

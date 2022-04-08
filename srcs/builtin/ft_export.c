@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:03:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/03/30 18:06:05 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/08 12:38:27 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ void	ft_export_variable(char *var, t_global *g)
 	char	**var_split;
 
 	i = -1;
+	var_split = NULL;
+	if (!look_for_equal(var))
+		return ;
 	var_split = ft_split(var, '=');
 	if (var_split[0])
 	{
