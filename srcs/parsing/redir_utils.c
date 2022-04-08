@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:16:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/04 17:08:29 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:01:09 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	find_pair(char *s, int i, char c)
 {
+	if (!s[i + 1])
+		return (0);
 	while (s[++i])
 		if (s[i] == c)
 			return (1);

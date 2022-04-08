@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/03/31 13:16:55 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:18:49 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,17 @@ int	find_quote_pair(char *line, char c, int i)
 		{
 			scotch = line[i + 1];
 			i += 2;
-			while (line[i] != scotch)
+			if (!line[i])
+				return (i - 1);
+			while (line[i] && line[i] != scotch)
 				i++;
 		}
-		return (i + 1);
+		if (line[i + 1])
+			return (i + 1);
 	}
 	else
 		return (save);
+	return (0);
 }
 
 int	check_redir(t_node *tmp)
