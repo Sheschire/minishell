@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:00:44 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 14:50:28 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:46:02 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	create_scotchy(t_node *list, int cmdi, int j, int increment)
 	{
 		if (list->cmd[cmdi][j] == '$')
 			j += increment;
-		scotchy[i++] = list->cmd[cmdi][j++];
+		if (list->cmd[cmdi][j])
+			scotchy[i++] = list->cmd[cmdi][j++];
 	}
 	scotchy[i] = '\0';
 	free(list->cmd[cmdi]);
