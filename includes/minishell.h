@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 14:11:36 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:36:16 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void	ft_here_doc_before(t_node *node, t_global *g);
 void	heredoc_expand(t_node *node, t_global *g, int i);
 void	handling_append(t_node *node, t_node *tmp, char *hook, t_global *g);
 void	dequote_heredoc(t_node *l, t_global *g);
+int		big_scotch_heredoc(t_node *list, int i);
 
 // EXECUTION
 void	pipex(t_global *g, t_node *node);

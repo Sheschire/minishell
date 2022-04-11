@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 15:54:07 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:35:32 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ void	heredoc_expand(t_node *l, t_global *g, int i)
 					break ;
 		if (l->here_str[i] == '$')
 		{
-			if (is_in_set(l->here_str[i + 1], g->expand_limiters))
-				i++;
+			if (is_in_set(l->here_str[i + 1], g->expand_limiters) \
+			&& l->here_str[i + 1] != '?')
+				i = big_scotch_heredoc(l, i);
 			else
 				i += run_to_limiters_heredoc(l, g, i + 1);
 		}
