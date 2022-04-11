@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 16:23:11 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:34:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ int		ft_unset(char **cmd, t_global *g);
 
 // BUILTINS UTILS
 void	ft_exit_signal(t_global *g);
+int		check_dir(char **cmd);
 int		is_builtin(char **builtcmd);
 int		is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node);
 char	*get_in_env(char *str, t_global *g);

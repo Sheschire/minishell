@@ -6,11 +6,38 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:46:11 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/11 16:18:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:36:52 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_dir(char **cmd)
+{
+	if (access(cmd[1], R_OK) == 0)
+	{
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putstr_fd(": Not a directory\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("cd: permission denied: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putchar_fd('\n', 2);
+		g_sig.exit_status = 1;
+	}
+	return (1);
+}
+
+int	error_cd_minus(char *var)
+{
+	g_sig.exit_status = 1;
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(var, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	return (1);
+}
 
 int	oldpwd_cd(t_global *g)
 {
@@ -31,7 +58,7 @@ int	oldpwd_cd(t_global *g)
 			return ((g_sig.exit_status = 0), 0);
 		}
 		else
-			return ((g_sig.exit_status = 1), 1);
+			return (error_cd_minus(var));
 	}
 }
 

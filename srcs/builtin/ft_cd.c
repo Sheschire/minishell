@@ -6,29 +6,11 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:48:21 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:33:52 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_dir(char **cmd)
-{
-	if (access(cmd[1], R_OK) == 0)
-	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(cmd[1], 2);
-		ft_putstr_fd(": Not a directory\n", 2);
-	}
-	else
-	{
-		ft_putstr_fd("cd: permission denied: ", 2);
-		ft_putstr_fd(cmd[1], 2);
-		ft_putchar_fd('\n', 2);
-		g_sig.exit_status = 1;
-	}
-	return (1);
-}
 
 int	cd_cant_find(char **cmd)
 {
