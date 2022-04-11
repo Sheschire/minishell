@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/08 15:27:55 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:30:08 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ void	here_loop(char *line, t_node *node, t_global *g)
 		if (line)
 		{
 			if (!ft_strcmp(line, node->limiter))
-			{
-				if (node->here_str)
-					ft_check_expand_need(node, g);
 				break ;
-			}
 			node->here_str = ft_strjoin(node->here_str, line);
 			node->here_str = ft_strjoin(node->here_str, "\n");
+			if (node->here_str)
+				ft_check_expand_need(node, g);
 		}
 		else
 		{
