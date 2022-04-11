@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:00:44 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 14:11:26 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:20:29 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ int	big_scotch(t_node *list, int cmdi, int j)
 	else if (is_in_set(list->cmd[cmdi][j + 1], "\'\"") && \
 	find_pair(list->cmd[cmdi], j + 1, list->cmd[cmdi][j + 1]))
 		return (create_scotchy(list, cmdi, j, 1));
+	else if (list->cmd[cmdi][j + 1] == '?')
+		return (j);
 	return (j + 1);
 }
