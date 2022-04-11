@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path_builder.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/04 17:20:10 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:04:17 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	_error_cases(char *path, char **cmd, t_global *g, t_node *node)
 	int	need_free;
 
 	need_free = 0;
-	if (path == NULL || !ft_strcmp(cmd[0], ".."))
+	if (path == NULL || !ft_strcmp(cmd[0], "..") || !ft_strcmp(cmd[0], "\0"))
 		_error_cmd(cmd, path, g, node);
 	else if (!ft_strcmp(cmd[0], "."))
 	{
