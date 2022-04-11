@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 14:22:15 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:28:55 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 	!is_in_set(list->cmd[cmdi][i], g->expand_limiters))
 		i++;
 	var = expand(g, i, j, cmdi);
-	j = (int)ft_strlen(var);
+	j = 0;
+	while (var[j] && var[j] != ' ')
+		j++;
 	free(var);
 	return (j - 1);
 }
