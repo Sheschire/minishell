@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 13:18:25 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 13:47:08 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,12 @@ void	dequote(t_node *list, t_global *g, int i)
 
 int	reformat(t_node *l, t_global *g, int i)
 {
-	if (ft_strchr(l->cmd[i], '$'))
+	if (l->cmd[i] && ft_strchr(l->cmd[i], '$'))
 	{
+		g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?/");
+		g->double_quotes = 0;
 		expand_variables(l, g, i);
+		free(g->expand_limiters);
 		i -= recreate_cmd(l, i);
 	}
 	if (ft_strchr(l->cmd[i], '\'') || ft_strchr(l->cmd[i], '\"'))

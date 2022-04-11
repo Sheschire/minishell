@@ -12,6 +12,7 @@ SRCS			= srcs/main/minishell.c\
 				  srcs/parsing/expand_utils2.c\
 				  srcs/parsing/reorganise_commandline.c\
 				  srcs/parsing/dequote.c\
+				  srcs/parsing/scotchy.c\
 				  srcs/main/free_utils.c\
 				  srcs/main/init.c\
 				  srcs/main/signals.c\

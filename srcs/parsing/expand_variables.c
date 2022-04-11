@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 13:19:16 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:11:47 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 	int		j;
 
 	j = 0;
-	g->expand_limiters = ft_strdup(" \'\"$=+-*^%#@!~.,:{}[]?/");
-	g->double_quotes = 0;
 	while (list->cmd[cmdi][j])
 	{
 		if (list->cmd[cmdi][j] == '\"' && \
@@ -128,11 +126,10 @@ void	expand_variables(t_node *list, t_global *g, int cmdi)
 		if (list->cmd[cmdi][j] == '$')
 		{
 			if (is_in_set(list->cmd[cmdi][j + 1], g->expand_limiters))
-				j++;
+				j = big_scotch(list, cmdi, j);
 			else
 				j += run_to_limiters(list, g, j + 1, cmdi);
 		}
 		j++;
 	}
-	free(g->expand_limiters);
 }

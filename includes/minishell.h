@@ -6,7 +6,7 @@
 /*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 16:21:11 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:11:36 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int		recreate_cmd(t_node *list, int cmdi);
 int		ft_check_expand_need(t_node *node, t_global *g);
 char	*split_var(char *var, t_global *g);
 void	recreate_cmd_varsplit(t_global *g);
+int		big_scotch(t_node *list, int cmdi, int j);
 
 // LIST UTILS
 t_node	*newnode(char *s, int token_type);
