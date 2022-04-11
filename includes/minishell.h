@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 14:36:16 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:23:11 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,10 +211,10 @@ int		oldpwd_cd(t_global *g);
 int		change_pwd_env(t_global *g);
 int		ft_env(t_global *g);
 int		ft_exit(char **builtcmd, t_global *g, t_node *node);
-int		ft_pwd(int flag);
+int		ft_pwd(int flag, t_global *g);
 int		ft_export(char **cmd, t_global *g);
 void	ft_export_variable(char *var, t_global *g);
-int		ft_echo(char **builtcmd);
+int		ft_echo(char **builtcmd, t_global *g);
 int		ft_unset(char **cmd, t_global *g);
 
 // BUILTINS UTILS

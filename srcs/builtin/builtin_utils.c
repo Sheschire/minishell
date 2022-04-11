@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 11:22:28 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 14:29:49 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:23:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node)
 	if (!ft_strallcmp(builtcmd[0], "cd", 0))
 		return (ft_cd(builtcmd, g));
 	else if (!ft_strallcmp(builtcmd[0], "pwd", 0))
-		return (ft_pwd(0));
+		return (ft_pwd(0, g));
 	else if (!ft_strallcmp(builtcmd[0], "exit", 0))
 		return (ft_exit(builtcmd, g, node));
 	else if (!ft_strallcmp(builtcmd[0], "env", 0))
@@ -50,7 +50,7 @@ int	is_builtin_exec(char **builtcmd, t_global *g, int i, t_node *node)
 	else if (!ft_strallcmp(builtcmd[0], "export", 0))
 		return (ft_export(builtcmd, g));
 	else if (!ft_strallcmp(builtcmd[0], "echo", 0))
-		return (ft_echo(builtcmd));
+		return (ft_echo(builtcmd, g));
 	else if (!ft_strallcmp(builtcmd[0], "unset", 0))
 		return (ft_unset(builtcmd, g));
 	else

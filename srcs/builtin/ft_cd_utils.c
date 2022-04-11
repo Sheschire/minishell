@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:46:11 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:48:26 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:18:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	oldpwd_cd(t_global *g)
 		if (chdir(var) == 0)
 		{
 			change_pwd_env(g);
-			ft_pwd(0);
+			ft_pwd(0, g);
 			return ((g_sig.exit_status = 0), 0);
 		}
 		else

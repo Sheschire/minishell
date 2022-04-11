@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:38:29 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:41:20 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:22:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	ft_check_echo_flag(char **cmd)
 	return (i);
 }
 
-int	print_echo(char **cmd, int i)
+int	print_echo(char **cmd, int i, t_global *g)
 {
 	while (cmd[i])
 	{
 		if (!ft_strcmp(cmd[i], "~"))
-			ft_pwd(1);
+			ft_pwd(1, g);
 		else
 			ft_putstr_fd(cmd[i], 1);
 		i++;
@@ -49,7 +49,7 @@ int	print_echo(char **cmd, int i)
 	return (0);
 }
 
-int	ft_echo(char **cmd)
+int	ft_echo(char **cmd, t_global *g)
 {
 	int	i;
 	int	flag;
@@ -66,7 +66,7 @@ int	ft_echo(char **cmd)
 		flag = 0;
 	else
 		flag = 1;
-	print_echo(cmd, i);
+	print_echo(cmd, i, g);
 	if (flag)
 		ft_putchar_fd('\n', 1);
 	return (0);

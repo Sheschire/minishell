@@ -6,21 +6,32 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 10:54:27 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 16:03:12 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/11 16:24:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	error_cwd(char *cwd)
+int	error_cwd(char *cwd, t_global *g)
 {
 	free(cwd);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putchar_fd('\n', 2);
-	return (1);
+	cwd = parse_env("PWD", g->env);
+	if (!cwd)
+	{
+		ft_putstr_fd("minishell : ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putchar_fd('\n', 2);
+		return (1);
+	}
+	else
+	{
+		ft_putstr_fd(cwd, 1);
+		ft_putchar_fd('\n', 1);
+		return (0);
+	}
 }
 
-int	ft_pwd(int flag)
+int	ft_pwd(int flag, t_global *g)
 {
 	char	*cwd;
 	int		buffer_size;
@@ -30,7 +41,7 @@ int	ft_pwd(int flag)
 	if (!cwd)
 		return (1);
 	if (getcwd(cwd, buffer_size) == NULL)
-		return ((ft_putstr_fd("Directory was removed\n", 2), free(cwd)), 1);
+		return (error_cwd(cwd, g));
 	cwd = getcwd(cwd, buffer_size);
 	while (errno == ERANGE && buffer_size < 15360)
 	{
@@ -40,7 +51,7 @@ int	ft_pwd(int flag)
 		cwd = getcwd(cwd, buffer_size);
 	}
 	if (errno == ENOENT || errno == EACCES)
-		return (error_cwd(cwd));
+		return (error_cwd(cwd, g));
 	ft_putstr_fd(cwd, 1);
 	if (!flag)
 		ft_putchar_fd('\n', 1);
