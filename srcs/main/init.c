@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:24:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/07 12:40:10 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:35:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,18 @@ void	ft_set_shlvl(t_global *g, char **env)
 
 void	init_global(t_global *g, char **envp)
 {
+	int	i;
+
+	i = 0;
 	g->path = get_path();
 	g->env = ft_get_all_env(envp);
 	ft_set_shlvl(g, g->env);
+	while (i < 1024)
+	{
+		g->_pipes[i][0] = 0;
+		g->_pipes[i][1] = 0;
+		i++;
+	}
 	g->list = NULL;
 	g->cmd_nbr = 0;
 	g->status = 0;

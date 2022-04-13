@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 11:59:25 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/13 13:49:56 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:14:46 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	launch_cmd(t_node *node, t_global *g, int *i, int _pipes[1024][2])
 		else
 			prepare_for_built(node, *i, _pipes, g);
 		if (node->_error)
-			node_error_pipe(g, *i);
+			node_error_pipe(g, node, *i);
 		if (!pid)
 			*i += 1;
 		return (1);

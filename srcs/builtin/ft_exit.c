@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:48:34 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 14:27:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:55:00 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,7 @@ int	ft_exit_not_alone(t_global *g, char **builtcmd, t_node *node)
 {
 	if (node->is_child == 1)
 	{
-		free_exec();
-		free_array(g->env);
-		free_array(g->path);
-		if (g->list)
-			free_list(&g->list);
-		exit(0);
+		free_builtins(g);
 		return (0);
 	}
 	else
