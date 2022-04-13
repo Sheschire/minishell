@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/13 14:12:48 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:12:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exit_child(t_global *g)
 {
 	free_minishell(g);
 	ft_close_pipe(g, INT_MAX);
-	exit(0);
+	exit(1);
 }
 
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[1024][2])
