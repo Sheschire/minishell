@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/13 15:12:31 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:52:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@ void	exit_child(t_global *g)
 {
 	free_minishell(g);
 	ft_close_pipe(g, INT_MAX);
+	exit(1);
+}
+
+void	_free_node_error(t_global *g, int i, int _pipes[1024][2])
+{
+	if (i != 0)
+	{
+		close(_pipes[i - 1][0]);
+		close(_pipes[i - 1][1]);
+	}
+	close(_pipes[i][1]);
+	close(_pipes[i][0]);
+	close(g->cp_stdin);
+	close(g->cp_stdout);
+	free_minishell(g);
 	exit(1);
 }
 
@@ -41,19 +56,9 @@ void	child_begin(t_global *g, t_node *node, int i, int _pipes[1024][2])
 void	child_process(t_global *g, t_node *node, int i, int _pipes[1024][2])
 {
 	if (node->_error)
-	{
-		close(_pipes[i][0]);
-		close(_pipes[i][1]);
-		if (!node->is_child)
-			ft_close_pipe(g, INT_MAX);
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
+		_free_node_error(g, i, _pipes);
+	if (node->is_child == 1)
 		close(2);
-		close(g->cp_stdin);
-		close(g->cp_stdout);
-		free_minishell(g);
-		exit(1);
-	}
 	if (i == 0 && i != g->cmd_nbr - 1)
 		child_begin(g, node, i, _pipes);
 	else
