@@ -6,11 +6,18 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:02:01 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/06 15:50:25 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 13:34:36 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_child(t_global *g)
+{
+	free_minishell(g);
+	ft_close_pipe(g, INT_MAX);
+	exit(0);
+}
 
 void	child_begin(t_global *g, t_node *node, int i, int _pipes[1024][2])
 {
@@ -35,6 +42,15 @@ void	child_process(t_global *g, t_node *node, int i, int _pipes[1024][2])
 {
 	if (node->_error)
 	{
+		close(_pipes[i][0]);
+		close(_pipes[i][1]);
+		if (!node->is_child)
+			ft_close_pipe(g, INT_MAX);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		close(2);
+		close(g->cp_stdin);
+		close(g->cp_stdout);
 		free_minishell(g);
 		exit(1);
 	}

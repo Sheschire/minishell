@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/13 11:41:45 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 13:59:19 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,8 @@ void	ft_error_pipe(t_global *g);
 void	ft_to_break_free(char **str);
 void	_error_cmd(char **cmd, char *pathname, t_global *g, t_node *node);
 void	_error(int i, char **to_free);
+void	exit_child(t_global *g);
+void	node_error_pipe(t_global *g, int i);
 
 // BUILTINS
 int		ft_cd(char **builtcmd, t_global *g);

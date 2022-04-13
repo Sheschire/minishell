@@ -20,6 +20,7 @@ SRCS			= srcs/main/minishell.c\
 				  srcs/parsing/group_nodes_into_commands.c\
 				  srcs/exec/pipex.c\
 				  srcs/exec/pipex_utils.c\
+				  srcs/exec/ft_node_error_utils.c\
 				  srcs/exec/here_doc.c\
 				  srcs/exec/here_doc_expand.c\
 				  srcs/exec/ft_list_cleaner.c\

@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:41:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/11 16:04:17 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 13:21:51 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	_error_cases(char *path, char **cmd, t_global *g, t_node *node)
 	{
 		if (path && node->is_child)
 			free(path);
+		if (g->cmd_nbr == 1 || node->is_last)
+			ft_close_pipe(g, INT_MAX);
 		free_array(g->env);
 		free_array(g->path);
 		free_list(&g->list);
@@ -94,6 +96,8 @@ void	create_cmd_parent(char **cmd, t_global *g, t_node *node)
 	free(cmd[0]);
 	cmd[0] = pathname;
 	execve(pathname, cmd, g->env);
+	free_minishell(g);
+	exit(0);
 }
 
 void	find_cmd_path(char **cmd, t_global *g, t_node *node)
@@ -122,4 +126,5 @@ void	find_cmd_path(char **cmd, t_global *g, t_node *node)
 	cmd[0] = pathname;
 	signal(SIGQUIT, SIG_DFL);
 	execve(pathname, cmd, g->env);
+	exit_child(g);
 }
