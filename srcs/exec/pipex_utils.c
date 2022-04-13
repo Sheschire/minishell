@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:09:42 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/13 15:17:25 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:18:49 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ int	error_nb(t_node *node)
 
 void	ft_close_pipe(t_global *g, int i)
 {
-	int		errors;
-
-	errors = error_nb(g->list);
 	if (i == INT_MAX)
 		i = 0;
 	else
