@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:20:13 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 16:28:55 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:59:40 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	run_to_limiters(t_node *list, t_global *g, int i, int cmdi)
 	j = 0;
 	while (var[j] && var[j] != ' ')
 		j++;
-	free(var);
+	if (var)
+		free(var);
 	return (j - 1);
 }
 

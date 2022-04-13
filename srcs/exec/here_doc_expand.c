@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:41:45 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/12 11:54:02 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:48:44 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ int	run_to_limiters_heredoc(t_node *l, t_global *g, int i)
 
 void	heredoc_expand(t_node *l, t_global *g, int i)
 {
-	int	j;
-
-	j = 0;
 	while (l->here_str[i])
 	{
 		if (l->here_str[i] == '\"' && \

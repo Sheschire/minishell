@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:38:29 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/11 16:22:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:50:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_echo(char **cmd, t_global *g)
 	int	flag;
 
 	g_sig.exit_status = 0;
-	i = 1;
 	if (!cmd[1])
 	{
 		ft_putchar_fd('\n', 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:06:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 13:18:40 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:51:10 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	find_quote_pair(char *line, char c, int i)
 	char	scotch;
 
 	save = i;
-	scotch = 0;
 	while (line[i] && line[i] != c)
 		i++;
 	if (line[i] && line[i] == c)
@@ -96,7 +95,7 @@ int	find_token_type(char c)
 		return (TOKEN_FLUX);
 	if (c == ' ')
 		return (0);
-	if (c >= 32 && c <= 127)
+	if (c >= 32)
 		return (TOKEN_LITERAL);
 	return (0);
 }

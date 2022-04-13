@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:39:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 16:05:18 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:58:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	dup_exit_node_parent(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
-	file = 0;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
 		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -37,7 +36,6 @@ void	dup_exit_node(t_node *node, int i, int _pipes[1024][2])
 {
 	int	file;
 
-	file = 0;
 	if (node->after == R_FLUX_CREATE && node->fileout)
 	{
 		file = open(node->fileout, O_WRONLY | O_CREAT | O_TRUNC, 0644);

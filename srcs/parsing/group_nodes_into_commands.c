@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   group_nodes_into_commands.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/06 13:38:43 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:47:50 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	create_cmd_node(t_node **list, t_node **new_list)
 	char	**cmd;
 
 	tmp = *list;
-	size = 0;
 	cmd = NULL;
 	while (tmp)
 	{

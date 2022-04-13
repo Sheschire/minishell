@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:02:46 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/07 16:16:27 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:53:02 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	count_create_redirin(t_node *node, t_node *tmp, t_global *g, char *hook)
 {
 	int	ret;
 
-	ret = 0;
 	node->here_doc = 0;
 	if (tmp->token_type == 8 || tmp->token_type == 10)
 	{
@@ -40,16 +39,19 @@ int	count_create_redirin(t_node *node, t_node *tmp, t_global *g, char *hook)
 void	count_create_redirout(t_node *node, t_node *tmp)
 {
 	char	*hook;
+	int		ret;
 
 	hook = tmp->n->s;
 	if (tmp->token_type == R_FLUX_CREATE)
 	{
-		open(hook, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		ret = open(hook, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		close(ret);
 		node->after = R_FLUX_CREATE;
 	}
 	else if (tmp->token_type == R_FLUX_APPEND)
 	{
-		open(hook, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		ret = open(hook, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		close(ret);
 		node->after = R_FLUX_APPEND;
 	}
 	node->fileout = hook;
@@ -59,11 +61,9 @@ void	count_create_redirout(t_node *node, t_node *tmp)
 int	check_redir_list(t_node *tmp, t_global *g)
 {
 	char	*hook;
-	int		ret;
 	t_node	*node;
 
 	hook = NULL;
-	ret = 0;
 	node = tmp;
 	while (tmp && tmp->token_type != TOKEN_PIPE)
 	{
@@ -120,7 +120,7 @@ int	ft_list_cleaner(t_node *node, t_global *g, int ret)
 		{
 			if (tmp->cmd[0] == NULL)
 				return (0);
-			ret = check_redir_list(tmp, g);
+			check_redir_list(tmp, g);
 			if (tmp->signal_here_doc)
 				return (0);
 			while (tmp->token_type != TOKEN_PIPE && tmp->n)

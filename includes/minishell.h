@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:33:26 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/11 16:34:10 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:41:45 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_node
 	int				signal_here_doc;
 	int				here_doc_quotes_removed;
 	int				_error;
+	int				is_last;
 	char			*no_file;
 	int				is_child;
 	struct s_node	*n;

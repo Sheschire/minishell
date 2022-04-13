@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:16:21 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/08 16:01:09 by tlemesle         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:45:35 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	find_flux_direction(t_node *tmp)
 
 int	is_redir(t_node *tmp)
 {
-	int	type;
-
-	type = tmp->token_type;
 	if ((tmp->token_type >= R_FLUX_CREATE && \
 	tmp->token_type <= L_FLUX_APPEND) || tmp->token_type == TOKEN_FLUX)
 		return (1);

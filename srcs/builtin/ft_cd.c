@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 15:46:38 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/11 16:33:52 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:49:25 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int	cd_cant_find(char **cmd)
 
 int	ft_check_args_cd(char **builtcmd)
 {
-	char	*var;
-
-	var = NULL;
 	if (*builtcmd && builtcmd[1] && builtcmd[2])
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);

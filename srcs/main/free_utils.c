@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:46:50 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/07 12:53:38 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:16:48 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,9 @@ void	free_minishell(t_global *g)
 	free_array(g->path);
 	if (g->list)
 		free_list(&g->list);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(2);
+	close(g->cp_stdin);
+	close(g->cp_stdout);
 }

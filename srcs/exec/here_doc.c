@@ -6,7 +6,7 @@
 /*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:47:44 by barodrig          #+#    #+#             */
-/*   Updated: 2022/04/11 14:30:08 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:48:31 by barodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,8 @@ void	here_loop(char *line, t_node *node, t_global *g)
 void	ft_here_doc_before(t_node *node, t_global *g)
 {
 	char	*line;
-	int		pid;
 
 	line = NULL;
-	pid = 0;
 	g_sig.exit_status = 0;
 	here_doc_signals();
 	rl_event_hook = event_heredoc;
