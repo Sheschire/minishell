@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dequote.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 14:48:07 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/13 11:51:48 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:51:44 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	reformat(t_node *l, t_global *g, int i)
 		g->double_quotes = 0;
 		expand_variables(l, g, i);
 		free(g->expand_limiters);
+		if (!ft_strcmp(l->cmd[i], "") && i == 0)
+			return (i);
 		i -= recreate_cmd(l, i);
 	}
 	if (ft_strchr(l->cmd[i], '\'') || ft_strchr(l->cmd[i], '\"'))

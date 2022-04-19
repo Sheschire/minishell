@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   group_nodes_into_commands.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barodrig <barodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlemesle <tlemesle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:37:33 by tlemesle          #+#    #+#             */
-/*   Updated: 2022/04/13 11:47:50 by barodrig         ###   ########.fr       */
+/*   Updated: 2022/04/19 12:48:36 by tlemesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ void	fill_cmd_array(char **cmd, t_node *list)
 	i = 0;
 	while (tmp && !is_redir(tmp) && tmp->token_type != TOKEN_PIPE)
 	{
-		cmd[i] = ft_strdup(tmp->s);
-		i++;
+		if (tmp->s)
+		{
+			cmd[i] = ft_strdup(tmp->s);
+			i++;
+		}
 		tmp = tmp->n;
 	}
 	cmd[i] = NULL;
